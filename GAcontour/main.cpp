@@ -71,13 +71,13 @@ int main()
 	srcImg.convertTo(srcImg, CV_32F, 1 / 255.0);
 	gtImg.convertTo(gtImg, CV_32F, 1 / 255.0);
 
-	
-	time_t tic, toc;
-	time(&tic);
-	NonCRF(srcImg, gtImg);
-	//parallel_for_(Range(1, 2), GaParWrapper(srcImg, gtImg));	
-	time(&toc);
-	cout << (toc - tic) << endl;
+	GA(srcImg, gtImg);
+	//time_t tic, toc;
+	//time(&tic);
+	//NonCRF(srcImg, gtImg);
+	////parallel_for_(Range(1, 2), GaParWrapper(srcImg, gtImg));	
+	//time(&toc);
+	//cout << (toc - tic) << endl;
 	
 	system("pause");
 	return 0;

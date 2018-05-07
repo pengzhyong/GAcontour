@@ -1,5 +1,7 @@
+#include <numeric>
 #include "GA.h"
 #include "postProcess.h"
+#include "NCRF.h"
 vector<float> trainSeq;
 //#include <time.h>
 
@@ -7,120 +9,65 @@ void Ga_init(int maskSize, int ntheta, vector<vector<float>>& population, int po
 {
 	population.clear();
 	maskSize = maskSize % 2 == 0 ? maskSize + 1 : maskSize;//保证模板尺寸为奇数
+	Mat individualMat(1, ntheta*maskSize*maskSize, CV_32F);
 	float upperValue = 100;//模板最大最小值
 	float lowerValue = -100;
 	for (int i = 0; i < popSize; i++)
 	{
 		vector<float> individual;
-		float sumCoef = 0;
-		float sigma1 = rand() % 100 * 0.01 + 0.8;//0.2;
-		float sigma2 = rand() % 100 * 0.01 + 1.6;//0.8;
-		for (int j = 0; j < maskSize * maskSize; j++)
-		{
-			int disx = j / maskSize - maskSize / 2;
-			int disy = j % maskSize - maskSize / 2;
-			
-			float g1 = 1 / sqrt(2 * CV_PI * sigma1 * sigma1) * (exp(-(disx*disx + disy * disy) / (2 * sigma1 * sigma1)));
-			float g2 = 1 / sqrt(2 * CV_PI * sigma2 * sigma2) * (exp(-(disx*disx + disy * disy) / (2 * sigma2 * sigma2)));
-
-			//随机值
-			float randValue = rand() % 100 * 0.01 * 20 - 10;//-10~10
-			individual.push_back(randValue);
-			sumCoef += randValue;
-		}
-		for (int j = 0; j < maskSize * maskSize; j++)
-		{
-			individual.at(j) /= sumCoef;
-		}
+		individualMat.forEach<float>([](float& p, const int* pos)->void { p = (rand() % 400) * 0.01 - 2.0; });//random value in [-2,2];
+		for (int j = 0; j < individualMat.cols; j++)
+			individual.push_back(individualMat.at<float>(0,j));
 		population.push_back(individual);
-
-		/*Mat msk(maskSize, maskSize, CV_32F);
-		for (int r = 0; r < maskSize; r++)
-		{
-			for (int c = 0; c < maskSize; c++)
-			{
-				msk.at<float>(r, c) = individual.at(r * maskSize + c);
-			}
-		}
-		normalize(msk, msk, 0, 1, NORM_MINMAX);
-		namedWindow("individual", 0);
-		imshow("individual", msk);
-		waitKey();*/
 	}
 	
 }
 
 //计算每个个体的适应度
-void Ga_fitness(const vector<Mat>& trainData, const vector<Mat>& groundTruth, 
-	const vector<vector<float>>& population, vector<float>& fitValues)
+void Ga_fitness(const Mat& trainData, const Mat& groundTruth, 
+	const vector<vector<float>>& population, vector<float>& fitValues, int kernelSize, int ntheta)
 {
-	double avePerform = 0;
-	int maskSz = sqrt(population.at(0).size());
-	for (int per = 0; per < population.size(); per++)
+	time_t tic, toc;
+	time(&tic);
+	float avePerform = 0;
+	vector<vector<Mat>> kernel;
+	for (int i = 0; i < population.size(); i++)
 	{
-
-		Mat maskPer(maskSz, maskSz, CV_32F);//构建模板
-		for (int r = 0; r < maskSz; r++)
+		vector<Mat > indivKer;
+		for (int j = 0; j < ntheta; j++)
 		{
-			for (int c = 0; c < maskSz; c++)
-			{
-				maskPer.at<float>(r, c) = population.at(per).at(r * maskSz + c);
-			}
-		}
-		//P值作为衡量标准, P = Card(E) / (Card(E) + Card(Efp) + Card(Efn))
-		float perform = 0;
-		for (int im = 0; im < trainData.size(); im++)
-		{
-			/*imshow("op", trainData.at(im));
-			waitKey();*/
-			Mat dstImg;
-			filter2D(trainData.at(im), dstImg, trainData.at(im).depth(), maskPer);
-			//imshow("mask", maskPer);
-			//waitKey();
-			/*imshow("op", dstImg);
-			waitKey();*/
-   			NMS(dstImg, dstImg);//滞后阈值连接
-			/*imshow("op", dstImg);
-			waitKey();*/
-
-			threshold(dstImg, dstImg, 0.0001, 1, THRESH_BINARY);
-			/*imshow("op", dstImg);
-			waitKey();*/
-
-			float E, Efp, Efn;
-			E = Efp = Efn = 0;
-			for (int r = 0; r < trainData.at(im).rows; r++)
-			{
-				for (int c = 0; c < trainData.at(im).cols; c++)
-				{
-					if (dstImg.at<float>(r, c) > 0.0001 && trainData.at(im).at<float>(r, c) > 0.0001)
-						E++;
-					else if (dstImg.at<float>(r, c) > 0.0001 && trainData.at(im).at<float>(r, c) <= 0.0001)
-						Efp++;
-					else if (dstImg.at<float>(r, c) <= 0.0001 && trainData.at(im).at<float>(r, c) > 0.0001)
-						Efn++;
-				}
-			}
-			perform += E / (E + Efp + Efn);
-		}
-		perform /= trainData.size();
-		fitValues.push_back(perform);
-		avePerform += perform;
+			Mat singleKernel(kernelSize, kernelSize, CV_32F);
+			int stIndex = j * kernelSize * kernelSize;
+			// 1D chromosome to 2D kernel
+			singleKernel.forEach<float>([population, i, stIndex, kernelSize](float& p, const int* pos)
+				->void { p = population[i][stIndex + pos[0] * kernelSize + pos[1]]; });
+			indivKer.push_back(singleKernel);
+		}	
+		kernel.push_back(indivKer);
+		/*float p = NonCRF(trainData, groundTruth, kernel);
+		fitValues.push_back(p);
+		avePerform += p;*/
 	}
+
+	GaParWrapper gapar(trainData, groundTruth, kernel, population.size());
+	parallel_for_(Range(0, population.size()), gapar);
+	fitValues = vector<float>(gapar.fitness, gapar.fitness + population.size());
+	avePerform = std::accumulate(fitValues.begin(), fitValues.end(), 0.0);
 	avePerform /= population.size();
-	cout << " average perform: " << avePerform << " ";
-	trainSeq.push_back(avePerform);
+	cout << ", average perform: " << avePerform << " ";
 }
 
 //选择，产生新一代种群
-void Ga_select(const vector<Mat>& trainData, const vector<Mat>& groundTruth, 
-	vector<vector<float>>& population, bool elitism)
+void Ga_select(const Mat& trainData, const Mat groundTruth, 
+	vector<vector<float>>& population, bool elitism, int kernelSize, int ntheta)
 {
 	vector<vector<float>> new_population;
 	vector<float> fitValue;
-
-	Ga_fitness(trainData, groundTruth, population, fitValue);
-
+	//time_t tic, toc;
+	//time(&tic);
+	Ga_fitness(trainData, groundTruth, population, fitValue, kernelSize, ntheta);
+	//time(&toc);
+	//cout << "Ga_fitness time: " << toc - tic << endl;
 	int firstPerson = 0;
 	if (elitism)//精英保留
 	{
@@ -201,31 +148,28 @@ void Ga_mutation(vector<vector<float>>& popultion, double mutation_rate)
 	}
 }
 
-void GA()
+void GA(Mat& trainData, Mat& groundTruth)
 {
 	double cross_rate = 0.8;//交叉率
 	double mutation_rate = 0.01;//变异率
 	bool elitism = false;//是否保留精英
-	int population_size = 3000;//种群大小
-	int generations = 1;//进化代数
+	int population_size = 100;//种群大小
+	int generations = 0;//进化代数
 	vector<vector<float>> population;
 
-	int maskSize = 13;//模板尺寸
-	int ntheta = 12;
-	Ga_init(maskSize, population, population_size);
-	vector<Mat> trainData;
-	vector<Mat> goundTruth;
-	loadImg(trainData);
-	loadMat(goundTruth);
-
+	float sigma = 1.0;// must be same with the values in NonCRF
+	int k1 = 1, k2 = 4;
+	int maskSize = ceil(sigma) * (3 * k2 + k1) - 1;;//模板尺寸
+	int ntheta = 8;
+	Ga_init(maskSize, ntheta, population, population_size);
 	time_t startTime, curTime, prevTime;
 	time(&startTime);//计时操作，以免超时
-	while (generations++)
+	while (++generations)
 	{
 		time(&prevTime);
 
 		cout << "generations: " << generations << " ";
-		Ga_select(trainData, goundTruth,population, elitism);
+		Ga_select(trainData, groundTruth,population, elitism, maskSize, ntheta);
 		Ga_cross(population, cross_rate);
 		Ga_mutation(population, mutation_rate);
 
@@ -234,11 +178,11 @@ void GA()
 		int totalTime = curTime - startTime;
 		int diffTime = curTime - prevTime;
 		
-		cout << "time useed: " << diffTime << "total times: " << totalTime << endl;
+		cout << "time useed: " << diffTime << ", total times: " << totalTime << endl;
 	}
 
 	vector<float> fitValue;
-	Ga_fitness(trainData, goundTruth, population, fitValue);
+	Ga_fitness(trainData, groundTruth, population, fitValue, maskSize, ntheta);
 	int maxIndex = max_element(fitValue.begin(), fitValue.end()) - fitValue.begin();
 	double maxFitVale = fitValue.at(maxIndex);
 }

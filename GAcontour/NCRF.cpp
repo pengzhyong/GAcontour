@@ -471,9 +471,9 @@ void NonCRF(Mat srcImg, Mat gtImg)
 	Evaluate(p, efp, efn, thinImg, gtImg, 5);
 	cout << "p: " << p << ", efp: " << efp << ", efn: " << efn << endl;
 	//namedWindow("NCRF image", 0);
-	imshow("NCRF image", thinImg);
-	imshow("ground truth", gtImg);
-	waitKey(0);
+	//imshow("NCRF image", thinImg);
+	//imshow("ground truth", gtImg);
+	//waitKey(0);
 }
 
 float NonCRF(Mat srcImg, Mat gtImg, vector<Mat> kernel)
@@ -524,11 +524,12 @@ float NonCRF(Mat srcImg, Mat gtImg, vector<Mat> kernel)
 	InvertImg(thinImg);
 
 	Evaluate(p, efp, efn, thinImg, gtImg, 5);
-	cout << "p: " << p << ", efp: " << efp << ", efn: " << efn << endl;
+	return p;
+	//cout << "p: " << p << ", efp: " << efp << ", efn: " << efn << endl;
 	//namedWindow("NCRF image", 0);
-	imshow("NCRF image", thinImg);
-	imshow("ground truth", gtImg);
-	waitKey(0);
+	//imshow("NCRF image", thinImg);
+	//imshow("ground truth", gtImg);
+	//waitKey(0);
 }
 
 //function used inside

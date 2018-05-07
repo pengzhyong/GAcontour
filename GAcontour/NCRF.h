@@ -12,13 +12,24 @@ class GaParWrapper :public ParallelLoopBody
 	//friend void NonCRF(Mat, Mat);
 public:
 	GaParWrapper() = default;
-	GaParWrapper(Mat& src, Mat& gt) :srcImg(src), gtImg(gt) {};
-	virtual ~GaParWrapper() {};
-	virtual void operator()(const Range& range) const { NonCRF(srcImg, gtImg); };
+	GaParWrapper(const Mat& src, const Mat& gt, vector<vector<Mat>>& ker, int popsize) :srcImg(src), gtImg(gt), kernel(ker) { fitness = new float[popsize]; };
+	virtual ~GaParWrapper() { delete[] fitness; };
+	inline virtual void operator()(const Range& range) const;
 	//virtual void operator()(const Range& range) const { cout << "parfor const" << endl; };
+	float* fitness;
 private:
 	Mat srcImg, gtImg;
+	vector<vector<Mat>> kernel;
+	int popsize;
 };
+inline void GaParWrapper::operator()(const Range& range) const
+{ 
+	for (int i = range.start; i < range.end; i++)
+	{
+		fitness[i] = NonCRF(srcImg, gtImg, kernel[i]);
+	}
+}
+
 
 int GaborFilter(vector<vector<Mat>>& dstImg, const Mat srcImg, bool halfwave,
 	float lamda, float sigma, vector<float> theta, vector<float> phi, float gamma, float bandwidth);
