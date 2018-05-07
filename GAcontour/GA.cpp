@@ -3,7 +3,7 @@
 vector<float> trainSeq;
 //#include <time.h>
 
-void Ga_init(int maskSize, vector<vector<float>>& population, int popSize)
+void Ga_init(int maskSize, int ntheta, vector<vector<float>>& population, int popSize)
 {
 	population.clear();
 	maskSize = maskSize % 2 == 0 ? maskSize + 1 : maskSize;//保证模板尺寸为奇数
@@ -211,6 +211,7 @@ void GA()
 	vector<vector<float>> population;
 
 	int maskSize = 13;//模板尺寸
+	int ntheta = 12;
 	Ga_init(maskSize, population, population_size);
 	vector<Mat> trainData;
 	vector<Mat> goundTruth;

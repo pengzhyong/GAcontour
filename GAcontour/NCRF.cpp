@@ -208,6 +208,27 @@ void Inhibition(vector<Mat>& dstImg, vector<Mat>& srcImg, int inhibMethod, int s
 	}
 }
 
+void Inhibition(vector<Mat>& dstImg, vector<Mat>& srcImg, int inhibMethod, int supMethod, float alpha, const vector<Mat>& kernel)
+{
+	int nh = srcImg[0].rows;
+	int nw = srcImg[0].cols;
+	int ntheta = srcImg.size();
+	
+	int depth = srcImg[0].depth();
+	for (int i = 0; i < ntheta; i++)
+	{
+		Mat finalMat(nh, nw, CV_32F);
+		for (int j = 0; j < ntheta; j++)
+		{
+			Mat tmpInhib;
+			int kernelIndex = (j + i) % ntheta;
+			filter2D(srcImg[i], tmpInhib, depth, kernel[kernelIndex]);
+			finalMat.forEach<float>([tmpInhib](float& p, const int* pos)->void {p += tmpInhib.at<float>(pos[0], pos[1]); });
+		}
+		dstImg.push_back(finalMat);
+	}
+}
+
 void ViewImage(Mat& dstImg, Mat& orienImg, const vector<Mat>& srcImg, const vector<float> theta)
 {
 	int nh = srcImg[0].rows;
@@ -445,6 +466,61 @@ void NonCRF(Mat srcImg, Mat gtImg)
 	
 	Hysteresis(thinImg, tlow, thigh);
 	
+	InvertImg(thinImg);
+
+	Evaluate(p, efp, efn, thinImg, gtImg, 5);
+	cout << "p: " << p << ", efp: " << efp << ", efn: " << efn << endl;
+	//namedWindow("NCRF image", 0);
+	imshow("NCRF image", thinImg);
+	imshow("ground truth", gtImg);
+	waitKey(0);
+}
+
+float NonCRF(Mat srcImg, Mat gtImg, vector<Mat> kernel)
+{
+	if (srcImg.type() != CV_32F)
+		srcImg.convertTo(srcImg, CV_32F, 1 / 255.0);
+	if (gtImg.type() != CV_32F)
+		gtImg.convertTo(gtImg, CV_32F, 1 / 255.0);
+	bool halfwave = 1;
+	float lamda = 10;//wavelength
+	float sigma = 1.0;
+	float gamma = 0.5;//aspect ratio
+	float bandwidth = 1;
+	int ntheta = 8;
+	int nphi = 2;
+	float arrphi[2] = { 0, 0.5*CV_PI };
+	vector<float> phi = { arrphi, arrphi + 2 };
+	vector<float> theta;
+	for (int i = 0; i < ntheta; i++)
+		theta.push_back(2 * CV_PI * i / ntheta);
+	int supPhases = 1;
+	int inhibMethod = 2;//isotropic or antisotropic
+	int inhibSup = 2;
+	float alpha = 1.0;
+	float k1 = 1;
+	float k2 = 4;
+	float tlow = 0.05;
+	float thigh = 0.1;
+	float p, efp, efn;
+	vector<vector<Mat>> gaborImgs;
+	GaborFilter(gaborImgs, srcImg, halfwave, lamda, sigma, theta, phi, gamma, bandwidth);
+
+	vector<Mat> phaseSupImgs;
+	PhaseSuppos(phaseSupImgs, gaborImgs, ntheta, nphi, supPhases);
+
+	vector<Mat> inhibImgs;
+	Inhibition(inhibImgs, phaseSupImgs, inhibMethod, inhibSup, sigma, kernel);
+
+	Mat viewImg, orienImg;
+	ViewImage(viewImg, orienImg, inhibImgs, theta);
+
+
+	Mat thinImg;
+	Thinning(thinImg, viewImg, orienImg);
+
+	Hysteresis(thinImg, tlow, thigh);
+
 	InvertImg(thinImg);
 
 	Evaluate(p, efp, efn, thinImg, gtImg, 5);

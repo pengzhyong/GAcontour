@@ -5,6 +5,7 @@ using namespace std;
 using namespace cv;
 
 void NonCRF(Mat srcImg, Mat gtImg);
+float NonCRF(Mat srcImg, Mat gtImg, vector<Mat> kernel);//overload function for genetic algorithm, return the p value, as a fitness value
 
 class GaParWrapper :public ParallelLoopBody
 {
@@ -18,11 +19,14 @@ public:
 private:
 	Mat srcImg, gtImg;
 };
+
 int GaborFilter(vector<vector<Mat>>& dstImg, const Mat srcImg, bool halfwave,
 	float lamda, float sigma, vector<float> theta, vector<float> phi, float gamma, float bandwidth);
 void PhaseSuppos(vector<Mat>& dstImg, const vector<vector<Mat>>& srcImg, int ntheta, int nphi, int supMethod);
 
 void Inhibition(vector<Mat>& dstImg, vector<Mat>& srcImg, int inhibMethod, int supMethod, float sigma, float alpha, int k1, int k2);
+
+void Inhibition(vector<Mat>& dstImg, vector<Mat>& srcImg, int inhibMethod, int supMethod, float alpha, const vector<Mat>& kernel);
 
 void ViewImage(Mat& dstImg, Mat& orienImg, const vector<Mat>& srcImg, const vector<float> theta);
 
