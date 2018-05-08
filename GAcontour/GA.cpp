@@ -1,4 +1,8 @@
 #include <numeric>
+#include <fstream>
+#include <algorithm>
+#include <random>
+#include <chrono>
 #include "GA.h"
 #include "postProcess.h"
 #include "NCRF.h"
@@ -12,13 +16,18 @@ void Ga_init(int maskSize, int ntheta, vector<vector<float>>& population, int po
 	Mat individualMat(1, ntheta*maskSize*maskSize, CV_32F);
 	float upperValue = 100;//模板最大最小值
 	float lowerValue = -100;
+	Mat gaborKer(maskSize, maskSize, CV_32F);
+	GaborKernel2d(gaborKer, 1.0, 10, 0, 0, 0.5, 1);
 	for (int i = 0; i < popSize; i++)
 	{
 		vector<float> individual;
-		individualMat.forEach<float>([](float& p, const int* pos)->void { p = (rand() % 400) * 0.01 - 2.0; });//random value in [-2,2];
-		for (int j = 0; j < individualMat.cols; j++)
-			individual.push_back(individualMat.at<float>(0,j));
-		population.push_back(individual);
+		individualMat.forEach<float>([](float& p, const int* pos)->void { p = (rand() % 200) * 0.01 - 1.0; });//random value in [-2,2];
+		
+		//individualMat = gaborKer.reshape(1, 1);
+		//for (int j = 0; j < individualMat.cols * ntheta; j++)
+		//	individual.push_back(individualMat);
+
+		population.push_back(individualMat.clone());
 	}
 	
 }
@@ -40,7 +49,7 @@ void Ga_fitness(const Mat& trainData, const Mat& groundTruth,
 			int stIndex = j * kernelSize * kernelSize;
 			// 1D chromosome to 2D kernel
 			singleKernel.forEach<float>([population, i, stIndex, kernelSize](float& p, const int* pos)
-				->void { p = population[i][stIndex + pos[0] * kernelSize + pos[1]]; });
+				->void { p = population[i].at(stIndex + pos[0] * kernelSize + pos[1]); });
 			indivKer.push_back(singleKernel);
 		}	
 		kernel.push_back(indivKer);
@@ -54,7 +63,8 @@ void Ga_fitness(const Mat& trainData, const Mat& groundTruth,
 	fitValues = vector<float>(gapar.fitness, gapar.fitness + population.size());
 	avePerform = std::accumulate(fitValues.begin(), fitValues.end(), 0.0);
 	avePerform /= population.size();
-	cout << ", average perform: " << avePerform << " ";
+	float maxfit = fitValues.at(max_element(fitValues.begin(), fitValues.end()) - fitValues.begin());
+	cout << ", average perform: " << avePerform << " maxfit: " << maxfit << " ";
 }
 
 //选择，产生新一代种群
@@ -110,26 +120,102 @@ void Ga_select(const Mat& trainData, const Mat groundTruth,
 		}
 		new_population.push_back(population.at(index));
 	}
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	shuffle(new_population.begin(), new_population.end(), std::default_random_engine(seed));
+
 	population = new_population;
 }
 
 //交叉
-void Ga_cross(vector<vector<float>>& population, double cross_rate)
+void Ga_cross(vector<vector<float>>& population, double cross_rate, int crossMethod)
 {
 	int len = population.at(0).size();
 	for (int person = 0; person < population.size(); person = person + 2)
 	{
-		double randNums = (rand() % 10 + 0.5) * 0.1;
-		if (randNums > cross_rate)//交叉率
-			continue;
-		int pos = rand() % 10 * 0.1 * len;
-		vector<float> seg1(population.at(person).begin() + pos, population.at(person).end());//选出的基因片段
-		vector<float> seg2(population.at(person + 1).begin() + pos, population.at(person + 1).end());
+		if (crossMethod == 1)
+		{
+			//单点交叉
+			double randNums = (rand() % 10 + 0.5) * 0.1;
+			if (randNums > cross_rate)//交叉率
+				continue;
+			int pos = rand() % 10 * 0.1 * len;
+			vector<float> seg1(population.at(person).begin() + pos, population.at(person).end());//选出的基因片段
+			vector<float> seg2(population.at(person + 1).begin() + pos, population.at(person + 1).end());
 
-		population.at(person) = vector<float>(population.at(person).begin(), population.at(person).begin() + pos);
-		population.at(person).insert(population.at(person).end(), seg2.begin(), seg2.end());
-		population.at(person + 1) = vector<float>(population.at(person + 1).begin(), population.at(person + 1).begin() + pos);
-		population.at(person + 1).insert(population.at(person + 1).end(), seg1.begin(), seg1.end());
+			population.at(person) = vector<float>(population.at(person).begin(), population.at(person).begin() + pos);
+			population.at(person).insert(population.at(person).end(), seg2.begin(), seg2.end());
+			population.at(person + 1) = vector<float>(population.at(person + 1).begin(), population.at(person + 1).begin() + pos);
+			population.at(person + 1).insert(population.at(person + 1).end(), seg1.begin(), seg1.end());
+		}
+		
+		if (crossMethod == 2)
+		{
+			//均匀交叉
+			for (int i = 0; i < len; i++)
+			{
+				float r = rand() % 1000 * 0.001;
+				if (r < 0.001)
+				{
+					population.at(person).at(i) = population.at(person).at(i) * 0.5 + population.at(person + 1).at(i) * 0.5;
+					population.at(person + 1).at(i) = population.at(person + 1).at(i) * 0.5 + population.at(person).at(i) * 0.5;
+				}
+			}
+		}
+	}
+}
+
+void Ga_cross2d(vector<vector<float>>& population, double cross_rate, int kernelSize, int ntheta)
+{
+	for (int person = 0; person < population.size(); person = person + 2)
+	{
+		float randNums = rand() % 100 * 0.01;
+		if (randNums > cross_rate) continue;
+		//-------------chromosum to kernel vector---------
+		vector<Mat> indivKer1;
+		vector<Mat> indivKer2;
+		for (int j = 0; j < ntheta; j++)
+		{
+			Mat singleKernel1(kernelSize, kernelSize, CV_32F);
+			Mat singleKernel2(kernelSize, kernelSize, CV_32F);
+
+			int stIndex = j * kernelSize * kernelSize;
+			// 1D chromosome to 2D kernel
+			singleKernel1.forEach<float>([population, stIndex, kernelSize, person](float& p, const int* pos)
+				->void { p = population[person].at(stIndex + pos[0] * kernelSize + pos[1]); });
+			singleKernel2.forEach<float>([population, stIndex, kernelSize, person](float& p, const int* pos)
+				->void { p = population[person + 1].at(stIndex + pos[0] * kernelSize + pos[1]); });
+			indivKer1.push_back(singleKernel1);
+			indivKer2.push_back(singleKernel2);
+		}
+
+		//------------cross operator----------
+		//exchange the corners
+		int kerIndex = rand() % 100 * 0.01 * ntheta;
+		int randRow = rand() % 100 * 0.01 * ntheta;
+		int randCol = rand() % 100 * 0.01 * ntheta;
+		Mat tmp(indivKer1[0].size(), indivKer1[0].type(), Scalar(0.0));
+		tmp.forEach<float>([indivKer1, kerIndex, randRow, randCol](float& p, const int* pos)
+			->void {if (pos[0] >= randRow && pos[1] >= randCol) p = indivKer1.at(kerIndex).at<float>(pos[0], pos[1]); });
+		indivKer1.at(kerIndex).forEach<float>([indivKer2, kerIndex, randRow, randCol](float& p, const int* pos)
+			->void {if (pos[0] >= randRow && pos[1] >= randCol) p = indivKer2.at(kerIndex).at<float>(pos[0], pos[1]); });
+		indivKer2.at(kerIndex).forEach<float>([tmp, kerIndex, randRow, randCol](float& p, const int* pos)
+			->void {if (pos[0] >= randRow && pos[1] >= randCol) p = tmp.at<float>(pos[0], pos[1]); });
+
+		//------------kernel vector to chromosome
+		population.at(person).clear();
+		population.at(person + 1).clear();
+		for (int i = 0; i < ntheta; i++)
+		{
+			for (int r = 0; r < kernelSize; r++)
+			{
+				for (int c = 0; c < kernelSize; c++)
+				{
+					population.at(person).push_back(indivKer1[i].at<float>(r, c));
+					population.at(person + 1).push_back(indivKer2[i].at<float>(r, c));
+
+				}
+			}
+		}
 	}
 }
 
@@ -139,21 +225,34 @@ void Ga_mutation(vector<vector<float>>& popultion, double mutation_rate)
 	int len = popultion.at(0).size();
 	for (int person = 0; person < popultion.size(); person++)
 	{
-		double randNums = (rand() % 10 + 0.5) * 0.1;
-		if (randNums > mutation_rate)
-			continue;
-		int muPos = rand() % 100 * 0.01 * popultion.at(person).size();
-		float randCoef = rand() % 40 * 0.1 - 2;//[-2,2]
-		popultion.at(person).at(muPos) *= randCoef;
+		//double randNums = (rand() % 10 + 0.5) * 0.1;
+		//if (randNums > mutation_rate)
+		//	continue;
+		//int muPos = rand() % 100 * 0.01 * popultion.at(person).size();
+		//float randCoef = rand() % 40 * 0.1 - 2;//[-2,2]
+		//popultion.at(person).at(muPos) *= randCoef;
+		for (int i = 0; i < popultion.at(person).size(); i++)
+		{
+			double randNums = rand() % 100000 * 0.001;
+			if (randNums > mutation_rate)
+				continue;			
+			float randCoef = rand() % 40 * 0.1 - 2;//[-2,2]
+			popultion.at(person).at(i) *= randCoef;
+
+			//method 2
+			//float r = rand() % 40 * 0.1 - 2;//[-2,2]
+			//popultion.at(person).at(i) += r;
+
+		}
 	}
 }
 
 void GA(Mat& trainData, Mat& groundTruth)
 {
-	double cross_rate = 0.8;//交叉率
-	double mutation_rate = 0.01;//变异率
-	bool elitism = false;//是否保留精英
-	int population_size = 100;//种群大小
+	double cross_rate = 0.9;//交叉率
+	double mutation_rate = 0.0001;//变异率
+	bool elitism = true;//是否保留精英
+	int population_size = 20;//种群大小
 	int generations = 0;//进化代数
 	vector<vector<float>> population;
 
@@ -162,6 +261,15 @@ void GA(Mat& trainData, Mat& groundTruth)
 	int maskSize = ceil(sigma) * (3 * k2 + k1) - 1;;//模板尺寸
 	int ntheta = 8;
 	Ga_init(maskSize, ntheta, population, population_size);
+	/*loadPopulation("pop1_200.txt", population);
+	int maxInd = 3;
+	float maxfitVal = maxFit(trainData, groundTruth, population, maskSize, ntheta, maxInd);
+	cout << endl << "maxfit value: " << maxfitVal << ", maxIndex:" << maxInd << endl;
+	showResult(population[maxInd], ntheta, trainData, groundTruth);*/
+	/*for (int i = 0; i < population.size(); i++)
+	{
+		showResult(population[i], ntheta, trainData, groundTruth);
+	}*/
 	time_t startTime, curTime, prevTime;
 	time(&startTime);//计时操作，以免超时
 	while (++generations)
@@ -170,7 +278,8 @@ void GA(Mat& trainData, Mat& groundTruth)
 
 		cout << "generations: " << generations << " ";
 		Ga_select(trainData, groundTruth,population, elitism, maskSize, ntheta);
-		Ga_cross(population, cross_rate);
+		//Ga_cross(population, cross_rate, 1);
+		Ga_cross2d(population, cross_rate, maskSize, ntheta);
 		Ga_mutation(population, mutation_rate);
 
 		time(&curTime);
@@ -178,7 +287,11 @@ void GA(Mat& trainData, Mat& groundTruth)
 		int totalTime = curTime - startTime;
 		int diffTime = curTime - prevTime;
 		
-		cout << "time useed: " << diffTime << ", total times: " << totalTime << endl;
+		cout << "time: " << diffTime << ", total times: " << totalTime << endl;
+		if (generations % 100 == 0)
+		{
+			savePopulation("pop_shuffle_" + to_string(generations) + ".txt", population);
+		}
 	}
 
 	vector<float> fitValue;
@@ -216,4 +329,64 @@ void loadMat(vector<Mat>& groundTruth)
 		tmpMat.convertTo(tmpMat, CV_32F);
 		groundTruth.push_back(tmpMat);
 	}
+}
+
+void savePopulation(string fileName, const vector<vector<float>>& population)
+{
+	ofstream outFile(fileName);
+	for (auto person : population)
+	{
+		for (auto i : person)
+		{
+			outFile << i << " ";
+		}
+		outFile << endl;
+	}
+	outFile.close();
+}
+void loadPopulation(string fileName, vector<vector<float>>& population)
+{
+	ifstream inFile(fileName);
+	string str;
+	char ch[10];
+	int i = 0;
+	while (getline(inFile, str))
+	{
+		istringstream istr(str);
+		vector<float> individual;
+		while (istr >> ch)
+		{
+			individual.push_back(atof(ch));
+		}
+		population.push_back(individual);
+		i++;
+	}
+}
+
+void showResult(const vector<float>& population, int ntheta, const Mat& srcImg, const Mat& gtImg)
+{
+	int kernelSize = sqrt(population.size() / ntheta) - 1;
+	vector<Mat> indivKer;
+	for (int j = 0; j < ntheta; j++)
+	{
+		Mat singleKernel(kernelSize, kernelSize, CV_32F);
+		int stIndex = j * kernelSize * kernelSize;
+		// 1D chromosome to 2D kernel
+		singleKernel.forEach<float>([population, stIndex, kernelSize](float& p, const int* pos)
+			->void { p = population.at(stIndex + pos[0] * kernelSize + pos[1]); });
+		indivKer.push_back(singleKernel);
+
+		/*namedWindow("best kernel", 0);
+		imshow("best kernel", singleKernel);
+		waitKey(0);*/
+	}
+	float p = NonCRF(srcImg, gtImg, indivKer, 1);	
+}
+float maxFit(const Mat& trainData, const Mat groundTruth,
+	vector<vector<float>>& population, int kernelSize, int ntheta, int& maxIndex)
+{
+	vector<float> fitness;
+	Ga_fitness(trainData, groundTruth, population, fitness, kernelSize, ntheta);
+	maxIndex = max_element(fitness.begin(), fitness.end()) - fitness.begin();
+	return fitness.at(maxIndex);
 }

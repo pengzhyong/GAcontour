@@ -64,13 +64,14 @@ int main()
 	//GA();
 	string path = "C:\\Users\\pengzhyong\\Desktop\\CV\\бшнд\\contour detection\\contours\\images\\";
 
-	Mat srcImg = imread(path + "goat_2.pgm");
-	Mat gtImg = imread(path + "gt\\goat_2_gt_binary.pgm");
+	Mat srcImg = imread(path + "elephant_3.pgm");
+	Mat gtImg = imread(path + "gt\\elephant_3_gt_binary.pgm");
 	cvtColor(srcImg, srcImg, COLOR_BGR2GRAY);
 	cvtColor(gtImg, gtImg, COLOR_BGR2GRAY);
 	srcImg.convertTo(srcImg, CV_32F, 1 / 255.0);
 	gtImg.convertTo(gtImg, CV_32F, 1 / 255.0);
 
+	//NonCRF(srcImg, gtImg);
 	GA(srcImg, gtImg);
 	//time_t tic, toc;
 	//time(&tic);

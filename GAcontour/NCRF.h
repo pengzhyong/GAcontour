@@ -4,8 +4,8 @@
 using namespace std;
 using namespace cv;
 
-void NonCRF(Mat srcImg, Mat gtImg);
-float NonCRF(Mat srcImg, Mat gtImg, vector<Mat> kernel);//overload function for genetic algorithm, return the p value, as a fitness value
+float NonCRF(Mat srcImg, Mat gtImg);
+float NonCRF(Mat srcImg, Mat gtImg, vector<Mat> kernel, bool isDisplay = false);//overload function for genetic algorithm, return the p value, as a fitness value
 
 class GaParWrapper :public ParallelLoopBody
 {

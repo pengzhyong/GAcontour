@@ -208,7 +208,7 @@ void Inhibition(vector<Mat>& dstImg, vector<Mat>& srcImg, int inhibMethod, int s
 	}
 }
 
-void Inhibition(vector<Mat>& dstImg, vector<Mat>& srcImg, int inhibMethod, int supMethod, float alpha, const vector<Mat>& kernel)
+void Inhibition(vector<Mat>& dstImg, vector<Mat>& srcImg, int inhibMethod, int supMethod, float sigma, const vector<Mat>& kernel)
 {
 	int nh = srcImg[0].rows;
 	int nw = srcImg[0].cols;
@@ -217,7 +217,7 @@ void Inhibition(vector<Mat>& dstImg, vector<Mat>& srcImg, int inhibMethod, int s
 	int depth = srcImg[0].depth();
 	for (int i = 0; i < ntheta; i++)
 	{
-		Mat finalMat(nh, nw, CV_32F);
+		Mat finalMat = srcImg.at(i).clone();
 		for (int j = 0; j < ntheta; j++)
 		{
 			Mat tmpInhib;
@@ -421,7 +421,7 @@ void Evaluate(float& p, float& efp, float& efn, const Mat& rstImg, const Mat& gt
 	efn = Efn * 1.0 / Egt;
 }
 
-void NonCRF(Mat srcImg, Mat gtImg)
+float NonCRF(Mat srcImg, Mat gtImg)
 {
 	if(srcImg.type() != CV_32F)
 		srcImg.convertTo(srcImg, CV_32F, 1 / 255.0);
@@ -440,13 +440,13 @@ void NonCRF(Mat srcImg, Mat gtImg)
 	for (int i = 0; i < ntheta; i++)
 		theta.push_back(2 * CV_PI * i / ntheta);
 	int supPhases = 1;
-	int inhibMethod = 2;//isotropic or antisotropic
+	int inhibMethod = 1;//2:isotropic, 3:antisotropic, 1:no inhibition
 	int inhibSup = 2;
 	float alpha = 1.0;
 	float k1 = 1;
 	float k2 = 4;
-	float tlow = 0.05;
-	float thigh = 0.1;
+	float tlow = 0.1;
+	float thigh = 0.2;
 	float p, efp, efn;
 	vector<vector<Mat>> gaborImgs;
 	GaborFilter(gaborImgs, srcImg, halfwave, lamda, sigma, theta, phi, gamma, bandwidth);
@@ -470,13 +470,15 @@ void NonCRF(Mat srcImg, Mat gtImg)
 
 	Evaluate(p, efp, efn, thinImg, gtImg, 5);
 	cout << "p: " << p << ", efp: " << efp << ", efn: " << efn << endl;
-	//namedWindow("NCRF image", 0);
-	//imshow("NCRF image", thinImg);
-	//imshow("ground truth", gtImg);
-	//waitKey(0);
+	namedWindow("NCRF image", 0);
+	imshow("NCRF image", thinImg);
+	imshow("ground truth", gtImg);
+	waitKey(0);
+	return p;
+
 }
 
-float NonCRF(Mat srcImg, Mat gtImg, vector<Mat> kernel)
+float NonCRF(Mat srcImg, Mat gtImg, vector<Mat> kernel, bool isDisplay)
 {
 	if (srcImg.type() != CV_32F)
 		srcImg.convertTo(srcImg, CV_32F, 1 / 255.0);
@@ -500,8 +502,8 @@ float NonCRF(Mat srcImg, Mat gtImg, vector<Mat> kernel)
 	float alpha = 1.0;
 	float k1 = 1;
 	float k2 = 4;
-	float tlow = 0.05;
-	float thigh = 0.1;
+	float tlow = 0.1;
+	float thigh = 0.2;
 	float p, efp, efn;
 	vector<vector<Mat>> gaborImgs;
 	GaborFilter(gaborImgs, srcImg, halfwave, lamda, sigma, theta, phi, gamma, bandwidth);
@@ -511,6 +513,11 @@ float NonCRF(Mat srcImg, Mat gtImg, vector<Mat> kernel)
 
 	vector<Mat> inhibImgs;
 	Inhibition(inhibImgs, phaseSupImgs, inhibMethod, inhibSup, sigma, kernel);
+	/*vector<Mat> inhibImgs1;
+	Inhibition(inhibImgs1, inhibImgs, inhibMethod, inhibSup, sigma, kernel);
+	vector<Mat> inhibImgs2;
+	Inhibition(inhibImgs2, inhibImgs1, inhibMethod, inhibSup, sigma, kernel);
+	inhibImgs = inhibImgs2;*/
 
 	Mat viewImg, orienImg;
 	ViewImage(viewImg, orienImg, inhibImgs, theta);
@@ -524,12 +531,16 @@ float NonCRF(Mat srcImg, Mat gtImg, vector<Mat> kernel)
 	InvertImg(thinImg);
 
 	Evaluate(p, efp, efn, thinImg, gtImg, 5);
+	
+	if (isDisplay && p > 0.1)
+	{
+		cout << "p: " << p << ", efp: " << efp << ", efn: " << efn << endl;
+		namedWindow("NCRF image", 0);
+		imshow("NCRF image", thinImg);
+		imshow("ground truth", gtImg);
+		waitKey(0);
+	}
 	return p;
-	//cout << "p: " << p << ", efp: " << efp << ", efn: " << efn << endl;
-	//namedWindow("NCRF image", 0);
-	//imshow("NCRF image", thinImg);
-	//imshow("ground truth", gtImg);
-	//waitKey(0);
 }
 
 //function used inside

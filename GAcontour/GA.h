@@ -13,7 +13,7 @@ void Ga_select(const Mat& trainData, const Mat groundTruth,
 	vector<vector<float>>& population, bool elitism, int kernelSize, int ntheta);
 
 //Ωª≤Ê
-void Ga_cross(vector<vector<float>>& population, double cross_rate);
+void Ga_cross(vector<vector<float>>& population, double cross_rate, int crossMethod = 1);
 
 //±‰“Ï
 void Ga_mutation(vector<vector<float>>& popultion, double mutation_rate);
@@ -23,3 +23,9 @@ void GA(Mat& trainData, Mat& groundTruth);
 void loadImg(vector<Mat>& srcVec);
 
 void loadMat(vector<Mat>& groundTruth);
+
+void savePopulation(string fileName, const vector<vector<float>>& population);
+void loadPopulation(string fileName, vector<vector<float>>& population);
+void showResult(const vector<float>& population, int ntheta, const Mat& srcImg, const Mat& gtImg);
+float maxFit(const Mat& trainData, const Mat groundTruth,
+	vector<vector<float>>& population, int kernelSize, int ntheta, int& maxIndex);
