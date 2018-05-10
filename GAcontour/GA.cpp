@@ -6,8 +6,9 @@
 #include "GA.h"
 #include "postProcess.h"
 #include "NCRF.h"
-vector<float> trainSeq;
-//#include <time.h>
+
+vector<float> avefit, maxfit;
+int maxFitIndex = 0;
 
 void Ga_init(int maskSize, int ntheta, vector<vector<float>>& population, int popSize)
 {
@@ -33,7 +34,7 @@ void Ga_init(int maskSize, int ntheta, vector<vector<float>>& population, int po
 }
 
 //计算每个个体的适应度
-void Ga_fitness(const Mat& trainData, const Mat& groundTruth, 
+void Ga_fitness(const Mat& trainData1, const Mat& trainData2, const Mat groundTruth1, const Mat& groundTruth2,
 	const vector<vector<float>>& population, vector<float>& fitValues, int kernelSize, int ntheta)
 {
 	time_t tic, toc;
@@ -58,24 +59,35 @@ void Ga_fitness(const Mat& trainData, const Mat& groundTruth,
 		avePerform += p;*/
 	}
 
-	GaParWrapper gapar(trainData, groundTruth, kernel, population.size());
-	parallel_for_(Range(0, population.size()), gapar);
-	fitValues = vector<float>(gapar.fitness, gapar.fitness + population.size());
+	GaParWrapper gapar1(trainData1, groundTruth1, kernel, population.size());
+	parallel_for_(Range(0, population.size()), gapar1);
+	fitValues = vector<float>(gapar1.fitness, gapar1.fitness + population.size());
+	/*GaParWrapper gapar2(trainData2, groundTruth2, kernel, population.size());
+	parallel_for_(Range(0, population.size()), gapar2);
+	vector<float> fitValues2 = vector<float>(gapar2.fitness, gapar2.fitness + population.size());
+	for (int i = 0; i < population.size(); i++)
+		fitValues.push_back(0.5 * (fitValues1.at(i) + fitValues2.at(i)) + min(fitValues1.at(i), fitValues2.at(i)));*/
+
 	avePerform = std::accumulate(fitValues.begin(), fitValues.end(), 0.0);
 	avePerform /= population.size();
-	float maxfit = fitValues.at(max_element(fitValues.begin(), fitValues.end()) - fitValues.begin());
-	cout << ", average perform: " << avePerform << " maxfit: " << maxfit << " ";
+
+	maxFitIndex = max_element(fitValues.begin(), fitValues.end()) - fitValues.begin();
+	float maxfitVal = fitValues.at(max_element(fitValues.begin(), fitValues.end()) - fitValues.begin());
+	cout << ", average perform: " << avePerform << " maxfit: " << maxfitVal << " ";
+	avefit.push_back(avePerform);// save to global variance for save result
+	maxfit.push_back(maxfitVal);
+
 }
 
 //选择，产生新一代种群
-void Ga_select(const Mat& trainData, const Mat groundTruth, 
+void Ga_select(const Mat& trainData1, const Mat& trainData2, const Mat groundTruth1, const Mat& groundTruth2, 
 	vector<vector<float>>& population, bool elitism, int kernelSize, int ntheta)
 {
 	vector<vector<float>> new_population;
 	vector<float> fitValue;
 	//time_t tic, toc;
 	//time(&tic);
-	Ga_fitness(trainData, groundTruth, population, fitValue, kernelSize, ntheta);
+	Ga_fitness(trainData1, trainData2, groundTruth1, groundTruth2, population, fitValue, kernelSize, ntheta);
 	//time(&toc);
 	//cout << "Ga_fitness time: " << toc - tic << endl;
 	int firstPerson = 0;
@@ -85,7 +97,6 @@ void Ga_select(const Mat& trainData, const Mat groundTruth,
 		new_population.push_back(population.at(maxIndex));
 		firstPerson = 1;
 	}
-
 
 	vector<double> sum_fit;
 	for (auto i : fitValue)
@@ -233,7 +244,7 @@ void Ga_mutation(vector<vector<float>>& popultion, double mutation_rate)
 		//popultion.at(person).at(muPos) *= randCoef;
 		for (int i = 0; i < popultion.at(person).size(); i++)
 		{
-			double randNums = rand() % 100000 * 0.001;
+			double randNums = rand() % 100 * 0.01;
 			if (randNums > mutation_rate)
 				continue;			
 			float randCoef = rand() % 40 * 0.1 - 2;//[-2,2]
@@ -247,10 +258,10 @@ void Ga_mutation(vector<vector<float>>& popultion, double mutation_rate)
 	}
 }
 
-void GA(Mat& trainData, Mat& groundTruth)
+void GA(Mat& trainData1, Mat& trainData2, Mat& groundTruth1, Mat& groundTruth2)
 {
 	double cross_rate = 0.9;//交叉率
-	double mutation_rate = 0.0001;//变异率
+	double mutation_rate = 0.1;//变异率
 	bool elitism = true;//是否保留精英
 	int population_size = 20;//种群大小
 	int generations = 0;//进化代数
@@ -261,11 +272,13 @@ void GA(Mat& trainData, Mat& groundTruth)
 	int maskSize = ceil(sigma) * (3 * k2 + k1) - 1;;//模板尺寸
 	int ntheta = 8;
 	Ga_init(maskSize, ntheta, population, population_size);
-	/*loadPopulation("pop1_200.txt", population);
-	int maxInd = 3;
-	float maxfitVal = maxFit(trainData, groundTruth, population, maskSize, ntheta, maxInd);
-	cout << endl << "maxfit value: " << maxfitVal << ", maxIndex:" << maxInd << endl;
-	showResult(population[maxInd], ntheta, trainData, groundTruth);*/
+	//loadPopulation("pop_shuffle_4100.txt", population);
+	//int maxInd = 3;
+	//float maxfitVal = maxFit(trainData1, trainData2, groundTruth1, groundTruth2, population, maskSize, ntheta, maxInd);
+	//cout << endl << "maxfit value: " << maxfitVal << ", maxIndex:" << maxInd << endl;
+	//showResult(population[maxInd], ntheta, trainData1, groundTruth1);
+	//showResult(population[maxInd], ntheta, trainData2, groundTruth2);
+
 	/*for (int i = 0; i < population.size(); i++)
 	{
 		showResult(population[i], ntheta, trainData, groundTruth);
@@ -277,9 +290,11 @@ void GA(Mat& trainData, Mat& groundTruth)
 		time(&prevTime);
 
 		cout << "generations: " << generations << " ";
-		Ga_select(trainData, groundTruth,population, elitism, maskSize, ntheta);
-		//Ga_cross(population, cross_rate, 1);
-		Ga_cross2d(population, cross_rate, maskSize, ntheta);
+		Ga_select(trainData1, trainData2, groundTruth1, groundTruth2, population, elitism, maskSize, ntheta);
+		showResult(population[maxFitIndex], ntheta, trainData1, groundTruth1);
+
+		Ga_cross(population, cross_rate, 2);
+		//Ga_cross2d(population, cross_rate, maskSize, ntheta);
 		Ga_mutation(population, mutation_rate);
 
 		time(&curTime);
@@ -291,11 +306,12 @@ void GA(Mat& trainData, Mat& groundTruth)
 		if (generations % 100 == 0)
 		{
 			savePopulation("pop_shuffle_" + to_string(generations) + ".txt", population);
+			saveFitvalue("fitval.txt", avefit, maxfit);
 		}
 	}
 
 	vector<float> fitValue;
-	Ga_fitness(trainData, groundTruth, population, fitValue, maskSize, ntheta);
+	Ga_fitness(trainData1, trainData2, groundTruth1, groundTruth2, population, fitValue, maskSize, ntheta);
 	int maxIndex = max_element(fitValue.begin(), fitValue.end()) - fitValue.begin();
 	double maxFitVale = fitValue.at(maxIndex);
 }
@@ -344,6 +360,18 @@ void savePopulation(string fileName, const vector<vector<float>>& population)
 	}
 	outFile.close();
 }
+
+void saveFitvalue(string fileNameAve, const vector<float>& avefit, const vector<float> maxfit)
+{
+	ofstream outFile(fileNameAve);
+	for (int i = 0; i < avefit.size(); i++)
+		outFile << avefit.at(i) << " ";
+	outFile << endl;
+	for (int i = 0; i < maxfit.size(); i++)
+		outFile << maxfit.at(i) << " ";
+	outFile.close();
+}
+
 void loadPopulation(string fileName, vector<vector<float>>& population)
 {
 	ifstream inFile(fileName);
@@ -382,11 +410,11 @@ void showResult(const vector<float>& population, int ntheta, const Mat& srcImg, 
 	}
 	float p = NonCRF(srcImg, gtImg, indivKer, 1);	
 }
-float maxFit(const Mat& trainData, const Mat groundTruth,
+float maxFit(const Mat& trainData1, const Mat& trainData2, const Mat groundTruth1, const Mat groundTruth2,
 	vector<vector<float>>& population, int kernelSize, int ntheta, int& maxIndex)
 {
 	vector<float> fitness;
-	Ga_fitness(trainData, groundTruth, population, fitness, kernelSize, ntheta);
+	Ga_fitness(trainData1, trainData2, groundTruth1, groundTruth2, population, fitness, kernelSize, ntheta);
 	maxIndex = max_element(fitness.begin(), fitness.end()) - fitness.begin();
 	return fitness.at(maxIndex);
 }

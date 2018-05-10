@@ -64,15 +64,40 @@ int main()
 	//GA();
 	string path = "C:\\Users\\pengzhyong\\Desktop\\CV\\бшнд\\contour detection\\contours\\images\\";
 
-	Mat srcImg = imread(path + "elephant_3.pgm");
-	Mat gtImg = imread(path + "gt\\elephant_3_gt_binary.pgm");
-	cvtColor(srcImg, srcImg, COLOR_BGR2GRAY);
-	cvtColor(gtImg, gtImg, COLOR_BGR2GRAY);
-	srcImg.convertTo(srcImg, CV_32F, 1 / 255.0);
-	gtImg.convertTo(gtImg, CV_32F, 1 / 255.0);
+	Mat srcImg1 = imread(path + "bear_3.pgm");
+	Mat srcImg2 = imread(path + "goat_3.pgm");
+	Mat srcImg3 = imread(path + "rino.pgm");
 
-	//NonCRF(srcImg, gtImg);
-	GA(srcImg, gtImg);
+
+	Mat gtImg1 = imread(path + "gt\\bear_3_gt_binary.pgm");
+	Mat gtImg2 = imread(path + "gt\\goat_3_gt_binary.pgm");
+	Mat gtImg3 = imread(path + "gt\\rino_gt_binary.pgm");
+
+
+	vector<Mat> trainVec, gtVec;
+	cvtColor(srcImg1, srcImg1, COLOR_BGR2GRAY);
+	cvtColor(srcImg2, srcImg2, COLOR_BGR2GRAY);
+	cvtColor(srcImg3, srcImg3, COLOR_BGR2GRAY);
+
+
+	cvtColor(gtImg1, gtImg1, COLOR_BGR2GRAY);
+	cvtColor(gtImg2, gtImg2, COLOR_BGR2GRAY);
+	cvtColor(gtImg3, gtImg3, COLOR_BGR2GRAY);
+
+
+	srcImg1.convertTo(srcImg1, CV_32F, 1 / 255.0);
+	srcImg2.convertTo(srcImg2, CV_32F, 1 / 255.0);
+	srcImg3.convertTo(srcImg3, CV_32F, 1 / 255.0);
+
+
+	gtImg1.convertTo(gtImg1, CV_32F, 1 / 255.0);
+	gtImg2.convertTo(gtImg2, CV_32F, 1 / 255.0);
+	gtImg3.convertTo(gtImg3, CV_32F, 1 / 255.0);
+
+
+
+	NonCRF(srcImg1, gtImg1);
+	//GA(srcImg2, srcImg2, gtImg2, gtImg2);
 	//time_t tic, toc;
 	//time(&tic);
 	//NonCRF(srcImg, gtImg);
@@ -80,6 +105,6 @@ int main()
 	//time(&toc);
 	//cout << (toc - tic) << endl;
 	
-	system("pause");
+	//system("pause");
 	return 0;
 }

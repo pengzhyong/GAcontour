@@ -33,6 +33,8 @@ inline void GaParWrapper::operator()(const Range& range) const
 
 int GaborFilter(vector<vector<Mat>>& dstImg, const Mat srcImg, bool halfwave,
 	float lamda, float sigma, vector<float> theta, vector<float> phi, float gamma, float bandwidth);
+int GaborFilterMulScale(vector<vector<Mat>>& dstImg, const Mat srcImg, bool halfwave,
+	vector<float> lamda, vector<float> sigma, vector<float> theta, vector<float> phi, float gamma, float bandwidth);
 void PhaseSuppos(vector<Mat>& dstImg, const vector<vector<Mat>>& srcImg, int ntheta, int nphi, int supMethod);
 
 void Inhibition(vector<Mat>& dstImg, vector<Mat>& srcImg, int inhibMethod, int supMethod, float sigma, float alpha, int k1, int k2);
