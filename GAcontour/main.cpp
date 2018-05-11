@@ -64,11 +64,11 @@ int main()
 	//GA();
 	string path = "C:\\Users\\pengzhyong\\Desktop\\CV\\бшнд\\contour detection\\contours\\images\\";
 
-	Mat srcImg1 = imread(path + "bear_3.pgm");
+	Mat srcImg1 = imread(path + "elephant_3.pgm");
 	Mat srcImg2 = imread(path + "goat_3.pgm");
 	Mat srcImg3 = imread(path + "rino.pgm");
 
-	Mat gtImg1 = imread(path + "gt\\bear_3_gt_binary.pgm");
+	Mat gtImg1 = imread(path + "gt\\elephant_3_gt_binary.pgm");
 	Mat gtImg2 = imread(path + "gt\\goat_3_gt_binary.pgm");
 	Mat gtImg3 = imread(path + "gt\\rino_gt_binary.pgm");
 
@@ -90,7 +90,7 @@ int main()
 	gtImg3.convertTo(gtImg3, CV_32F, 1 / 255.0);
 
 	//NonCRF(srcImg1, gtImg1);
-	GA(srcImg2, srcImg2, gtImg2, gtImg2);
+	GA(srcImg1, srcImg1, gtImg1, gtImg1);
 	//time_t tic, toc;
 	//time(&tic);
 	//NonCRF(srcImg, gtImg);

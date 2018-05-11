@@ -304,6 +304,31 @@ void Inhibition(vector<Mat>& dstImg, vector<Mat>& srcImg, int inhibMethod, int s
 	}
 }
 
+void Inhibition(vector<Mat>& dstImg, vector<Mat>& srcImg, int inhibMethod, int supMethod, float sigma, const vector<Mat>& kernel, const vector<float>& coefs)
+{
+	int nh = srcImg[0].rows;
+	int nw = srcImg[0].cols;
+	int ntheta = srcImg.size();
+
+	int depth = srcImg[0].depth();
+	for (int i = 0; i < ntheta; i++)
+	{
+		Mat finalMat = srcImg.at(i).clone();
+		for (int j = 0; j < ntheta; j++)
+		{
+			for (int k = 0; k < kernel.size(); k++)
+			{
+				int coefIndex = j * kernel.size() + k;
+				Mat tmpInhib;
+				filter2D(srcImg[j], tmpInhib, depth, kernel[k]);
+				finalMat.forEach<float>([tmpInhib, coefs, j, coefIndex](float& p, const int* pos)->void {p -= coefs[coefIndex] * tmpInhib.at<float>(pos[0], pos[1]); });
+			}
+		}
+		
+		dstImg.push_back(finalMat);
+	}
+}
+
 void ViewImage(Mat& dstImg, Mat& orienImg, const vector<Mat>& srcImg, const vector<float> theta)
 {
 	int nh = srcImg[0].rows;
@@ -619,11 +644,11 @@ float NonCRF(Mat srcImg, Mat gtImg, vector<Mat> kernel, bool isDisplay)
 	float k1 = 1;
 	float k2 = 4;
 	float tlow = 0.05;
-	float thigh = 0.25;
+	float thigh = 0.2;
 	float p, efp, efn;
 	vector<vector<Mat>> gaborImgs;
-	//GaborFilter(gaborImgs, srcImg, halfwave, lamda, sigma, theta, phi, gamma, bandwidth);
-	GaborFilterMulScale(gaborImgs, srcImg, halfwave, lamdaVec, sigmaVec, theta, phi, gamma, bandwidth);
+	GaborFilter(gaborImgs, srcImg, halfwave, lamda, sigma, theta, phi, gamma, bandwidth);
+	//GaborFilterMulScale(gaborImgs, srcImg, halfwave, lamdaVec, sigmaVec, theta, phi, gamma, bandwidth);
 	vector<Mat> phaseSupImgs;
 	PhaseSuppos(phaseSupImgs, gaborImgs, ntheta, nphi, supPhases);
 
@@ -659,6 +684,78 @@ float NonCRF(Mat srcImg, Mat gtImg, vector<Mat> kernel, bool isDisplay)
 	return p;
 }
 
+float NonCRF(Mat srcImg, Mat gtImg, const vector<Mat>& kernel, const vector<float> coefs, bool isDisplay)
+{
+	if (srcImg.type() != CV_32F)
+		srcImg.convertTo(srcImg, CV_32F, 1 / 255.0);
+	if (gtImg.type() != CV_32F)
+		gtImg.convertTo(gtImg, CV_32F, 1 / 255.0);
+	bool halfwave = 1;
+	float lamda = 10;//wavelength
+	float sigma = 1.0;
+	float gamma = 0.5;//aspect ratio
+
+	vector<float> lamdaVec = { 3,5,7,9,11,13,15,17,19,21,23,25,27 };
+	vector<float> sigmaVec;
+	for (auto i : lamdaVec)
+		sigmaVec.push_back(i*0.2);
+
+	float bandwidth = 1;
+	int ntheta = 8;
+	int nphi = 2;
+	float arrphi[2] = { 0, 0.5*CV_PI };
+	vector<float> phi = { arrphi, arrphi + 2 };
+	vector<float> theta;
+	for (int i = 0; i < ntheta; i++)
+		theta.push_back(2 * CV_PI * i / ntheta);
+	int supPhases = 1;
+	int inhibMethod = 2;//isotropic or antisotropic
+	int inhibSup = 3;
+	float alpha = 1.0;
+	float k1 = 1;
+	float k2 = 4;
+	float tlow = 0.05;
+	float thigh = 0.25;
+	float p, efp, efn;
+	vector<vector<Mat>> gaborImgs;
+	GaborFilter(gaborImgs, srcImg, halfwave, lamda, sigma, theta, phi, gamma, bandwidth);
+	//GaborFilterMulScale(gaborImgs, srcImg, halfwave, lamdaVec, sigmaVec, theta, phi, gamma, bandwidth);
+	vector<Mat> phaseSupImgs;
+	PhaseSuppos(phaseSupImgs, gaborImgs, ntheta, nphi, supPhases);
+
+	vector<Mat> inhibImgs;
+	//Inhibition(inhibImgs, phaseSupImgs, inhibMethod, inhibSup, sigma, alpha, k1, k2);
+	//Inhibition(inhibImgs, phaseSupImgs, inhibMethod, inhibSup, sigma, kernel);
+	Inhibition(inhibImgs, phaseSupImgs, inhibMethod, inhibSup, sigma, kernel, coefs);
+	/*vector<Mat> inhibImgs1;
+	Inhibition(inhibImgs1, inhibImgs, inhibMethod, inhibSup, sigma, kernel);
+	vector<Mat> inhibImgs2;
+	Inhibition(inhibImgs2, inhibImgs1, inhibMethod, inhibSup, sigma, kernel);
+	inhibImgs = inhibImgs2;*/
+
+	Mat viewImg, orienImg;
+	ViewImage(viewImg, orienImg, inhibImgs, theta);
+
+
+	Mat thinImg;
+	Thinning(thinImg, viewImg, orienImg);
+
+	Hysteresis(thinImg, tlow, thigh);
+
+	InvertImg(thinImg);
+
+	Evaluate(p, efp, efn, thinImg, gtImg, 5);
+
+	if (isDisplay)// && p > 0.1)
+	{
+		cout << "p: " << p << ", efp: " << efp << ", efn: " << efn << endl;
+		//namedWindow("NCRF image", 0);
+		imshow("NCRF image", thinImg);
+		//imshow("ground truth", gtImg);
+		waitKey(1);
+	}
+	return p;
+}
 //function used inside
 void GaborKernel2d(Mat& kernel, float sigma, float lamda, float theta, float phi, float gamma, float bandwidth)
 {
