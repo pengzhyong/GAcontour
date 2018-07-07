@@ -1,0 +1,943 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_n_c_r_f_8h" kind="file">
+    <compoundname>NCRF.h</compoundname>
+    <includes local="no">vector</includes>
+    <includes local="no">opencv2/opencv.hpp</includes>
+    <includedby refid="bend_gabar_8h" local="yes">C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/bendGabar.h</includedby>
+    <includedby refid="circle_filter_8h" local="yes">C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/circleFilter.h</includedby>
+    <includedby refid="_g_a_8cpp" local="yes">C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.cpp</includedby>
+    <includedby refid="main_8cpp" local="yes">C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/main.cpp</includedby>
+    <includedby refid="_n_c_r_f_8cpp" local="yes">C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp</includedby>
+    <incdepgraph>
+      <node id="486">
+        <label>opencv2/opencv.hpp</label>
+      </node>
+      <node id="484">
+        <label>C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h</label>
+        <link refid="NCRF.h"/>
+        <childnode refid="485" relation="include">
+        </childnode>
+        <childnode refid="486" relation="include">
+        </childnode>
+      </node>
+      <node id="485">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="489">
+        <label>C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/main.cpp</label>
+        <link refid="main_8cpp"/>
+      </node>
+      <node id="491">
+        <label>C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.cpp</label>
+        <link refid="_g_a_8cpp"/>
+      </node>
+      <node id="487">
+        <label>C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h</label>
+        <link refid="NCRF.h"/>
+        <childnode refid="488" relation="include">
+        </childnode>
+        <childnode refid="490" relation="include">
+        </childnode>
+        <childnode refid="491" relation="include">
+        </childnode>
+        <childnode refid="489" relation="include">
+        </childnode>
+        <childnode refid="492" relation="include">
+        </childnode>
+      </node>
+      <node id="492">
+        <label>C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp</label>
+        <link refid="_n_c_r_f_8cpp"/>
+      </node>
+      <node id="488">
+        <label>C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/bendGabar.h</label>
+        <link refid="bend_gabar_8h"/>
+        <childnode refid="489" relation="include">
+        </childnode>
+      </node>
+      <node id="490">
+        <label>C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/circleFilter.h</label>
+        <link refid="circle_filter_8h"/>
+        <childnode refid="489" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_ga_par_wrapper" prot="public">GaParWrapper</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="_n_c_r_f_8h_1a64825033a213da9aa4c6bd2b0daf1903" prot="public" static="no">
+        <type>pair&lt; vector&lt; Mat &gt;, vector&lt; float &gt; &gt;</type>
+        <definition>typedef pair&lt;vector&lt;Mat&gt;, vector&lt;float&gt; &gt; individual</definition>
+        <argsstring></argsstring>
+        <name>individual</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="10" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_n_c_r_f_8h_1a66af85b843b2179a6aa4c45a6cae5e55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float NonCRF</definition>
+        <argsstring>(Mat srcImg, Mat gtImg)</argsstring>
+        <name>NonCRF</name>
+        <param>
+          <type>Mat</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>Mat</type>
+          <declname>gtImg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="7" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="666" bodyend="747"/>
+        <references refid="_n_c_r_f_8cpp_1aae00607226f81454a372ce2fff0d6307" compoundref="_n_c_r_f_8cpp" startline="55" endline="106">GaborFilterMulScale</references>
+        <references refid="_n_c_r_f_8cpp_1a1f784d4564c616ced3c785c8e4e59c75" compoundref="_n_c_r_f_8cpp" startline="559" endline="610">Hysteresis</references>
+        <references refid="_n_c_r_f_8cpp_1a67d39a4e7c8c30ffa6c6208f1ceebe8e" compoundref="_n_c_r_f_8cpp" startline="296" endline="394">Inhibition</references>
+        <references refid="_n_c_r_f_8cpp_1af6e73dcca9940f022795cd5459b2d5b5" compoundref="_n_c_r_f_8cpp" startline="612" endline="619">InvertImg</references>
+        <references refid="_n_c_r_f_8cpp_1a1cca268b3921d86eb47a2ffd5bd833ec" compoundref="_n_c_r_f_8cpp" startline="207" endline="294">PhaseSuppos</references>
+        <references refid="_n_c_r_f_8cpp_1a83b4996534afe2597b694260fb2fdc72" compoundref="_n_c_r_f_8cpp" startline="505" endline="557">Thinning</references>
+        <references refid="_n_c_r_f_8cpp_1a6102f9ac8a39dac316e9c12f46c3bb27" compoundref="_n_c_r_f_8cpp" startline="470" endline="503">ViewImage</references>
+        <referencedby refid="class_ga_par_wrapper_1a04e759c8a7f6b4585f0fd33b6c9541a5" compoundref="_n_c_r_f_8h" startline="27" endline="31">GaParWrapper::operator()</referencedby>
+        <referencedby refid="_g_a_8h_1aa64750820ac52b3a6f6245b8b1a87cec" compoundref="_g_a_8cpp" startline="380" endline="398">showResult</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1a95178a05e62759a6b185b6244bd9173a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float NonCRF</definition>
+        <argsstring>(Mat srcImg, Mat gtImg, vector&lt; Mat &gt; kernel, bool isDisplay=false)</argsstring>
+        <name>NonCRF</name>
+        <param>
+          <type>Mat</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>Mat</type>
+          <declname>gtImg</declname>
+        </param>
+        <param>
+          <type>vector&lt; Mat &gt;</type>
+          <declname>kernel</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>isDisplay</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="8" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="749" bodyend="818"/>
+        <references refid="_n_c_r_f_8cpp_1aab8b4ce3be1c6b91665f657ef85fb406" compoundref="_n_c_r_f_8cpp" startline="621" endline="664">Evaluate</references>
+        <references refid="_n_c_r_f_8cpp_1aba8ed8937ddef66933a7cffb1711f776" compoundref="_n_c_r_f_8cpp" startline="5" endline="53">GaborFilter</references>
+        <references refid="_n_c_r_f_8cpp_1a1f784d4564c616ced3c785c8e4e59c75" compoundref="_n_c_r_f_8cpp" startline="559" endline="610">Hysteresis</references>
+        <references refid="_n_c_r_f_8cpp_1a67d39a4e7c8c30ffa6c6208f1ceebe8e" compoundref="_n_c_r_f_8cpp" startline="296" endline="394">Inhibition</references>
+        <references refid="_n_c_r_f_8cpp_1af6e73dcca9940f022795cd5459b2d5b5" compoundref="_n_c_r_f_8cpp" startline="612" endline="619">InvertImg</references>
+        <references refid="_n_c_r_f_8cpp_1a1cca268b3921d86eb47a2ffd5bd833ec" compoundref="_n_c_r_f_8cpp" startline="207" endline="294">PhaseSuppos</references>
+        <references refid="_n_c_r_f_8cpp_1a83b4996534afe2597b694260fb2fdc72" compoundref="_n_c_r_f_8cpp" startline="505" endline="557">Thinning</references>
+        <references refid="_n_c_r_f_8cpp_1a6102f9ac8a39dac316e9c12f46c3bb27" compoundref="_n_c_r_f_8cpp" startline="470" endline="503">ViewImage</references>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1a9ae7ef625cbeff05423bda9eaa4c8f5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float NonCRF</definition>
+        <argsstring>(Mat srcImg, Mat gtImg, const vector&lt; Mat &gt; &amp;kernel, const vector&lt; float &gt; coefs, bool isDisplay=false)</argsstring>
+        <name>NonCRF</name>
+        <param>
+          <type>Mat</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>Mat</type>
+          <declname>gtImg</declname>
+        </param>
+        <param>
+          <type>const vector&lt; Mat &gt; &amp;</type>
+          <declname>kernel</declname>
+        </param>
+        <param>
+          <type>const vector&lt; float &gt;</type>
+          <declname>coefs</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>isDisplay</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="9" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="820" bodyend="891"/>
+        <references refid="_n_c_r_f_8cpp_1aab8b4ce3be1c6b91665f657ef85fb406" compoundref="_n_c_r_f_8cpp" startline="621" endline="664">Evaluate</references>
+        <references refid="_n_c_r_f_8cpp_1aba8ed8937ddef66933a7cffb1711f776" compoundref="_n_c_r_f_8cpp" startline="5" endline="53">GaborFilter</references>
+        <references refid="_n_c_r_f_8cpp_1a1f784d4564c616ced3c785c8e4e59c75" compoundref="_n_c_r_f_8cpp" startline="559" endline="610">Hysteresis</references>
+        <references refid="_n_c_r_f_8cpp_1a67d39a4e7c8c30ffa6c6208f1ceebe8e" compoundref="_n_c_r_f_8cpp" startline="296" endline="394">Inhibition</references>
+        <references refid="_n_c_r_f_8cpp_1af6e73dcca9940f022795cd5459b2d5b5" compoundref="_n_c_r_f_8cpp" startline="612" endline="619">InvertImg</references>
+        <references refid="_n_c_r_f_8cpp_1a1cca268b3921d86eb47a2ffd5bd833ec" compoundref="_n_c_r_f_8cpp" startline="207" endline="294">PhaseSuppos</references>
+        <references refid="_n_c_r_f_8cpp_1a83b4996534afe2597b694260fb2fdc72" compoundref="_n_c_r_f_8cpp" startline="505" endline="557">Thinning</references>
+        <references refid="_n_c_r_f_8cpp_1a6102f9ac8a39dac316e9c12f46c3bb27" compoundref="_n_c_r_f_8cpp" startline="470" endline="503">ViewImage</references>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1aba8ed8937ddef66933a7cffb1711f776" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int GaborFilter</definition>
+        <argsstring>(vector&lt; vector&lt; Mat &gt;&gt; &amp;dstImg, const Mat srcImg, bool halfwave, float lamda, float sigma, vector&lt; float &gt; theta, vector&lt; float &gt; phi, float gamma, float bandwidth)</argsstring>
+        <name>GaborFilter</name>
+        <param>
+          <type>vector&lt; vector&lt; Mat &gt;&gt; &amp;</type>
+          <declname>dstImg</declname>
+        </param>
+        <param>
+          <type>const Mat</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>halfwave</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lamda</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sigma</declname>
+        </param>
+        <param>
+          <type>vector&lt; float &gt;</type>
+          <declname>theta</declname>
+        </param>
+        <param>
+          <type>vector&lt; float &gt;</type>
+          <declname>phi</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>gamma</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>bandwidth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="34" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="5" bodyend="53"/>
+        <references refid="_n_c_r_f_8cpp_1ad26f88b6b0ea57a4f06b3b34a53ee987" compoundref="_n_c_r_f_8cpp" startline="894" endline="953">GaborKernel2d</references>
+        <referencedby refid="_n_c_r_f_8h_1a95178a05e62759a6b185b6244bd9173a" compoundref="_n_c_r_f_8cpp" startline="749" endline="818">NonCRF</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1aae00607226f81454a372ce2fff0d6307" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int GaborFilterMulScale</definition>
+        <argsstring>(vector&lt; vector&lt; Mat &gt;&gt; &amp;dstImg, const Mat srcImg, bool halfwave, vector&lt; float &gt; lamda, vector&lt; float &gt; sigma, vector&lt; float &gt; theta, vector&lt; float &gt; phi, float gamma, float bandwidth)</argsstring>
+        <name>GaborFilterMulScale</name>
+        <param>
+          <type>vector&lt; vector&lt; Mat &gt;&gt; &amp;</type>
+          <declname>dstImg</declname>
+        </param>
+        <param>
+          <type>const Mat</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>halfwave</declname>
+        </param>
+        <param>
+          <type>vector&lt; float &gt;</type>
+          <declname>lamda</declname>
+        </param>
+        <param>
+          <type>vector&lt; float &gt;</type>
+          <declname>sigma</declname>
+        </param>
+        <param>
+          <type>vector&lt; float &gt;</type>
+          <declname>theta</declname>
+        </param>
+        <param>
+          <type>vector&lt; float &gt;</type>
+          <declname>phi</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>gamma</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>bandwidth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="36" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="55" bodyend="106"/>
+        <references refid="_n_c_r_f_8cpp_1ad26f88b6b0ea57a4f06b3b34a53ee987" compoundref="_n_c_r_f_8cpp" startline="894" endline="953">GaborKernel2d</references>
+        <referencedby refid="_n_c_r_f_8h_1a66af85b843b2179a6aa4c45a6cae5e55" compoundref="_n_c_r_f_8cpp" startline="666" endline="747">NonCRF</referencedby>
+        <referencedby refid="_n_c_r_f_8h_1a14b7303b7f3a6e33f7210103d3649207" compoundref="_n_c_r_f_8cpp" startline="1141" endline="1203">NonCrf_fastener</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1a1cca268b3921d86eb47a2ffd5bd833ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhaseSuppos</definition>
+        <argsstring>(vector&lt; Mat &gt; &amp;dstImg, const vector&lt; vector&lt; Mat &gt;&gt; &amp;srcImg, int ntheta, int nphi, int supMethod)</argsstring>
+        <name>PhaseSuppos</name>
+        <param>
+          <type>vector&lt; Mat &gt; &amp;</type>
+          <declname>dstImg</declname>
+        </param>
+        <param>
+          <type>const vector&lt; vector&lt; Mat &gt;&gt; &amp;</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ntheta</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nphi</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>supMethod</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="38" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="207" bodyend="294"/>
+        <referencedby refid="_n_c_r_f_8h_1a66af85b843b2179a6aa4c45a6cae5e55" compoundref="_n_c_r_f_8cpp" startline="666" endline="747">NonCRF</referencedby>
+        <referencedby refid="_n_c_r_f_8h_1a14b7303b7f3a6e33f7210103d3649207" compoundref="_n_c_r_f_8cpp" startline="1141" endline="1203">NonCrf_fastener</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1a67d39a4e7c8c30ffa6c6208f1ceebe8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Inhibition</definition>
+        <argsstring>(vector&lt; Mat &gt; &amp;dstImg, vector&lt; Mat &gt; &amp;srcImg, int inhibMethod, int supMethod, float sigma, float alpha, int k1, int k2)</argsstring>
+        <name>Inhibition</name>
+        <param>
+          <type>vector&lt; Mat &gt; &amp;</type>
+          <declname>dstImg</declname>
+        </param>
+        <param>
+          <type>vector&lt; Mat &gt; &amp;</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>inhibMethod</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>supMethod</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sigma</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>k1</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>k2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="40" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="296" bodyend="394"/>
+        <references refid="_n_c_r_f_8cpp_1a0b607b49e09ae807dafeef5e1cbd6b77" compoundref="_n_c_r_f_8cpp" startline="1092" endline="1117">DogKernel2d</references>
+        <referencedby refid="_n_c_r_f_8h_1a66af85b843b2179a6aa4c45a6cae5e55" compoundref="_n_c_r_f_8cpp" startline="666" endline="747">NonCRF</referencedby>
+        <referencedby refid="_n_c_r_f_8h_1a14b7303b7f3a6e33f7210103d3649207" compoundref="_n_c_r_f_8cpp" startline="1141" endline="1203">NonCrf_fastener</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1a3b39416052420998682a3853419554c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Inhibition</definition>
+        <argsstring>(vector&lt; Mat &gt; &amp;dstImg, vector&lt; Mat &gt; &amp;srcImg, int inhibMethod, int supMethod, float alpha, const vector&lt; Mat &gt; &amp;kernel)</argsstring>
+        <name>Inhibition</name>
+        <param>
+          <type>vector&lt; Mat &gt; &amp;</type>
+          <declname>dstImg</declname>
+        </param>
+        <param>
+          <type>vector&lt; Mat &gt; &amp;</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>inhibMethod</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>supMethod</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>const vector&lt; Mat &gt; &amp;</type>
+          <declname>kernel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="42" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="396" bodyend="415"/>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1ac9923d3e8908af78759a1bd58f029b58" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Inhibition</definition>
+        <argsstring>(vector&lt; Mat &gt; &amp;dstImg, vector&lt; Mat &gt; &amp;srcImg, int inhibMethod, int supMethod, float sigma, const vector&lt; Mat &gt; &amp;kernel, const vector&lt; float &gt; &amp;coefs)</argsstring>
+        <name>Inhibition</name>
+        <param>
+          <type>vector&lt; Mat &gt; &amp;</type>
+          <declname>dstImg</declname>
+        </param>
+        <param>
+          <type>vector&lt; Mat &gt; &amp;</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>inhibMethod</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>supMethod</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sigma</declname>
+        </param>
+        <param>
+          <type>const vector&lt; Mat &gt; &amp;</type>
+          <declname>kernel</declname>
+        </param>
+        <param>
+          <type>const vector&lt; float &gt; &amp;</type>
+          <declname>coefs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="44" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="417" bodyend="468"/>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1a6102f9ac8a39dac316e9c12f46c3bb27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ViewImage</definition>
+        <argsstring>(Mat &amp;dstImg, Mat &amp;orienImg, const vector&lt; Mat &gt; &amp;srcImg, const vector&lt; float &gt; theta)</argsstring>
+        <name>ViewImage</name>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>dstImg</declname>
+        </param>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>orienImg</declname>
+        </param>
+        <param>
+          <type>const vector&lt; Mat &gt; &amp;</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>const vector&lt; float &gt;</type>
+          <declname>theta</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="46" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="470" bodyend="503"/>
+        <referencedby refid="_n_c_r_f_8h_1a66af85b843b2179a6aa4c45a6cae5e55" compoundref="_n_c_r_f_8cpp" startline="666" endline="747">NonCRF</referencedby>
+        <referencedby refid="_n_c_r_f_8h_1a14b7303b7f3a6e33f7210103d3649207" compoundref="_n_c_r_f_8cpp" startline="1141" endline="1203">NonCrf_fastener</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1a83b4996534afe2597b694260fb2fdc72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Thinning</definition>
+        <argsstring>(Mat &amp;dstImg, const Mat &amp;srcImg, const Mat &amp;orienMat)</argsstring>
+        <name>Thinning</name>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>dstImg</declname>
+        </param>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>orienMat</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="48" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="505" bodyend="557"/>
+        <referencedby refid="_n_c_r_f_8h_1a66af85b843b2179a6aa4c45a6cae5e55" compoundref="_n_c_r_f_8cpp" startline="666" endline="747">NonCRF</referencedby>
+        <referencedby refid="_n_c_r_f_8h_1a14b7303b7f3a6e33f7210103d3649207" compoundref="_n_c_r_f_8cpp" startline="1141" endline="1203">NonCrf_fastener</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1a1f784d4564c616ced3c785c8e4e59c75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Hysteresis</definition>
+        <argsstring>(Mat &amp;srcImg, float tlow, float thigh)</argsstring>
+        <name>Hysteresis</name>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tlow</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>thigh</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="50" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="559" bodyend="610"/>
+        <referencedby refid="_n_c_r_f_8h_1a66af85b843b2179a6aa4c45a6cae5e55" compoundref="_n_c_r_f_8cpp" startline="666" endline="747">NonCRF</referencedby>
+        <referencedby refid="_n_c_r_f_8h_1a14b7303b7f3a6e33f7210103d3649207" compoundref="_n_c_r_f_8cpp" startline="1141" endline="1203">NonCrf_fastener</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1af6e73dcca9940f022795cd5459b2d5b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void InvertImg</definition>
+        <argsstring>(Mat &amp;srcImg)</argsstring>
+        <name>InvertImg</name>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>srcImg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="52" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="612" bodyend="619"/>
+        <referencedby refid="_n_c_r_f_8h_1a66af85b843b2179a6aa4c45a6cae5e55" compoundref="_n_c_r_f_8cpp" startline="666" endline="747">NonCRF</referencedby>
+        <referencedby refid="_n_c_r_f_8h_1a14b7303b7f3a6e33f7210103d3649207" compoundref="_n_c_r_f_8cpp" startline="1141" endline="1203">NonCrf_fastener</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1aab8b4ce3be1c6b91665f657ef85fb406" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Evaluate</definition>
+        <argsstring>(float &amp;p, float &amp;efp, float &amp;efn, const Mat &amp;rstImg, const Mat &amp;gtImg, int neigbSize)</argsstring>
+        <name>Evaluate</name>
+        <param>
+          <type>float &amp;</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>float &amp;</type>
+          <declname>efp</declname>
+        </param>
+        <param>
+          <type>float &amp;</type>
+          <declname>efn</declname>
+        </param>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>rstImg</declname>
+        </param>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>gtImg</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>neigbSize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="54" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="621" bodyend="664"/>
+        <referencedby refid="_n_c_r_f_8h_1a95178a05e62759a6b185b6244bd9173a" compoundref="_n_c_r_f_8cpp" startline="749" endline="818">NonCRF</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1ad26f88b6b0ea57a4f06b3b34a53ee987" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Mat</type>
+        <definition>Mat GaborKernel2d</definition>
+        <argsstring>(float sigma, float lamda, float theta, float phi, float gamma, float bandwidth)</argsstring>
+        <name>GaborKernel2d</name>
+        <param>
+          <type>float</type>
+          <declname>sigma</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lamda</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>theta</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>phi</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>gamma</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>bandwidth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="59" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="894" bodyend="953"/>
+        <referencedby refid="circle_filter_8h_1aae18e8583a70b4249ca5774a110097fc" compoundref="circle_filter_8h" startline="6" endline="77">CircleDetection</referencedby>
+        <referencedby refid="_n_c_r_f_8h_1a6b1e96f4fbdc92dc8a4b1e400ec39e44" compoundref="_n_c_r_f_8cpp" startline="1205" endline="1244">drawButterflyNCRF</referencedby>
+        <referencedby refid="bend_gabar_8h_1ac07863d69ae41a4e395b31f73b35fbcd" compoundref="bend_gabar_8h" startline="5" endline="68">foo</referencedby>
+        <referencedby refid="_n_c_r_f_8h_1aba8ed8937ddef66933a7cffb1711f776" compoundref="_n_c_r_f_8cpp" startline="5" endline="53">GaborFilter</referencedby>
+        <referencedby refid="_n_c_r_f_8h_1aae00607226f81454a372ce2fff0d6307" compoundref="_n_c_r_f_8cpp" startline="55" endline="106">GaborFilterMulScale</referencedby>
+        <referencedby refid="_n_c_r_f_8cpp_1a61f2370a742e0758953ef68100038b4a" compoundref="_n_c_r_f_8cpp" startline="108" endline="205">GaborFilterMulScaleBend</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1ae3bbb70cf570650f0164670459b10951" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Mat</type>
+        <definition>Mat GaborKernel2d</definition>
+        <argsstring>(float sigma, float lamda, float theta, float phi, float gamma, float bandwidth, float radiu)</argsstring>
+        <name>GaborKernel2d</name>
+        <param>
+          <type>float</type>
+          <declname>sigma</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lamda</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>theta</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>phi</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>gamma</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>bandwidth</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>radiu</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="61" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="955" bodyend="958"/>
+        <references refid="_n_c_r_f_8cpp_1ad214815fc55d2adf6105a81bd59871a9" compoundref="_n_c_r_f_8cpp" startline="961" endline="1090">BendGabor2d</references>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1ad214815fc55d2adf6105a81bd59871a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Mat</type>
+        <definition>Mat BendGabor2d</definition>
+        <argsstring>(float sigma, float lamda, float theta, float phi, float gamma, float bandwidth, float radiu)</argsstring>
+        <name>BendGabor2d</name>
+        <param>
+          <type>float</type>
+          <declname>sigma</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lamda</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>theta</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>phi</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>gamma</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>bandwidth</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>radiu</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="63" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="961" bodyend="1090"/>
+        <referencedby refid="_n_c_r_f_8h_1ae3bbb70cf570650f0164670459b10951" compoundref="_n_c_r_f_8cpp" startline="955" endline="958">GaborKernel2d</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1a0b607b49e09ae807dafeef5e1cbd6b77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Mat</type>
+        <definition>Mat DogKernel2d</definition>
+        <argsstring>(float sigma, int k1, int k2)</argsstring>
+        <name>DogKernel2d</name>
+        <param>
+          <type>float</type>
+          <declname>sigma</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>k1</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>k2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="65" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="1092" bodyend="1117"/>
+        <referencedby refid="_n_c_r_f_8h_1a6b1e96f4fbdc92dc8a4b1e400ec39e44" compoundref="_n_c_r_f_8cpp" startline="1205" endline="1244">drawButterflyNCRF</referencedby>
+        <referencedby refid="_g_a_8cpp_1a33f5ea681976c23025180ff5c3532f4e" compoundref="_g_a_8cpp" startline="15" endline="38">Ga_init</referencedby>
+        <referencedby refid="_n_c_r_f_8h_1a67d39a4e7c8c30ffa6c6208f1ceebe8e" compoundref="_n_c_r_f_8cpp" startline="296" endline="394">Inhibition</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1a57eb60f02e1ac099acb0f08978619426" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Mat</type>
+        <definition>Mat createFftImage</definition>
+        <argsstring>(const Mat &amp;srcImg, int fh, int fw)</argsstring>
+        <name>createFftImage</name>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fh</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fw</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="67" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="1119" bodyend="1129"/>
+        <referencedby refid="_n_c_r_f_8h_1a1da5eabae0dea0b94dec24c6cd8da926" compoundref="_n_c_r_f_8cpp" startline="1131" endline="1138">convolution</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1a1da5eabae0dea0b94dec24c6cd8da926" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Mat</type>
+        <definition>Mat convolution</definition>
+        <argsstring>(const Mat &amp;srcImg, const Mat &amp;filterKernel, const Mat &amp;fftImg)</argsstring>
+        <name>convolution</name>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>filterKernel</declname>
+        </param>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>fftImg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="69" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="1131" bodyend="1138"/>
+        <references refid="_n_c_r_f_8cpp_1a57eb60f02e1ac099acb0f08978619426" compoundref="_n_c_r_f_8cpp" startline="1119" endline="1129">createFftImage</references>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1a14b7303b7f3a6e33f7210103d3649207" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Mat</type>
+        <definition>Mat NonCrf_fastener</definition>
+        <argsstring>(Mat srcImg, int inhibModel, float tl, float th)</argsstring>
+        <name>NonCrf_fastener</name>
+        <param>
+          <type>Mat</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>inhibModel</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tl</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>th</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="72" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="1141" bodyend="1203"/>
+        <references refid="_n_c_r_f_8cpp_1aae00607226f81454a372ce2fff0d6307" compoundref="_n_c_r_f_8cpp" startline="55" endline="106">GaborFilterMulScale</references>
+        <references refid="_n_c_r_f_8cpp_1a1f784d4564c616ced3c785c8e4e59c75" compoundref="_n_c_r_f_8cpp" startline="559" endline="610">Hysteresis</references>
+        <references refid="_n_c_r_f_8cpp_1a67d39a4e7c8c30ffa6c6208f1ceebe8e" compoundref="_n_c_r_f_8cpp" startline="296" endline="394">Inhibition</references>
+        <references refid="_n_c_r_f_8cpp_1af6e73dcca9940f022795cd5459b2d5b5" compoundref="_n_c_r_f_8cpp" startline="612" endline="619">InvertImg</references>
+        <references refid="_n_c_r_f_8cpp_1a1cca268b3921d86eb47a2ffd5bd833ec" compoundref="_n_c_r_f_8cpp" startline="207" endline="294">PhaseSuppos</references>
+        <references refid="_n_c_r_f_8cpp_1a83b4996534afe2597b694260fb2fdc72" compoundref="_n_c_r_f_8cpp" startline="505" endline="557">Thinning</references>
+        <references refid="_n_c_r_f_8cpp_1a6102f9ac8a39dac316e9c12f46c3bb27" compoundref="_n_c_r_f_8cpp" startline="470" endline="503">ViewImage</references>
+        <referencedby refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8cpp" startline="14" endline="587">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_n_c_r_f_8h_1a6b1e96f4fbdc92dc8a4b1e400ec39e44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Mat</type>
+        <definition>Mat drawButterflyNCRF</definition>
+        <argsstring>()</argsstring>
+        <name>drawButterflyNCRF</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="73" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.cpp" bodystart="1205" bodyend="1244"/>
+        <references refid="_n_c_r_f_8cpp_1a0b607b49e09ae807dafeef5e1cbd6b77" compoundref="_n_c_r_f_8cpp" startline="1092" endline="1117">DogKernel2d</references>
+        <references refid="_n_c_r_f_8cpp_1ad26f88b6b0ea57a4f06b3b34a53ee987" compoundref="_n_c_r_f_8cpp" startline="894" endline="953">GaborKernel2d</references>
+        <referencedby refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8cpp" startline="14" endline="587">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;opencv2/opencv.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">std;</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">cv;</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="_n_c_r_f_8h_1a66af85b843b2179a6aa4c45a6cae5e55" kindref="member">NonCRF</ref>(Mat<sp/>srcImg,<sp/>Mat<sp/>gtImg);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="_n_c_r_f_8h_1a66af85b843b2179a6aa4c45a6cae5e55" kindref="member">NonCRF</ref>(Mat<sp/>srcImg,<sp/>Mat<sp/>gtImg,<sp/>vector&lt;Mat&gt;<sp/>kernel,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isDisplay<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight><highlight class="comment">//overload<sp/>function<sp/>for<sp/>genetic<sp/>algorithm,<sp/>return<sp/>the<sp/>p<sp/>value,<sp/>as<sp/>a<sp/>fitness<sp/>value</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="_n_c_r_f_8h_1a66af85b843b2179a6aa4c45a6cae5e55" kindref="member">NonCRF</ref>(Mat<sp/>srcImg,<sp/>Mat<sp/>gtImg,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>vector&lt;Mat&gt;&amp;<sp/>kernel,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>vector&lt;float&gt;<sp/>coefs,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isDisplay<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="10" refid="_n_c_r_f_8h_1a64825033a213da9aa4c6bd2b0daf1903" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>pair&lt;vector&lt;Mat&gt;,<sp/>vector&lt;float&gt;&gt;<sp/><ref refid="_n_c_r_f_8h_1a64825033a213da9aa4c6bd2b0daf1903" kindref="member">individual</ref>;</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="class_ga_par_wrapper" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_ga_par_wrapper" kindref="compound">GaParWrapper</ref><sp/>:</highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>ParallelLoopBody</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//friend<sp/>void<sp/>NonCRF(Mat,<sp/>Mat);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_ga_par_wrapper" kindref="compound">GaParWrapper</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="17" refid="class_ga_par_wrapper_1a381313689de77ded8bd5476e0c331431" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_ga_par_wrapper_1a381313689de77ded8bd5476e0c331431" kindref="member">GaParWrapper</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>src,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>gt,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>vector&lt;individual&gt;&amp;<sp/>pop,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>popsize)<sp/>:srcImg(src),<sp/>gtImg(gt),<sp/>population(pop)<sp/>{<sp/>fitness<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">[popsize];<sp/>};</highlight></codeline>
+<codeline lineno="18" refid="class_ga_par_wrapper_1a58e87adf92d5e0306dfd435369a6f565" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_ga_par_wrapper_1a58e87adf92d5e0306dfd435369a6f565" kindref="member">~GaParWrapper</ref>()<sp/>{<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">[]<sp/>fitness;<sp/>};</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>operator()(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Range&amp;<sp/>range)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//virtual<sp/>void<sp/>operator()(const<sp/>Range&amp;<sp/>range)<sp/>const<sp/>{<sp/>cout<sp/>&lt;&lt;<sp/>&quot;parfor<sp/>const&quot;<sp/>&lt;&lt;<sp/>endl;<sp/>};</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="class_ga_par_wrapper_1a1e2df5b0f70d20ce1c91cfe312448909" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">*<sp/><ref refid="class_ga_par_wrapper_1a1e2df5b0f70d20ce1c91cfe312448909" kindref="member">fitness</ref>;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="23" refid="class_ga_par_wrapper_1ad26f879f956b35f47c2a31318cf4a023" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Mat<sp/><ref refid="class_ga_par_wrapper_1ad26f879f956b35f47c2a31318cf4a023" kindref="member">srcImg</ref>,<sp/>gtImg;</highlight></codeline>
+<codeline lineno="24" refid="class_ga_par_wrapper_1af8655e1e5468b4e1cc213b39e0ebedfa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>vector&lt;individual&gt;<sp/><ref refid="class_ga_par_wrapper_1af8655e1e5468b4e1cc213b39e0ebedfa" kindref="member">population</ref>;</highlight></codeline>
+<codeline lineno="25" refid="class_ga_par_wrapper_1a027a5ab890398f05cce10e265d92891b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_ga_par_wrapper_1a027a5ab890398f05cce10e265d92891b" kindref="member">popsize</ref>;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="27" refid="class_ga_par_wrapper_1a04e759c8a7f6b4585f0fd33b6c9541a5" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_ga_par_wrapper_1a04e759c8a7f6b4585f0fd33b6c9541a5" kindref="member">GaParWrapper::operator()</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Range&amp;<sp/>range)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="28"><highlight class="keyword"></highlight><highlight class="normal">{<sp/></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>range.start;<sp/>i<sp/>&lt;<sp/>range.end;<sp/>i++)</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fitness[i]<sp/>=<sp/><ref refid="_n_c_r_f_8h_1a66af85b843b2179a6aa4c45a6cae5e55" kindref="member">NonCRF</ref>(srcImg,<sp/>gtImg,<sp/>population.at(i).first,<sp/>population.at(i).second,<sp/>1);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="_n_c_r_f_8h_1aba8ed8937ddef66933a7cffb1711f776" kindref="member">GaborFilter</ref>(vector&lt;vector&lt;Mat&gt;&gt;&amp;<sp/>dstImg,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat<sp/>srcImg,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>halfwave,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>lamda,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sigma,<sp/>vector&lt;float&gt;<sp/>theta,<sp/>vector&lt;float&gt;<sp/>phi,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gamma,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>bandwidth);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="_n_c_r_f_8h_1aae00607226f81454a372ce2fff0d6307" kindref="member">GaborFilterMulScale</ref>(vector&lt;vector&lt;Mat&gt;&gt;&amp;<sp/>dstImg,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat<sp/>srcImg,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>halfwave,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>vector&lt;float&gt;<sp/>lamda,<sp/>vector&lt;float&gt;<sp/>sigma,<sp/>vector&lt;float&gt;<sp/>theta,<sp/>vector&lt;float&gt;<sp/>phi,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gamma,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>bandwidth);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_n_c_r_f_8h_1a1cca268b3921d86eb47a2ffd5bd833ec" kindref="member">PhaseSuppos</ref>(vector&lt;Mat&gt;&amp;<sp/>dstImg,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>vector&lt;vector&lt;Mat&gt;&gt;&amp;<sp/>srcImg,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ntheta,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nphi,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>supMethod);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_n_c_r_f_8h_1a67d39a4e7c8c30ffa6c6208f1ceebe8e" kindref="member">Inhibition</ref>(vector&lt;Mat&gt;&amp;<sp/>dstImg,<sp/>vector&lt;Mat&gt;&amp;<sp/>srcImg,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>inhibMethod,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>supMethod,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sigma,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>alpha,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k1,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k2);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_n_c_r_f_8h_1a67d39a4e7c8c30ffa6c6208f1ceebe8e" kindref="member">Inhibition</ref>(vector&lt;Mat&gt;&amp;<sp/>dstImg,<sp/>vector&lt;Mat&gt;&amp;<sp/>srcImg,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>inhibMethod,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>supMethod,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>alpha,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>vector&lt;Mat&gt;&amp;<sp/>kernel);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_n_c_r_f_8h_1a67d39a4e7c8c30ffa6c6208f1ceebe8e" kindref="member">Inhibition</ref>(vector&lt;Mat&gt;&amp;<sp/>dstImg,<sp/>vector&lt;Mat&gt;&amp;<sp/>srcImg,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>inhibMethod,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>supMethod,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sigma,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>vector&lt;Mat&gt;&amp;<sp/>kernel,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>vector&lt;float&gt;&amp;<sp/>coefs);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_n_c_r_f_8h_1a6102f9ac8a39dac316e9c12f46c3bb27" kindref="member">ViewImage</ref>(Mat&amp;<sp/>dstImg,<sp/>Mat&amp;<sp/>orienImg,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>vector&lt;Mat&gt;&amp;<sp/>srcImg,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>vector&lt;float&gt;<sp/>theta);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_n_c_r_f_8h_1a83b4996534afe2597b694260fb2fdc72" kindref="member">Thinning</ref>(Mat&amp;<sp/>dstImg,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>srcImg,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>orienMat);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_n_c_r_f_8h_1a1f784d4564c616ced3c785c8e4e59c75" kindref="member">Hysteresis</ref>(Mat&amp;<sp/>srcImg,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tlow,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>thigh);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_n_c_r_f_8h_1af6e73dcca9940f022795cd5459b2d5b5" kindref="member">InvertImg</ref>(Mat&amp;<sp/>srcImg);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_n_c_r_f_8h_1aab8b4ce3be1c6b91665f657ef85fb406" kindref="member">Evaluate</ref>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&amp;<sp/>p,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&amp;<sp/>efp,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&amp;<sp/>efn,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>rstImg,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>gtImg,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>neigbSize);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">//function<sp/>used<sp/>inside</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal">Mat<sp/><ref refid="_n_c_r_f_8h_1ad26f88b6b0ea57a4f06b3b34a53ee987" kindref="member">GaborKernel2d</ref>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sigma,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>lamda,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>theta,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>phi,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gamma,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>bandwidth);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal">Mat<sp/><ref refid="_n_c_r_f_8h_1ad26f88b6b0ea57a4f06b3b34a53ee987" kindref="member">GaborKernel2d</ref>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sigma,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>lamda,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>theta,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>phi,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gamma,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>bandwidth,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>radiu);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal">Mat<sp/><ref refid="_n_c_r_f_8h_1ad214815fc55d2adf6105a81bd59871a9" kindref="member">BendGabor2d</ref>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sigma,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>lamda,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>theta,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>phi,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gamma,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>bandwidth,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>radiu);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal">Mat<sp/><ref refid="_n_c_r_f_8h_1a0b607b49e09ae807dafeef5e1cbd6b77" kindref="member">DogKernel2d</ref>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sigma,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k1,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k2);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal">Mat<sp/><ref refid="_n_c_r_f_8h_1a57eb60f02e1ac099acb0f08978619426" kindref="member">createFftImage</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>srcImg,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fh,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fw);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal">Mat<sp/><ref refid="_n_c_r_f_8h_1a1da5eabae0dea0b94dec24c6cd8da926" kindref="member">convolution</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>srcImg,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>filterKernel,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>fftImg);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">//-------fastener<sp/>detection</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal">Mat<sp/><ref refid="_n_c_r_f_8h_1a14b7303b7f3a6e33f7210103d3649207" kindref="member">NonCrf_fastener</ref>(Mat<sp/>srcImg,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>inhibModel,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tl,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>th);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">Mat<sp/><ref refid="_n_c_r_f_8h_1a6b1e96f4fbdc92dc8a4b1e400ec39e44" kindref="member">drawButterflyNCRF</ref>();</highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h"/>
+  </compounddef>
+</doxygen>

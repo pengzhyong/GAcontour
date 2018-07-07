@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_7d1321e137ba536bdf66fdb53ec5145e" kind="dir">
+    <compoundname>C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour</compoundname>
+    <innerfile refid="bend_gabar_8h">bendGabar.h</innerfile>
+    <innerfile refid="circle_filter_8h">circleFilter.h</innerfile>
+    <innerfile refid="_g_a_8cpp">GA.cpp</innerfile>
+    <innerfile refid="_g_a_8h">GA.h</innerfile>
+    <innerfile refid="main_8cpp">main.cpp</innerfile>
+    <innerfile refid="_n_c_r_f_8cpp">NCRF.cpp</innerfile>
+    <innerfile refid="_n_c_r_f_8h">NCRF.h</innerfile>
+    <innerfile refid="_post_process_8cpp">PostProcess.cpp</innerfile>
+    <innerfile refid="post_process_8h">postProcess.h</innerfile>
+    <innerfile refid="_skeleton_thin_8cpp">SkeletonThin.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/"/>
+  </compounddef>
+</doxygen>

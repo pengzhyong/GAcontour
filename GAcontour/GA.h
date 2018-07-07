@@ -32,3 +32,5 @@ void loadPopulation(string fileName, vector<vector<float>>& population);
 void showResult(const vector<float>& population, int ntheta, const Mat& srcImg, const Mat& gtImg);
 float maxFit(const Mat& trainData1, const Mat& trainData2, const Mat groundTruth1, const Mat groundTruth2,
 	vector<individual>& population, int kernelSize, int ntheta, int& maxIndex);
+void saveMask(const Mat& kernel, string fileName);
+void loadMask(Mat& kernel, int kersize, string fileName);

@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.6">
+  <compound refid="class_ga_par_wrapper" kind="class"><name>GaParWrapper</name>
+    <member refid="class_ga_par_wrapper_1a1e2df5b0f70d20ce1c91cfe312448909" kind="variable"><name>fitness</name></member>
+    <member refid="class_ga_par_wrapper_1ad26f879f956b35f47c2a31318cf4a023" kind="variable"><name>srcImg</name></member>
+    <member refid="class_ga_par_wrapper_1ad2687630ed3ac0f3535cb6c010e5fbc6" kind="variable"><name>gtImg</name></member>
+    <member refid="class_ga_par_wrapper_1af8655e1e5468b4e1cc213b39e0ebedfa" kind="variable"><name>population</name></member>
+    <member refid="class_ga_par_wrapper_1a027a5ab890398f05cce10e265d92891b" kind="variable"><name>popsize</name></member>
+    <member refid="class_ga_par_wrapper_1a182e33e30b9a8da39a3fffc5b7b04c8b" kind="function"><name>GaParWrapper</name></member>
+    <member refid="class_ga_par_wrapper_1a381313689de77ded8bd5476e0c331431" kind="function"><name>GaParWrapper</name></member>
+    <member refid="class_ga_par_wrapper_1a58e87adf92d5e0306dfd435369a6f565" kind="function"><name>~GaParWrapper</name></member>
+    <member refid="class_ga_par_wrapper_1a04e759c8a7f6b4585f0fd33b6c9541a5" kind="function"><name>operator()</name></member>
+  </compound>
+  <compound refid="class_post_progress" kind="class"><name>PostProgress</name>
+    <member refid="class_post_progress_1aadd6f92fdbef9e5f156a9fdf33db7ec4" kind="function"><name>PostProgress</name></member>
+    <member refid="class_post_progress_1a62f211b7360600ad6877f1fad73d850e" kind="function"><name>~PostProgress</name></member>
+    <member refid="class_post_progress_1a61934854e9c495be4d8c8bd3fafcdcf1" kind="function"><name>HTC</name></member>
+    <member refid="class_post_progress_1af3943f863b46cb7e1a9fd441d6369654" kind="function"><name>DFS</name></member>
+    <member refid="class_post_progress_1ade21ce6991fa358a566168f1173c1c69" kind="function"><name>MySobel</name></member>
+    <member refid="class_post_progress_1ae50697cd7572af8eb3ae333fb822c121" kind="function"><name>RamerFunc</name></member>
+    <member refid="class_post_progress_1a478915436bbc4ace99a6179554667d9e" kind="function"><name>SortContours</name></member>
+    <member refid="class_post_progress_1a6898f2ea9dc1a03f6904dbc4aed6b861" kind="function"><name>FindCross</name></member>
+    <member refid="class_post_progress_1af9514874fca668ef874b7d201df81cc6" kind="function"><name>FindEndPoint</name></member>
+    <member refid="class_post_progress_1a72ab5f1a7ce13b08d2535795d8906a9b" kind="function"><name>FindCrossPoint</name></member>
+    <member refid="class_post_progress_1afd4f11e55c9ccf228cf8b59b18c9d5ae" kind="function"><name>IsCrossPont</name></member>
+    <member refid="class_post_progress_1a89be8757f462667811fb08ed5b9edb59" kind="function"><name>RemoveBurr</name></member>
+    <member refid="class_post_progress_1acb9fe4b5c67823a9281bc0d196afe9a4" kind="function"><name>RemoveBurr</name></member>
+    <member refid="class_post_progress_1a133a4735dc1dc45fc4a2c196b1ee91fd" kind="function"><name>EdgeTrack</name></member>
+    <member refid="class_post_progress_1a88653d96aeaf61f7590fd7c09438b969" kind="function"><name>FittingDenosing</name></member>
+    <member refid="class_post_progress_1a3cbd3b1bbf61d031438fa251a5172484" kind="function"><name>Vec2Mat</name></member>
+    <member refid="class_post_progress_1ac3e928c3f6dea98ede3360774fb3921b" kind="function"><name>findEndPoints</name></member>
+    <member refid="class_post_progress_1a0e7b0d92d4585f9e18c43466c6a861a5" kind="function"><name>isNeigbour</name></member>
+    <member refid="class_post_progress_1a83ce1dbb02b3a8a93a37aa6d42283e95" kind="function"><name>isNeigbour</name></member>
+    <member refid="class_post_progress_1afb402b99e10928c5dab37a79ae635c0c" kind="function"><name>distance</name></member>
+    <member refid="class_post_progress_1adc06e53f3c0a156068eab075079f4530" kind="function"><name>splitContours</name></member>
+    <member refid="class_post_progress_1a46a2a6c00494a139ddf29236ee52e071" kind="function"><name>removeRepeat</name></member>
+    <member refid="class_post_progress_1a435a0d56a3144a4b45491d56370fabfa" kind="function"><name>getSingleCnt</name></member>
+  </compound>
+  <compound refid="namespacecv" kind="namespace"><name>cv</name>
+  </compound>
+  <compound refid="namespacestd" kind="namespace"><name>std</name>
+  </compound>
+  <compound refid="bend_gabar_8h" kind="file"><name>bendGabar.h</name>
+    <member refid="bend_gabar_8h_1ac07863d69ae41a4e395b31f73b35fbcd" kind="function"><name>foo</name></member>
+  </compound>
+  <compound refid="circle_filter_8h" kind="file"><name>circleFilter.h</name>
+    <member refid="circle_filter_8h_1aae18e8583a70b4249ca5774a110097fc" kind="function"><name>CircleDetection</name></member>
+  </compound>
+  <compound refid="_g_a_8cpp" kind="file"><name>GA.cpp</name>
+    <member refid="_g_a_8cpp_1a3cfb79c2e9e6da1c979b9bea373042bb" kind="variable"><name>maxKer</name></member>
+    <member refid="_g_a_8cpp_1acac16d265ef39414d30b7b41effc6023" kind="variable"><name>avefit</name></member>
+    <member refid="_g_a_8cpp_1a1261d0599c24526fc80f729e84084199" kind="variable"><name>maxfit</name></member>
+    <member refid="_g_a_8cpp_1a08ab2567393e901e6226d5b8b421fbf8" kind="variable"><name>maxFitIndex</name></member>
+    <member refid="_g_a_8cpp_1a50e009b3ac13148270468ebbe61620f7" kind="variable"><name>wholeMax</name></member>
+    <member refid="_g_a_8cpp_1a33f5ea681976c23025180ff5c3532f4e" kind="function"><name>Ga_init</name></member>
+    <member refid="_g_a_8cpp_1a9c8a813441197e00342045c05513ee3b" kind="function"><name>Ga_fitness</name></member>
+    <member refid="_g_a_8cpp_1a96466764ac8ea0bd43740407bba7f79f" kind="function"><name>Ga_select</name></member>
+    <member refid="_g_a_8cpp_1ab5a5a50954516c631f5b0def0082ed67" kind="function"><name>Ga_cross</name></member>
+    <member refid="_g_a_8cpp_1a737714db304811455325782a963cda93" kind="function"><name>Ga_cross2d</name></member>
+    <member refid="_g_a_8cpp_1a51218ef36efb0d77d8aa46677f5e38de" kind="function"><name>Ga_mutation</name></member>
+    <member refid="_g_a_8cpp_1a2cbfea177192f63c81f76e02af43825c" kind="function"><name>GA</name></member>
+    <member refid="_g_a_8cpp_1a9de3a3f1d4c85a0e0da20bdd99640092" kind="function"><name>loadImg</name></member>
+    <member refid="_g_a_8cpp_1a60b3cfbfff227965b2c5825366304e0b" kind="function"><name>loadMat</name></member>
+    <member refid="_g_a_8cpp_1a97c57f062f98f2bc2046f4ee74841569" kind="function"><name>savePopulation</name></member>
+    <member refid="_g_a_8cpp_1a41bbc595ded1581e8f7b1a5114f60215" kind="function"><name>saveFitvalue</name></member>
+    <member refid="_g_a_8cpp_1a5e9e791cf107681c6d55453310bf5ef6" kind="function"><name>loadPopulation</name></member>
+    <member refid="_g_a_8cpp_1aa64750820ac52b3a6f6245b8b1a87cec" kind="function"><name>showResult</name></member>
+    <member refid="_g_a_8cpp_1a732df4de58f24380e9848a9baf9e7fb8" kind="function"><name>maxFit</name></member>
+    <member refid="_g_a_8cpp_1afc4e0f6a5fed8aa276aa81089be6cc8a" kind="function"><name>saveMask</name></member>
+    <member refid="_g_a_8cpp_1af1ec093b0fe3321613ebdb857121804f" kind="function"><name>loadMask</name></member>
+  </compound>
+  <compound refid="_g_a_8h" kind="file"><name>GA.h</name>
+    <member refid="_g_a_8h_1a64825033a213da9aa4c6bd2b0daf1903" kind="typedef"><name>individual</name></member>
+    <member refid="_g_a_8h_1a9a6829b7d93592318ee300b502ceb449" kind="function"><name>Ga_init</name></member>
+    <member refid="_g_a_8h_1a9c8a813441197e00342045c05513ee3b" kind="function"><name>Ga_fitness</name></member>
+    <member refid="_g_a_8h_1a96466764ac8ea0bd43740407bba7f79f" kind="function"><name>Ga_select</name></member>
+    <member refid="_g_a_8h_1a4f2739d6da368e2af11a9ca03aa0bb2e" kind="function"><name>Ga_cross</name></member>
+    <member refid="_g_a_8h_1a737714db304811455325782a963cda93" kind="function"><name>Ga_cross2d</name></member>
+    <member refid="_g_a_8h_1a51218ef36efb0d77d8aa46677f5e38de" kind="function"><name>Ga_mutation</name></member>
+    <member refid="_g_a_8h_1a2cbfea177192f63c81f76e02af43825c" kind="function"><name>GA</name></member>
+    <member refid="_g_a_8h_1a9de3a3f1d4c85a0e0da20bdd99640092" kind="function"><name>loadImg</name></member>
+    <member refid="_g_a_8h_1a60b3cfbfff227965b2c5825366304e0b" kind="function"><name>loadMat</name></member>
+    <member refid="_g_a_8h_1a97c57f062f98f2bc2046f4ee74841569" kind="function"><name>savePopulation</name></member>
+    <member refid="_g_a_8h_1a41bbc595ded1581e8f7b1a5114f60215" kind="function"><name>saveFitvalue</name></member>
+    <member refid="_g_a_8h_1a5e9e791cf107681c6d55453310bf5ef6" kind="function"><name>loadPopulation</name></member>
+    <member refid="_g_a_8h_1aa64750820ac52b3a6f6245b8b1a87cec" kind="function"><name>showResult</name></member>
+    <member refid="_g_a_8h_1a732df4de58f24380e9848a9baf9e7fb8" kind="function"><name>maxFit</name></member>
+    <member refid="_g_a_8h_1afc4e0f6a5fed8aa276aa81089be6cc8a" kind="function"><name>saveMask</name></member>
+    <member refid="_g_a_8h_1af1ec093b0fe3321613ebdb857121804f" kind="function"><name>loadMask</name></member>
+  </compound>
+  <compound refid="main_8cpp" kind="file"><name>main.cpp</name>
+    <member refid="main_8cpp_1aa838e06497de10df7b1f0af2ea50d37d" kind="function"><name>syntheticFastener</name></member>
+    <member refid="main_8cpp_1aeb7612962d1fbf5c7be9902e48ffdc3a" kind="function"><name>syntheticFastenerContour</name></member>
+    <member refid="main_8cpp_1a671cfb0ff1d0b10bc6877d1d9e46b91f" kind="function"><name>MHL</name></member>
+    <member refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="_n_c_r_f_8cpp" kind="file"><name>NCRF.cpp</name>
+    <member refid="_n_c_r_f_8cpp_1aba8ed8937ddef66933a7cffb1711f776" kind="function"><name>GaborFilter</name></member>
+    <member refid="_n_c_r_f_8cpp_1aae00607226f81454a372ce2fff0d6307" kind="function"><name>GaborFilterMulScale</name></member>
+    <member refid="_n_c_r_f_8cpp_1a61f2370a742e0758953ef68100038b4a" kind="function"><name>GaborFilterMulScaleBend</name></member>
+    <member refid="_n_c_r_f_8cpp_1a1cca268b3921d86eb47a2ffd5bd833ec" kind="function"><name>PhaseSuppos</name></member>
+    <member refid="_n_c_r_f_8cpp_1a67d39a4e7c8c30ffa6c6208f1ceebe8e" kind="function"><name>Inhibition</name></member>
+    <member refid="_n_c_r_f_8cpp_1abbbe8394d44f2a293ec8ccec3cad9222" kind="function"><name>Inhibition</name></member>
+    <member refid="_n_c_r_f_8cpp_1ac9923d3e8908af78759a1bd58f029b58" kind="function"><name>Inhibition</name></member>
+    <member refid="_n_c_r_f_8cpp_1a6102f9ac8a39dac316e9c12f46c3bb27" kind="function"><name>ViewImage</name></member>
+    <member refid="_n_c_r_f_8cpp_1a83b4996534afe2597b694260fb2fdc72" kind="function"><name>Thinning</name></member>
+    <member refid="_n_c_r_f_8cpp_1a1f784d4564c616ced3c785c8e4e59c75" kind="function"><name>Hysteresis</name></member>
+    <member refid="_n_c_r_f_8cpp_1af6e73dcca9940f022795cd5459b2d5b5" kind="function"><name>InvertImg</name></member>
+    <member refid="_n_c_r_f_8cpp_1aab8b4ce3be1c6b91665f657ef85fb406" kind="function"><name>Evaluate</name></member>
+    <member refid="_n_c_r_f_8cpp_1a66af85b843b2179a6aa4c45a6cae5e55" kind="function"><name>NonCRF</name></member>
+    <member refid="_n_c_r_f_8cpp_1a5e8cec0b2849dc356c70db4839c34d85" kind="function"><name>NonCRF</name></member>
+    <member refid="_n_c_r_f_8cpp_1a360a360814e8fbdb4ab0ef57562967c8" kind="function"><name>NonCRF</name></member>
+    <member refid="_n_c_r_f_8cpp_1ad26f88b6b0ea57a4f06b3b34a53ee987" kind="function"><name>GaborKernel2d</name></member>
+    <member refid="_n_c_r_f_8cpp_1ae3bbb70cf570650f0164670459b10951" kind="function"><name>GaborKernel2d</name></member>
+    <member refid="_n_c_r_f_8cpp_1ad214815fc55d2adf6105a81bd59871a9" kind="function"><name>BendGabor2d</name></member>
+    <member refid="_n_c_r_f_8cpp_1a0b607b49e09ae807dafeef5e1cbd6b77" kind="function"><name>DogKernel2d</name></member>
+    <member refid="_n_c_r_f_8cpp_1a57eb60f02e1ac099acb0f08978619426" kind="function"><name>createFftImage</name></member>
+    <member refid="_n_c_r_f_8cpp_1a1da5eabae0dea0b94dec24c6cd8da926" kind="function"><name>convolution</name></member>
+    <member refid="_n_c_r_f_8cpp_1a14b7303b7f3a6e33f7210103d3649207" kind="function"><name>NonCrf_fastener</name></member>
+    <member refid="_n_c_r_f_8cpp_1a6b1e96f4fbdc92dc8a4b1e400ec39e44" kind="function"><name>drawButterflyNCRF</name></member>
+  </compound>
+  <compound refid="_n_c_r_f_8h" kind="file"><name>NCRF.h</name>
+    <member refid="_n_c_r_f_8h_1a64825033a213da9aa4c6bd2b0daf1903" kind="typedef"><name>individual</name></member>
+    <member refid="_n_c_r_f_8h_1a66af85b843b2179a6aa4c45a6cae5e55" kind="function"><name>NonCRF</name></member>
+    <member refid="_n_c_r_f_8h_1a95178a05e62759a6b185b6244bd9173a" kind="function"><name>NonCRF</name></member>
+    <member refid="_n_c_r_f_8h_1a9ae7ef625cbeff05423bda9eaa4c8f5f" kind="function"><name>NonCRF</name></member>
+    <member refid="_n_c_r_f_8h_1aba8ed8937ddef66933a7cffb1711f776" kind="function"><name>GaborFilter</name></member>
+    <member refid="_n_c_r_f_8h_1aae00607226f81454a372ce2fff0d6307" kind="function"><name>GaborFilterMulScale</name></member>
+    <member refid="_n_c_r_f_8h_1a1cca268b3921d86eb47a2ffd5bd833ec" kind="function"><name>PhaseSuppos</name></member>
+    <member refid="_n_c_r_f_8h_1a67d39a4e7c8c30ffa6c6208f1ceebe8e" kind="function"><name>Inhibition</name></member>
+    <member refid="_n_c_r_f_8h_1a3b39416052420998682a3853419554c5" kind="function"><name>Inhibition</name></member>
+    <member refid="_n_c_r_f_8h_1ac9923d3e8908af78759a1bd58f029b58" kind="function"><name>Inhibition</name></member>
+    <member refid="_n_c_r_f_8h_1a6102f9ac8a39dac316e9c12f46c3bb27" kind="function"><name>ViewImage</name></member>
+    <member refid="_n_c_r_f_8h_1a83b4996534afe2597b694260fb2fdc72" kind="function"><name>Thinning</name></member>
+    <member refid="_n_c_r_f_8h_1a1f784d4564c616ced3c785c8e4e59c75" kind="function"><name>Hysteresis</name></member>
+    <member refid="_n_c_r_f_8h_1af6e73dcca9940f022795cd5459b2d5b5" kind="function"><name>InvertImg</name></member>
+    <member refid="_n_c_r_f_8h_1aab8b4ce3be1c6b91665f657ef85fb406" kind="function"><name>Evaluate</name></member>
+    <member refid="_n_c_r_f_8h_1ad26f88b6b0ea57a4f06b3b34a53ee987" kind="function"><name>GaborKernel2d</name></member>
+    <member refid="_n_c_r_f_8h_1ae3bbb70cf570650f0164670459b10951" kind="function"><name>GaborKernel2d</name></member>
+    <member refid="_n_c_r_f_8h_1ad214815fc55d2adf6105a81bd59871a9" kind="function"><name>BendGabor2d</name></member>
+    <member refid="_n_c_r_f_8h_1a0b607b49e09ae807dafeef5e1cbd6b77" kind="function"><name>DogKernel2d</name></member>
+    <member refid="_n_c_r_f_8h_1a57eb60f02e1ac099acb0f08978619426" kind="function"><name>createFftImage</name></member>
+    <member refid="_n_c_r_f_8h_1a1da5eabae0dea0b94dec24c6cd8da926" kind="function"><name>convolution</name></member>
+    <member refid="_n_c_r_f_8h_1a14b7303b7f3a6e33f7210103d3649207" kind="function"><name>NonCrf_fastener</name></member>
+    <member refid="_n_c_r_f_8h_1a6b1e96f4fbdc92dc8a4b1e400ec39e44" kind="function"><name>drawButterflyNCRF</name></member>
+  </compound>
+  <compound refid="_post_process_8cpp" kind="file"><name>PostProcess.cpp</name>
+    <member refid="_post_process_8cpp_1a2fde3310afd330282a1a8bf3a771c8f4" kind="function"><name>NMS</name></member>
+    <member refid="_post_process_8cpp_1ac79baa7febdeed1b118f195679ded678" kind="function"><name>NMS</name></member>
+  </compound>
+  <compound refid="post_process_8h" kind="file"><name>postProcess.h</name>
+    <member refid="post_process_8h_1a2fde3310afd330282a1a8bf3a771c8f4" kind="function"><name>NMS</name></member>
+    <member refid="post_process_8h_1ac79baa7febdeed1b118f195679ded678" kind="function"><name>NMS</name></member>
+  </compound>
+  <compound refid="_skeleton_thin_8cpp" kind="file"><name>SkeletonThin.cpp</name>
+  </compound>
+  <compound refid="dir_5f07266cb6c8bf93c07af34bac56ef01" kind="dir"><name>C:/Users/pengzhyong/Desktop/CV/Code</name>
+  </compound>
+  <compound refid="dir_1eea71033502b7cc21377edd0377c7d2" kind="dir"><name>C:/Users/pengzhyong/Desktop/CV</name>
+  </compound>
+  <compound refid="dir_17e096fa26cb4dcc772b3aa065cd07b2" kind="dir"><name>C:/Users/pengzhyong/Desktop</name>
+  </compound>
+  <compound refid="dir_7d1321e137ba536bdf66fdb53ec5145e" kind="dir"><name>C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour</name>
+  </compound>
+  <compound refid="dir_003222c15d4e6ffce1b5400ff0fe9410" kind="dir"><name>C:/Users/pengzhyong/Desktop/CV/Code/GAcontour</name>
+  </compound>
+  <compound refid="dir_cd199cb1dee96b4a62de30b3ce0e2b58" kind="dir"><name>C:/Users/pengzhyong</name>
+  </compound>
+  <compound refid="dir_d522931ffa1371640980b621734a4381" kind="dir"><name>C:/Users</name>
+  </compound>
+</doxygenindex>

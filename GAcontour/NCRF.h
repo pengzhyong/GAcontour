@@ -27,7 +27,7 @@ private:
 inline void GaParWrapper::operator()(const Range& range) const
 { 
 	for (int i = range.start; i < range.end; i++)
-		fitness[i] = NonCRF(srcImg, gtImg, population.at(i).first, population.at(i).second);
+		fitness[i] = NonCRF(srcImg, gtImg, population.at(i).first, population.at(i).second, 1);
 }
 
 
@@ -56,10 +56,19 @@ void Evaluate(float& p, float& efp, float& efn, const Mat& rstImg, const Mat& gt
 
 
 //function used inside
-void GaborKernel2d(Mat& kernel, float sigma, float lamda, float theta, float phi, float gamma, float bandwidth);
+Mat GaborKernel2d(float sigma, float lamda, float theta, float phi, float gamma, float bandwidth);
+
+Mat GaborKernel2d(float sigma, float lamda, float theta, float phi, float gamma, float bandwidth, float radiu);
+
+Mat BendGabor2d(float sigma, float lamda, float theta, float phi, float gamma, float bandwidth, float radiu);
 
 Mat DogKernel2d(float sigma, int k1, int k2);
 
 Mat createFftImage(const Mat& srcImg, int fh, int fw);
 
 Mat convolution(const Mat& srcImg, const Mat& filterKernel, const Mat& fftImg);
+
+//-------fastener detection
+Mat NonCrf_fastener(Mat srcImg, int inhibModel, float tl, float th);
+Mat drawButterflyNCRF();
+Mat drawRNCRF();

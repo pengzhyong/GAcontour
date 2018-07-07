@@ -1,0 +1,616 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_post_progress" kind="class" prot="public">
+    <compoundname>PostProgress</compoundname>
+    <includes refid="post_process_8h" local="no">postProcess.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_post_progress_1aadd6f92fdbef9e5f156a9fdf33db7ec4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>PostProgress::PostProgress</definition>
+        <argsstring>()</argsstring>
+        <name>PostProgress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="9" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="4" bodyend="6"/>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1a62f211b7360600ad6877f1fad73d850e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>PostProgress::~PostProgress</definition>
+        <argsstring>()</argsstring>
+        <name>~PostProgress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="10" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="8" bodyend="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1a61934854e9c495be4d8c8bd3fafcdcf1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PostProgress::HTC</definition>
+        <argsstring>(Mat &amp;src, Mat &amp;dst, int thHigh, int thLow)</argsstring>
+        <name>HTC</name>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>src</declname>
+        </param>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>dst</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>thHigh</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>thLow</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="14" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="83" bodyend="124"/>
+        <references refid="class_post_progress_1af3943f863b46cb7e1a9fd441d6369654" compoundref="_post_process_8cpp" startline="126" endline="147">DFS</references>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1af3943f863b46cb7e1a9fd441d6369654" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PostProgress::DFS</definition>
+        <argsstring>(const Point point, Mat &amp;img, Mat &amp;visited, int th, int *flag)</argsstring>
+        <name>DFS</name>
+        <param>
+          <type>const Point</type>
+          <declname>point</declname>
+        </param>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>img</declname>
+        </param>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>visited</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>th</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>flag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="16" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="126" bodyend="147"/>
+        <referencedby refid="class_post_progress_1a61934854e9c495be4d8c8bd3fafcdcf1" compoundref="_post_process_8cpp" startline="83" endline="124">HTC</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1ade21ce6991fa358a566168f1173c1c69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PostProgress::MySobel</definition>
+        <argsstring>(Mat &amp;src, Mat &amp;dst, Mat &amp;dstx, Mat &amp;dsty)</argsstring>
+        <name>MySobel</name>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>src</declname>
+        </param>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>dst</declname>
+        </param>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>dstx</declname>
+        </param>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>dsty</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="18" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="12" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1ae50697cd7572af8eb3ae333fb822c121" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PostProgress::RamerFunc</definition>
+        <argsstring>(double *xdata, double *ydata, int beginpoint, int endpoint, int *ResultArray, int &amp;Index, double th)</argsstring>
+        <name>RamerFunc</name>
+        <param>
+          <type>double *</type>
+          <declname>xdata</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>ydata</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>beginpoint</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>endpoint</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>ResultArray</declname>
+        </param>
+        <param>
+          <type>int &amp;</type>
+          <declname>Index</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>th</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="20" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="149" bodyend="206"/>
+        <referencedby refid="class_post_progress_1a88653d96aeaf61f7590fd7c09438b969" compoundref="_post_process_8cpp" startline="896" endline="921">FittingDenosing</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1a478915436bbc4ace99a6179554667d9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PostProgress::SortContours</definition>
+        <argsstring>(vector&lt; vector&lt; Point &gt; &gt; &amp;inCont, vector&lt; vector&lt; Point &gt; &gt; &amp;outCont)</argsstring>
+        <name>SortContours</name>
+        <param>
+          <type>vector&lt; vector&lt; Point &gt; &gt; &amp;</type>
+          <declname>inCont</declname>
+        </param>
+        <param>
+          <type>vector&lt; vector&lt; Point &gt; &gt; &amp;</type>
+          <declname>outCont</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="22" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="208" bodyend="419"/>
+        <references refid="class_post_progress_1adc06e53f3c0a156068eab075079f4530" compoundref="_post_process_8cpp" startline="993" endline="1141">splitContours</references>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1a6898f2ea9dc1a03f6904dbc4aed6b861" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PostProgress::FindCross</definition>
+        <argsstring>(const vector&lt; Point &gt; &amp;inCnt, vector&lt; int &gt; &amp;crossIdx)</argsstring>
+        <name>FindCross</name>
+        <param>
+          <type>const vector&lt; Point &gt; &amp;</type>
+          <declname>inCnt</declname>
+        </param>
+        <param>
+          <type>vector&lt; int &gt; &amp;</type>
+          <declname>crossIdx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="24" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="1168" bodyend="1386"/>
+        <references refid="class_post_progress_1a0e7b0d92d4585f9e18c43466c6a861a5" compoundref="_post_process_8cpp" startline="951" endline="973">isNeigbour</references>
+        <referencedby refid="class_post_progress_1adc06e53f3c0a156068eab075079f4530" compoundref="_post_process_8cpp" startline="993" endline="1141">splitContours</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1af9514874fca668ef874b7d201df81cc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PostProgress::FindEndPoint</definition>
+        <argsstring>(Mat &amp;srcImg, vector&lt; Point &gt; &amp;vEndPoints)</argsstring>
+        <name>FindEndPoint</name>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>vector&lt; Point &gt; &amp;</type>
+          <declname>vEndPoints</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>!行列位置存为坐标是注意，存坐标时X轴为列，Y轴为行，所以要先存列再存行 </para>        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="28" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="421" bodyend="486"/>
+        <referencedby refid="class_post_progress_1a133a4735dc1dc45fc4a2c196b1ee91fd" compoundref="_post_process_8cpp" startline="679" endline="894">EdgeTrack</referencedby>
+        <referencedby refid="class_post_progress_1acb9fe4b5c67823a9281bc0d196afe9a4" compoundref="_post_process_8cpp" startline="671" endline="677">RemoveBurr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1a72ab5f1a7ce13b08d2535795d8906a9b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PostProgress::FindCrossPoint</definition>
+        <argsstring>(Mat &amp;srcImg, vector&lt; Point &gt; &amp;vCrossPoints)</argsstring>
+        <name>FindCrossPoint</name>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>vector&lt; Point &gt; &amp;</type>
+          <declname>vCrossPoints</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="29" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="488" bodyend="501"/>
+        <references refid="class_post_progress_1afd4f11e55c9ccf228cf8b59b18c9d5ae" compoundref="_post_process_8cpp" startline="503" endline="545">IsCrossPont</references>
+        <referencedby refid="class_post_progress_1a133a4735dc1dc45fc4a2c196b1ee91fd" compoundref="_post_process_8cpp" startline="679" endline="894">EdgeTrack</referencedby>
+        <referencedby refid="class_post_progress_1acb9fe4b5c67823a9281bc0d196afe9a4" compoundref="_post_process_8cpp" startline="671" endline="677">RemoveBurr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1afd4f11e55c9ccf228cf8b59b18c9d5ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PostProgress::IsCrossPont</definition>
+        <argsstring>(const Mat &amp;srcImg, Point pt)</argsstring>
+        <name>IsCrossPont</name>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>Point</type>
+          <declname>pt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="30" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="503" bodyend="545"/>
+        <referencedby refid="class_post_progress_1a72ab5f1a7ce13b08d2535795d8906a9b" compoundref="_post_process_8cpp" startline="488" endline="501">FindCrossPoint</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1a89be8757f462667811fb08ed5b9edb59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PostProgress::RemoveBurr</definition>
+        <argsstring>(Mat &amp;srcImg, vector&lt; Point &gt; &amp;vEndPoint, vector&lt; Point &gt; &amp;vCrossPoint, int lenThresh=20)</argsstring>
+        <name>RemoveBurr</name>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>vector&lt; Point &gt; &amp;</type>
+          <declname>vEndPoint</declname>
+        </param>
+        <param>
+          <type>vector&lt; Point &gt; &amp;</type>
+          <declname>vCrossPoint</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>lenThresh</declname>
+          <defval>20</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="31" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="547" bodyend="669"/>
+        <referencedby refid="class_post_progress_1acb9fe4b5c67823a9281bc0d196afe9a4" compoundref="_post_process_8cpp" startline="671" endline="677">RemoveBurr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1acb9fe4b5c67823a9281bc0d196afe9a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PostProgress::RemoveBurr</definition>
+        <argsstring>(Mat &amp;srcImg, int th)</argsstring>
+        <name>RemoveBurr</name>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>th</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="32" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="671" bodyend="677"/>
+        <references refid="class_post_progress_1a72ab5f1a7ce13b08d2535795d8906a9b" compoundref="_post_process_8cpp" startline="488" endline="501">FindCrossPoint</references>
+        <references refid="class_post_progress_1af9514874fca668ef874b7d201df81cc6" compoundref="_post_process_8cpp" startline="421" endline="486">FindEndPoint</references>
+        <references refid="class_post_progress_1a89be8757f462667811fb08ed5b9edb59" compoundref="_post_process_8cpp" startline="547" endline="669">RemoveBurr</references>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1a133a4735dc1dc45fc4a2c196b1ee91fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PostProgress::EdgeTrack</definition>
+        <argsstring>(Mat &amp;srcImg, vector&lt; vector&lt; Point &gt; &gt; &amp;vvPoints)</argsstring>
+        <name>EdgeTrack</name>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>vector&lt; vector&lt; Point &gt; &gt; &amp;</type>
+          <declname>vvPoints</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="33" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="679" bodyend="894"/>
+        <references refid="class_post_progress_1a72ab5f1a7ce13b08d2535795d8906a9b" compoundref="_post_process_8cpp" startline="488" endline="501">FindCrossPoint</references>
+        <references refid="class_post_progress_1af9514874fca668ef874b7d201df81cc6" compoundref="_post_process_8cpp" startline="421" endline="486">FindEndPoint</references>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1a88653d96aeaf61f7590fd7c09438b969" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PostProgress::FittingDenosing</definition>
+        <argsstring>(vector&lt; vector&lt; Point &gt; &gt; &amp;srcVec, vector&lt; vector&lt; Point &gt; &gt; &amp;dstVec, int lineArr[], double curRadio=20, double disTh=3)</argsstring>
+        <name>FittingDenosing</name>
+        <param>
+          <type>vector&lt; vector&lt; Point &gt; &gt; &amp;</type>
+          <declname>srcVec</declname>
+        </param>
+        <param>
+          <type>vector&lt; vector&lt; Point &gt; &gt; &amp;</type>
+          <declname>dstVec</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>lineArr</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>curRadio</declname>
+          <defval>20</defval>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>disTh</declname>
+          <defval>3</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="34" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="896" bodyend="921"/>
+        <references refid="class_post_progress_1ae50697cd7572af8eb3ae333fb822c121" compoundref="_post_process_8cpp" startline="149" endline="206">RamerFunc</references>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1a3cbd3b1bbf61d031438fa251a5172484" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PostProgress::Vec2Mat</definition>
+        <argsstring>(vector&lt; vector&lt; Point &gt; &gt; &amp;vvPoint, Mat &amp;dstImg)</argsstring>
+        <name>Vec2Mat</name>
+        <param>
+          <type>vector&lt; vector&lt; Point &gt; &gt; &amp;</type>
+          <declname>vvPoint</declname>
+        </param>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>dstImg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="35" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="923" bodyend="932"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_post_progress_1ac3e928c3f6dea98ede3360774fb3921b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Point</type>
+        <definition>Point PostProgress::findEndPoints</definition>
+        <argsstring>(vector&lt; Point &gt; &amp;, int &amp;)</argsstring>
+        <name>findEndPoints</name>
+        <param>
+          <type>vector&lt; Point &gt; &amp;</type>
+          <defname>vp</defname>
+        </param>
+        <param>
+          <type>int &amp;</type>
+          <defname>beginIdx</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="37" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="934" bodyend="949"/>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1a0e7b0d92d4585f9e18c43466c6a861a5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PostProgress::isNeigbour</definition>
+        <argsstring>(Point &amp;a, Point &amp;b, int isFourNeig)</argsstring>
+        <name>isNeigbour</name>
+        <param>
+          <type>Point &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>Point &amp;</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>isFourNeig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="38" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="951" bodyend="973"/>
+        <referencedby refid="class_post_progress_1a6898f2ea9dc1a03f6904dbc4aed6b861" compoundref="_post_process_8cpp" startline="1168" endline="1386">FindCross</referencedby>
+        <referencedby refid="class_post_progress_1a435a0d56a3144a4b45491d56370fabfa" compoundref="_post_process_8cpp" startline="1388" endline="1408">getSingleCnt</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1a83ce1dbb02b3a8a93a37aa6d42283e95" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PostProgress::isNeigbour</definition>
+        <argsstring>(const Point &amp;a, const Point &amp;b)</argsstring>
+        <name>isNeigbour</name>
+        <param>
+          <type>const Point &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const Point &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="39" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="975" bodyend="986"/>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1afb402b99e10928c5dab37a79ae635c0c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int PostProgress::distance</definition>
+        <argsstring>(Point &amp;, Point &amp;)</argsstring>
+        <name>distance</name>
+        <param>
+          <type>Point &amp;</type>
+          <defname>a</defname>
+        </param>
+        <param>
+          <type>Point &amp;</type>
+          <defname>b</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="40" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="988" bodyend="991"/>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1adc06e53f3c0a156068eab075079f4530" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PostProgress::splitContours</definition>
+        <argsstring>(vector&lt; Point &gt; &amp;srcConts, vector&lt; vector&lt; Point &gt; &gt; &amp;dstCnt)</argsstring>
+        <name>splitContours</name>
+        <param>
+          <type>vector&lt; Point &gt; &amp;</type>
+          <declname>srcConts</declname>
+        </param>
+        <param>
+          <type>vector&lt; vector&lt; Point &gt; &gt; &amp;</type>
+          <declname>dstCnt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="41" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="993" bodyend="1141"/>
+        <references refid="class_post_progress_1a6898f2ea9dc1a03f6904dbc4aed6b861" compoundref="_post_process_8cpp" startline="1168" endline="1386">FindCross</references>
+        <references refid="class_post_progress_1a435a0d56a3144a4b45491d56370fabfa" compoundref="_post_process_8cpp" startline="1388" endline="1408">getSingleCnt</references>
+        <references refid="class_post_progress_1a46a2a6c00494a139ddf29236ee52e071" compoundref="_post_process_8cpp" startline="1143" endline="1166">removeRepeat</references>
+        <referencedby refid="class_post_progress_1a478915436bbc4ace99a6179554667d9e" compoundref="_post_process_8cpp" startline="208" endline="419">SortContours</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1a46a2a6c00494a139ddf29236ee52e071" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PostProgress::removeRepeat</definition>
+        <argsstring>(vector&lt; Point &gt; &amp;)</argsstring>
+        <name>removeRepeat</name>
+        <param>
+          <type>vector&lt; Point &gt; &amp;</type>
+          <defname>srcCont</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="42" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="1143" bodyend="1166"/>
+        <referencedby refid="class_post_progress_1adc06e53f3c0a156068eab075079f4530" compoundref="_post_process_8cpp" startline="993" endline="1141">splitContours</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_post_progress_1a435a0d56a3144a4b45491d56370fabfa" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PostProgress::getSingleCnt</definition>
+        <argsstring>(int beginPointIdx, vector&lt; Point &gt; &amp;inCnt, int *isVisited, vector&lt; Point &gt; &amp;outCnt)</argsstring>
+        <name>getSingleCnt</name>
+        <param>
+          <type>int</type>
+          <declname>beginPointIdx</declname>
+        </param>
+        <param>
+          <type>vector&lt; Point &gt; &amp;</type>
+          <declname>inCnt</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>isVisited</declname>
+        </param>
+        <param>
+          <type>vector&lt; Point &gt; &amp;</type>
+          <declname>outCnt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="44" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/PostProcess.cpp" bodystart="1388" bodyend="1408"/>
+        <references refid="class_post_progress_1a0e7b0d92d4585f9e18c43466c6a861a5" compoundref="_post_process_8cpp" startline="951" endline="973">isNeigbour</references>
+        <referencedby refid="class_post_progress_1adc06e53f3c0a156068eab075079f4530" compoundref="_post_process_8cpp" startline="993" endline="1141">splitContours</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" line="7" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/postProcess.h" bodystart="6" bodyend="45"/>
+    <listofallmembers>
+      <member refid="class_post_progress_1af3943f863b46cb7e1a9fd441d6369654" prot="public" virt="non-virtual"><scope>PostProgress</scope><name>DFS</name></member>
+      <member refid="class_post_progress_1afb402b99e10928c5dab37a79ae635c0c" prot="private" virt="non-virtual"><scope>PostProgress</scope><name>distance</name></member>
+      <member refid="class_post_progress_1a133a4735dc1dc45fc4a2c196b1ee91fd" prot="public" virt="non-virtual"><scope>PostProgress</scope><name>EdgeTrack</name></member>
+      <member refid="class_post_progress_1a6898f2ea9dc1a03f6904dbc4aed6b861" prot="public" virt="non-virtual"><scope>PostProgress</scope><name>FindCross</name></member>
+      <member refid="class_post_progress_1a72ab5f1a7ce13b08d2535795d8906a9b" prot="public" virt="non-virtual"><scope>PostProgress</scope><name>FindCrossPoint</name></member>
+      <member refid="class_post_progress_1af9514874fca668ef874b7d201df81cc6" prot="public" virt="non-virtual"><scope>PostProgress</scope><name>FindEndPoint</name></member>
+      <member refid="class_post_progress_1ac3e928c3f6dea98ede3360774fb3921b" prot="private" virt="non-virtual"><scope>PostProgress</scope><name>findEndPoints</name></member>
+      <member refid="class_post_progress_1a88653d96aeaf61f7590fd7c09438b969" prot="public" virt="non-virtual"><scope>PostProgress</scope><name>FittingDenosing</name></member>
+      <member refid="class_post_progress_1a435a0d56a3144a4b45491d56370fabfa" prot="private" virt="non-virtual"><scope>PostProgress</scope><name>getSingleCnt</name></member>
+      <member refid="class_post_progress_1a61934854e9c495be4d8c8bd3fafcdcf1" prot="public" virt="non-virtual"><scope>PostProgress</scope><name>HTC</name></member>
+      <member refid="class_post_progress_1afd4f11e55c9ccf228cf8b59b18c9d5ae" prot="public" virt="non-virtual"><scope>PostProgress</scope><name>IsCrossPont</name></member>
+      <member refid="class_post_progress_1a0e7b0d92d4585f9e18c43466c6a861a5" prot="private" virt="non-virtual"><scope>PostProgress</scope><name>isNeigbour</name></member>
+      <member refid="class_post_progress_1a83ce1dbb02b3a8a93a37aa6d42283e95" prot="private" virt="non-virtual"><scope>PostProgress</scope><name>isNeigbour</name></member>
+      <member refid="class_post_progress_1ade21ce6991fa358a566168f1173c1c69" prot="public" virt="non-virtual"><scope>PostProgress</scope><name>MySobel</name></member>
+      <member refid="class_post_progress_1aadd6f92fdbef9e5f156a9fdf33db7ec4" prot="public" virt="non-virtual"><scope>PostProgress</scope><name>PostProgress</name></member>
+      <member refid="class_post_progress_1ae50697cd7572af8eb3ae333fb822c121" prot="public" virt="non-virtual"><scope>PostProgress</scope><name>RamerFunc</name></member>
+      <member refid="class_post_progress_1a89be8757f462667811fb08ed5b9edb59" prot="public" virt="non-virtual"><scope>PostProgress</scope><name>RemoveBurr</name></member>
+      <member refid="class_post_progress_1acb9fe4b5c67823a9281bc0d196afe9a4" prot="public" virt="non-virtual"><scope>PostProgress</scope><name>RemoveBurr</name></member>
+      <member refid="class_post_progress_1a46a2a6c00494a139ddf29236ee52e071" prot="private" virt="non-virtual"><scope>PostProgress</scope><name>removeRepeat</name></member>
+      <member refid="class_post_progress_1a478915436bbc4ace99a6179554667d9e" prot="public" virt="non-virtual"><scope>PostProgress</scope><name>SortContours</name></member>
+      <member refid="class_post_progress_1adc06e53f3c0a156068eab075079f4530" prot="private" virt="non-virtual"><scope>PostProgress</scope><name>splitContours</name></member>
+      <member refid="class_post_progress_1a3cbd3b1bbf61d031438fa251a5172484" prot="public" virt="non-virtual"><scope>PostProgress</scope><name>Vec2Mat</name></member>
+      <member refid="class_post_progress_1a62f211b7360600ad6877f1fad73d850e" prot="public" virt="non-virtual"><scope>PostProgress</scope><name>~PostProgress</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

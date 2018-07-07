@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_ga_par_wrapper" kind="class" prot="public">
+    <compoundname>GaParWrapper</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">ParallelLoopBody</basecompoundref>
+    <includes refid="_n_c_r_f_8h" local="no">NCRF.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_ga_par_wrapper_1a1e2df5b0f70d20ce1c91cfe312448909" prot="public" static="no" mutable="no">
+        <type>float *</type>
+        <definition>float* GaParWrapper::fitness</definition>
+        <argsstring></argsstring>
+        <name>fitness</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="21" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_ga_par_wrapper_1ad26f879f956b35f47c2a31318cf4a023" prot="private" static="no" mutable="no">
+        <type>Mat</type>
+        <definition>Mat GaParWrapper::srcImg</definition>
+        <argsstring></argsstring>
+        <name>srcImg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="23" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_ga_par_wrapper_1ad2687630ed3ac0f3535cb6c010e5fbc6" prot="private" static="no" mutable="no">
+        <type>Mat</type>
+        <definition>Mat GaParWrapper::gtImg</definition>
+        <argsstring></argsstring>
+        <name>gtImg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="23" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_ga_par_wrapper_1af8655e1e5468b4e1cc213b39e0ebedfa" prot="private" static="no" mutable="no">
+        <type>vector&lt; <ref refid="_g_a_8h_1a64825033a213da9aa4c6bd2b0daf1903" kindref="member">individual</ref> &gt;</type>
+        <definition>vector&lt;individual&gt; GaParWrapper::population</definition>
+        <argsstring></argsstring>
+        <name>population</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="24" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_ga_par_wrapper_1a027a5ab890398f05cce10e265d92891b" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int GaParWrapper::popsize</definition>
+        <argsstring></argsstring>
+        <name>popsize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="25" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_ga_par_wrapper_1a182e33e30b9a8da39a3fffc5b7b04c8b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>GaParWrapper::GaParWrapper</definition>
+        <argsstring>()=default</argsstring>
+        <name>GaParWrapper</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="16" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_ga_par_wrapper_1a381313689de77ded8bd5476e0c331431" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>GaParWrapper::GaParWrapper</definition>
+        <argsstring>(const Mat &amp;src, const Mat &amp;gt, const vector&lt; individual &gt; &amp;pop, int popsize)</argsstring>
+        <name>GaParWrapper</name>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>src</declname>
+        </param>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>gt</declname>
+        </param>
+        <param>
+          <type>const vector&lt; <ref refid="_g_a_8h_1a64825033a213da9aa4c6bd2b0daf1903" kindref="member">individual</ref> &gt; &amp;</type>
+          <declname>pop</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>popsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="17" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" bodystart="17" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_ga_par_wrapper_1a58e87adf92d5e0306dfd435369a6f565" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual GaParWrapper::~GaParWrapper</definition>
+        <argsstring>()</argsstring>
+        <name>~GaParWrapper</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="18" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" bodystart="18" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_ga_par_wrapper_1a04e759c8a7f6b4585f0fd33b6c9541a5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void GaParWrapper::operator()</definition>
+        <argsstring>(const Range &amp;range) const </argsstring>
+        <name>operator()</name>
+        <param>
+          <type>const Range &amp;</type>
+          <declname>range</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="19" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" bodystart="27" bodyend="31"/>
+        <references refid="_n_c_r_f_8h_1a66af85b843b2179a6aa4c45a6cae5e55" compoundref="_n_c_r_f_8cpp" startline="666" endline="747">NonCRF</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>ParallelLoopBody</label>
+      </node>
+      <node id="0">
+        <label>GaParWrapper</label>
+        <link refid="class_ga_par_wrapper"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>std::vector&lt; individual &gt;</label>
+      </node>
+      <node id="3">
+        <label>ParallelLoopBody</label>
+      </node>
+      <node id="2">
+        <label>GaParWrapper</label>
+        <link refid="class_ga_par_wrapper"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>population</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" line="13" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/NCRF.h" bodystart="12" bodyend="26"/>
+    <listofallmembers>
+      <member refid="class_ga_par_wrapper_1a1e2df5b0f70d20ce1c91cfe312448909" prot="public" virt="non-virtual"><scope>GaParWrapper</scope><name>fitness</name></member>
+      <member refid="class_ga_par_wrapper_1a182e33e30b9a8da39a3fffc5b7b04c8b" prot="public" virt="non-virtual"><scope>GaParWrapper</scope><name>GaParWrapper</name></member>
+      <member refid="class_ga_par_wrapper_1a381313689de77ded8bd5476e0c331431" prot="public" virt="non-virtual"><scope>GaParWrapper</scope><name>GaParWrapper</name></member>
+      <member refid="class_ga_par_wrapper_1ad2687630ed3ac0f3535cb6c010e5fbc6" prot="private" virt="non-virtual"><scope>GaParWrapper</scope><name>gtImg</name></member>
+      <member refid="class_ga_par_wrapper_1a04e759c8a7f6b4585f0fd33b6c9541a5" prot="public" virt="virtual"><scope>GaParWrapper</scope><name>operator()</name></member>
+      <member refid="class_ga_par_wrapper_1a027a5ab890398f05cce10e265d92891b" prot="private" virt="non-virtual"><scope>GaParWrapper</scope><name>popsize</name></member>
+      <member refid="class_ga_par_wrapper_1af8655e1e5468b4e1cc213b39e0ebedfa" prot="private" virt="non-virtual"><scope>GaParWrapper</scope><name>population</name></member>
+      <member refid="class_ga_par_wrapper_1ad26f879f956b35f47c2a31318cf4a023" prot="private" virt="non-virtual"><scope>GaParWrapper</scope><name>srcImg</name></member>
+      <member refid="class_ga_par_wrapper_1a58e87adf92d5e0306dfd435369a6f565" prot="public" virt="virtual"><scope>GaParWrapper</scope><name>~GaParWrapper</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

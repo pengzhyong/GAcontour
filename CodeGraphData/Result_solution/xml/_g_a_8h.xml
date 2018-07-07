@@ -1,0 +1,577 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_g_a_8h" kind="file">
+    <compoundname>GA.h</compoundname>
+    <includes local="no">vector</includes>
+    <includes local="no">string</includes>
+    <includes local="no">opencv2/opencv.hpp</includes>
+    <includedby refid="_g_a_8cpp" local="yes">C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.cpp</includedby>
+    <includedby refid="main_8cpp" local="yes">C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/main.cpp</includedby>
+    <incdepgraph>
+      <node id="250">
+        <label>opencv2/opencv.hpp</label>
+      </node>
+      <node id="249">
+        <label>string</label>
+      </node>
+      <node id="248">
+        <label>vector</label>
+      </node>
+      <node id="247">
+        <label>C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h</label>
+        <link refid="GA.h"/>
+        <childnode refid="248" relation="include">
+        </childnode>
+        <childnode refid="249" relation="include">
+        </childnode>
+        <childnode refid="250" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="253">
+        <label>C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/main.cpp</label>
+        <link refid="main_8cpp"/>
+      </node>
+      <node id="252">
+        <label>C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.cpp</label>
+        <link refid="_g_a_8cpp"/>
+      </node>
+      <node id="251">
+        <label>C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h</label>
+        <link refid="GA.h"/>
+        <childnode refid="252" relation="include">
+        </childnode>
+        <childnode refid="253" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="_g_a_8h_1a64825033a213da9aa4c6bd2b0daf1903" prot="public" static="no">
+        <type>pair&lt; vector&lt; Mat &gt;, vector&lt; float &gt; &gt;</type>
+        <definition>typedef pair&lt;vector&lt;Mat&gt;, vector&lt;float&gt; &gt; individual</definition>
+        <argsstring></argsstring>
+        <name>individual</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h" line="8" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_g_a_8h_1a9a6829b7d93592318ee300b502ceb449" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Ga_init</definition>
+        <argsstring>(int maskSize, int ntheta, vector&lt; vector&lt; float &gt;&gt; &amp;population, int popSize)</argsstring>
+        <name>Ga_init</name>
+        <param>
+          <type>int</type>
+          <declname>maskSize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ntheta</declname>
+        </param>
+        <param>
+          <type>vector&lt; vector&lt; float &gt;&gt; &amp;</type>
+          <declname>population</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>popSize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h" line="10" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_g_a_8h_1a9c8a813441197e00342045c05513ee3b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Ga_fitness</definition>
+        <argsstring>(const Mat &amp;trainData1, const Mat &amp;trainData2, const Mat groundTruth1, const Mat &amp;groundTruth2, vector&lt; individual &gt; &amp;population, vector&lt; float &gt; &amp;fitValues, int kernelSize, int ntheta)</argsstring>
+        <name>Ga_fitness</name>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>trainData1</declname>
+        </param>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>trainData2</declname>
+        </param>
+        <param>
+          <type>const Mat</type>
+          <declname>groundTruth1</declname>
+        </param>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>groundTruth2</declname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="_g_a_8h_1a64825033a213da9aa4c6bd2b0daf1903" kindref="member">individual</ref> &gt; &amp;</type>
+          <declname>population</declname>
+        </param>
+        <param>
+          <type>vector&lt; float &gt; &amp;</type>
+          <declname>fitValues</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>kernelSize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ntheta</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h" line="11" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.cpp" bodystart="41" bodyend="72"/>
+        <references refid="_g_a_8cpp_1a08ab2567393e901e6226d5b8b421fbf8" compoundref="_g_a_8cpp" startline="12">maxFitIndex</references>
+        <references refid="_g_a_8cpp_1a3cfb79c2e9e6da1c979b9bea373042bb" compoundref="_g_a_8cpp" startline="10">maxKer</references>
+        <references refid="_g_a_8cpp_1a50e009b3ac13148270468ebbe61620f7" compoundref="_g_a_8cpp" startline="13">wholeMax</references>
+        <referencedby refid="_g_a_8h_1a2cbfea177192f63c81f76e02af43825c" compoundref="_g_a_8cpp" startline="237" endline="303">GA</referencedby>
+        <referencedby refid="_g_a_8h_1a96466764ac8ea0bd43740407bba7f79f" compoundref="_g_a_8cpp" startline="75" endline="130">Ga_select</referencedby>
+        <referencedby refid="_g_a_8h_1a732df4de58f24380e9848a9baf9e7fb8" compoundref="_g_a_8cpp" startline="399" endline="406">maxFit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_g_a_8h_1a96466764ac8ea0bd43740407bba7f79f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Ga_select</definition>
+        <argsstring>(const Mat &amp;trainData1, const Mat &amp;trainData2, const Mat groundTruth1, const Mat &amp;groundTruth2, vector&lt; individual &gt; &amp;population, bool elitism, int kernelSize, int ntheta)</argsstring>
+        <name>Ga_select</name>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>trainData1</declname>
+        </param>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>trainData2</declname>
+        </param>
+        <param>
+          <type>const Mat</type>
+          <declname>groundTruth1</declname>
+        </param>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>groundTruth2</declname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="_g_a_8h_1a64825033a213da9aa4c6bd2b0daf1903" kindref="member">individual</ref> &gt; &amp;</type>
+          <declname>population</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>elitism</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>kernelSize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ntheta</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h" line="13" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.cpp" bodystart="75" bodyend="130"/>
+        <references refid="_g_a_8cpp_1a9c8a813441197e00342045c05513ee3b" compoundref="_g_a_8cpp" startline="41" endline="72">Ga_fitness</references>
+        <referencedby refid="_g_a_8h_1a2cbfea177192f63c81f76e02af43825c" compoundref="_g_a_8cpp" startline="237" endline="303">GA</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_g_a_8h_1a4f2739d6da368e2af11a9ca03aa0bb2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Ga_cross</definition>
+        <argsstring>(vector&lt; vector&lt; float &gt;&gt; &amp;population, double cross_rate, int crossMethod=1)</argsstring>
+        <name>Ga_cross</name>
+        <param>
+          <type>vector&lt; vector&lt; float &gt;&gt; &amp;</type>
+          <declname>population</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>cross_rate</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>crossMethod</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h" line="17" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.cpp" bodystart="133" bodyend="168"/>
+      </memberdef>
+      <memberdef kind="function" id="_g_a_8h_1a737714db304811455325782a963cda93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Ga_cross2d</definition>
+        <argsstring>(vector&lt; individual &gt; &amp;population, double cross_rate, int kernelSize, int ntheta)</argsstring>
+        <name>Ga_cross2d</name>
+        <param>
+          <type>vector&lt; <ref refid="_g_a_8h_1a64825033a213da9aa4c6bd2b0daf1903" kindref="member">individual</ref> &gt; &amp;</type>
+          <declname>population</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>cross_rate</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>kernelSize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ntheta</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h" line="19" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.cpp" bodystart="170" bodyend="205"/>
+        <referencedby refid="_g_a_8h_1a2cbfea177192f63c81f76e02af43825c" compoundref="_g_a_8cpp" startline="237" endline="303">GA</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_g_a_8h_1a51218ef36efb0d77d8aa46677f5e38de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Ga_mutation</definition>
+        <argsstring>(vector&lt; individual &gt; &amp;popultion, double mutation_rate)</argsstring>
+        <name>Ga_mutation</name>
+        <param>
+          <type>vector&lt; <ref refid="_g_a_8h_1a64825033a213da9aa4c6bd2b0daf1903" kindref="member">individual</ref> &gt; &amp;</type>
+          <declname>popultion</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>mutation_rate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h" line="21" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.cpp" bodystart="208" bodyend="235"/>
+        <referencedby refid="_g_a_8h_1a2cbfea177192f63c81f76e02af43825c" compoundref="_g_a_8cpp" startline="237" endline="303">GA</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_g_a_8h_1a2cbfea177192f63c81f76e02af43825c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GA</definition>
+        <argsstring>(Mat &amp;trainData1, Mat &amp;trainData2, Mat &amp;groundTruth1, Mat &amp;groundTruth2)</argsstring>
+        <name>GA</name>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>trainData1</declname>
+        </param>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>trainData2</declname>
+        </param>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>groundTruth1</declname>
+        </param>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>groundTruth2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h" line="23" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.cpp" bodystart="237" bodyend="303"/>
+        <references refid="_g_a_8cpp_1a737714db304811455325782a963cda93" compoundref="_g_a_8cpp" startline="170" endline="205">Ga_cross2d</references>
+        <references refid="_g_a_8cpp_1a9c8a813441197e00342045c05513ee3b" compoundref="_g_a_8cpp" startline="41" endline="72">Ga_fitness</references>
+        <references refid="_g_a_8cpp_1a33f5ea681976c23025180ff5c3532f4e" compoundref="_g_a_8cpp" startline="15" endline="38">Ga_init</references>
+        <references refid="_g_a_8cpp_1a51218ef36efb0d77d8aa46677f5e38de" compoundref="_g_a_8cpp" startline="208" endline="235">Ga_mutation</references>
+        <references refid="_g_a_8cpp_1a96466764ac8ea0bd43740407bba7f79f" compoundref="_g_a_8cpp" startline="75" endline="130">Ga_select</references>
+        <references refid="_g_a_8cpp_1af1ec093b0fe3321613ebdb857121804f" compoundref="_g_a_8cpp" startline="420" endline="434">loadMask</references>
+        <references refid="_g_a_8cpp_1a3cfb79c2e9e6da1c979b9bea373042bb" compoundref="_g_a_8cpp" startline="10">maxKer</references>
+        <references refid="_g_a_8cpp_1afc4e0f6a5fed8aa276aa81089be6cc8a" compoundref="_g_a_8cpp" startline="407" endline="419">saveMask</references>
+      </memberdef>
+      <memberdef kind="function" id="_g_a_8h_1a9de3a3f1d4c85a0e0da20bdd99640092" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void loadImg</definition>
+        <argsstring>(vector&lt; Mat &gt; &amp;srcVec)</argsstring>
+        <name>loadImg</name>
+        <param>
+          <type>vector&lt; Mat &gt; &amp;</type>
+          <declname>srcVec</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h" line="25" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.cpp" bodystart="305" bodyend="317"/>
+      </memberdef>
+      <memberdef kind="function" id="_g_a_8h_1a60b3cfbfff227965b2c5825366304e0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void loadMat</definition>
+        <argsstring>(vector&lt; Mat &gt; &amp;groundTruth)</argsstring>
+        <name>loadMat</name>
+        <param>
+          <type>vector&lt; Mat &gt; &amp;</type>
+          <declname>groundTruth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h" line="27" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.cpp" bodystart="319" bodyend="334"/>
+      </memberdef>
+      <memberdef kind="function" id="_g_a_8h_1a97c57f062f98f2bc2046f4ee74841569" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void savePopulation</definition>
+        <argsstring>(string fileName, const vector&lt; vector&lt; float &gt;&gt; &amp;population)</argsstring>
+        <name>savePopulation</name>
+        <param>
+          <type>string</type>
+          <declname>fileName</declname>
+        </param>
+        <param>
+          <type>const vector&lt; vector&lt; float &gt;&gt; &amp;</type>
+          <declname>population</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h" line="29" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.cpp" bodystart="336" bodyend="348"/>
+      </memberdef>
+      <memberdef kind="function" id="_g_a_8h_1a41bbc595ded1581e8f7b1a5114f60215" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void saveFitvalue</definition>
+        <argsstring>(string fileNameAve, const vector&lt; float &gt; &amp;avefit, const vector&lt; float &gt; maxfit)</argsstring>
+        <name>saveFitvalue</name>
+        <param>
+          <type>string</type>
+          <declname>fileNameAve</declname>
+        </param>
+        <param>
+          <type>const vector&lt; float &gt; &amp;</type>
+          <declname>avefit</declname>
+        </param>
+        <param>
+          <type>const vector&lt; float &gt;</type>
+          <declname>maxfit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h" line="30" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.cpp" bodystart="350" bodyend="359"/>
+      </memberdef>
+      <memberdef kind="function" id="_g_a_8h_1a5e9e791cf107681c6d55453310bf5ef6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void loadPopulation</definition>
+        <argsstring>(string fileName, vector&lt; vector&lt; float &gt;&gt; &amp;population)</argsstring>
+        <name>loadPopulation</name>
+        <param>
+          <type>string</type>
+          <declname>fileName</declname>
+        </param>
+        <param>
+          <type>vector&lt; vector&lt; float &gt;&gt; &amp;</type>
+          <declname>population</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h" line="31" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.cpp" bodystart="361" bodyend="378"/>
+      </memberdef>
+      <memberdef kind="function" id="_g_a_8h_1aa64750820ac52b3a6f6245b8b1a87cec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void showResult</definition>
+        <argsstring>(const vector&lt; float &gt; &amp;population, int ntheta, const Mat &amp;srcImg, const Mat &amp;gtImg)</argsstring>
+        <name>showResult</name>
+        <param>
+          <type>const vector&lt; float &gt; &amp;</type>
+          <declname>population</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ntheta</declname>
+        </param>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>srcImg</declname>
+        </param>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>gtImg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h" line="32" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.cpp" bodystart="380" bodyend="398"/>
+        <references refid="_n_c_r_f_8cpp_1a66af85b843b2179a6aa4c45a6cae5e55" compoundref="_n_c_r_f_8cpp" startline="666" endline="747">NonCRF</references>
+      </memberdef>
+      <memberdef kind="function" id="_g_a_8h_1a732df4de58f24380e9848a9baf9e7fb8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float maxFit</definition>
+        <argsstring>(const Mat &amp;trainData1, const Mat &amp;trainData2, const Mat groundTruth1, const Mat groundTruth2, vector&lt; individual &gt; &amp;population, int kernelSize, int ntheta, int &amp;maxIndex)</argsstring>
+        <name>maxFit</name>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>trainData1</declname>
+        </param>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>trainData2</declname>
+        </param>
+        <param>
+          <type>const Mat</type>
+          <declname>groundTruth1</declname>
+        </param>
+        <param>
+          <type>const Mat</type>
+          <declname>groundTruth2</declname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="_g_a_8h_1a64825033a213da9aa4c6bd2b0daf1903" kindref="member">individual</ref> &gt; &amp;</type>
+          <declname>population</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>kernelSize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ntheta</declname>
+        </param>
+        <param>
+          <type>int &amp;</type>
+          <declname>maxIndex</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h" line="33" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.cpp" bodystart="399" bodyend="406"/>
+        <references refid="_g_a_8cpp_1a9c8a813441197e00342045c05513ee3b" compoundref="_g_a_8cpp" startline="41" endline="72">Ga_fitness</references>
+      </memberdef>
+      <memberdef kind="function" id="_g_a_8h_1afc4e0f6a5fed8aa276aa81089be6cc8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void saveMask</definition>
+        <argsstring>(const Mat &amp;kernel, string fileName)</argsstring>
+        <name>saveMask</name>
+        <param>
+          <type>const Mat &amp;</type>
+          <declname>kernel</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>fileName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h" line="35" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.cpp" bodystart="407" bodyend="419"/>
+        <referencedby refid="_g_a_8h_1a2cbfea177192f63c81f76e02af43825c" compoundref="_g_a_8cpp" startline="237" endline="303">GA</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="_g_a_8h_1af1ec093b0fe3321613ebdb857121804f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void loadMask</definition>
+        <argsstring>(Mat &amp;kernel, int kersize, string fileName)</argsstring>
+        <name>loadMask</name>
+        <param>
+          <type>Mat &amp;</type>
+          <declname>kernel</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>kersize</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>fileName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h" line="36" column="1" bodyfile="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.cpp" bodystart="420" bodyend="434"/>
+        <referencedby refid="_g_a_8h_1a2cbfea177192f63c81f76e02af43825c" compoundref="_g_a_8cpp" startline="237" endline="303">GA</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;opencv2/opencv.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">std;</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">cv;</highlight></codeline>
+<codeline lineno="8" refid="_g_a_8h_1a64825033a213da9aa4c6bd2b0daf1903" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>pair&lt;vector&lt;Mat&gt;,<sp/>vector&lt;float&gt;&gt;<sp/><ref refid="_g_a_8h_1a64825033a213da9aa4c6bd2b0daf1903" kindref="member">individual</ref>;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_g_a_8h_1a9a6829b7d93592318ee300b502ceb449" kindref="member">Ga_init</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>maskSize,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ntheta,<sp/>vector&lt;vector&lt;float&gt;&gt;&amp;<sp/>population,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>popSize);</highlight><highlight class="comment">//单个模板，把模板按行展开，存储成vector&lt;float&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_g_a_8h_1a9c8a813441197e00342045c05513ee3b" kindref="member">Ga_fitness</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>trainData1,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>trainData2,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat<sp/>groundTruth1,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>groundTruth2,</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>vector&lt;individual&gt;&amp;<sp/>population,<sp/>vector&lt;float&gt;&amp;<sp/>fitValues,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>kernelSize,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ntheta);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_g_a_8h_1a96466764ac8ea0bd43740407bba7f79f" kindref="member">Ga_select</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>trainData1,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>trainData2,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat<sp/>groundTruth1,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>groundTruth2,</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>vector&lt;individual&gt;&amp;<sp/>population,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>elitism,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>kernelSize,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ntheta);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//交叉</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_g_a_8h_1a4f2739d6da368e2af11a9ca03aa0bb2e" kindref="member">Ga_cross</ref>(vector&lt;vector&lt;float&gt;&gt;&amp;<sp/>population,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>cross_rate,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>crossMethod<sp/>=<sp/>1);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_g_a_8h_1a737714db304811455325782a963cda93" kindref="member">Ga_cross2d</ref>(vector&lt;individual&gt;&amp;<sp/>population,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>cross_rate,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>kernelSize,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ntheta);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">//变异</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_g_a_8h_1a51218ef36efb0d77d8aa46677f5e38de" kindref="member">Ga_mutation</ref>(vector&lt;individual&gt;&amp;<sp/>popultion,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>mutation_rate);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_g_a_8h_1a2cbfea177192f63c81f76e02af43825c" kindref="member">GA</ref>(Mat&amp;<sp/>trainData1,<sp/>Mat&amp;<sp/>trainData2,<sp/>Mat&amp;<sp/>groundTruth1,<sp/>Mat&amp;<sp/>groundTruth2);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_g_a_8h_1a9de3a3f1d4c85a0e0da20bdd99640092" kindref="member">loadImg</ref>(vector&lt;Mat&gt;&amp;<sp/>srcVec);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_g_a_8h_1a60b3cfbfff227965b2c5825366304e0b" kindref="member">loadMat</ref>(vector&lt;Mat&gt;&amp;<sp/>groundTruth);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_g_a_8h_1a97c57f062f98f2bc2046f4ee74841569" kindref="member">savePopulation</ref>(</highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>fileName,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>vector&lt;vector&lt;float&gt;&gt;&amp;<sp/>population);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_g_a_8h_1a41bbc595ded1581e8f7b1a5114f60215" kindref="member">saveFitvalue</ref>(</highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>fileNameAve,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>vector&lt;float&gt;&amp;<sp/><ref refid="_g_a_8cpp_1acac16d265ef39414d30b7b41effc6023" kindref="member">avefit</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>vector&lt;float&gt;<sp/><ref refid="_g_a_8cpp_1a1261d0599c24526fc80f729e84084199" kindref="member">maxfit</ref>);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_g_a_8h_1a5e9e791cf107681c6d55453310bf5ef6" kindref="member">loadPopulation</ref>(</highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>fileName,<sp/>vector&lt;vector&lt;float&gt;&gt;&amp;<sp/>population);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_g_a_8h_1aa64750820ac52b3a6f6245b8b1a87cec" kindref="member">showResult</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>vector&lt;float&gt;&amp;<sp/>population,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ntheta,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>srcImg,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>gtImg);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="_g_a_8h_1a732df4de58f24380e9848a9baf9e7fb8" kindref="member">maxFit</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>trainData1,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>trainData2,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat<sp/>groundTruth1,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat<sp/>groundTruth2,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>vector&lt;individual&gt;&amp;<sp/>population,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>kernelSize,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ntheta,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&amp;<sp/>maxIndex);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_g_a_8h_1afc4e0f6a5fed8aa276aa81089be6cc8a" kindref="member">saveMask</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Mat&amp;<sp/>kernel,<sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>fileName);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_g_a_8h_1af1ec093b0fe3321613ebdb857121804f" kindref="member">loadMask</ref>(Mat&amp;<sp/>kernel,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>kersize,<sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>fileName);</highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/pengzhyong/Desktop/CV/Code/GAcontour/GAcontour/GA.h"/>
+  </compounddef>
+</doxygen>

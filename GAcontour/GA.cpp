@@ -7,8 +7,10 @@
 #include "postProcess.h"
 #include "NCRF.h"
 
+Mat maxKer;
 vector<float> avefit, maxfit;
 int maxFitIndex = 0;
+float wholeMax = 0;
 
 void Ga_init(int maskSize, int ntheta, vector<individual>& population, int popSize)
 {
@@ -21,12 +23,13 @@ void Ga_init(int maskSize, int ntheta, vector<individual>& population, int popSi
 	{
 		individual person;
 		Mat maskMat1(maskSize, maskSize, CV_32F);
+		maskMat1 = DogKernel2d(1.0, 1, 4);
 		Mat maskMat2(maskSize, maskSize, CV_32F);
-		maskMat1.forEach<float>([](float& p, const int* pos)->void { p = (rand() % 400) * 0.01 - 2.0; });//random value in [-2,2];
-		maskMat2.forEach<float>([](float& p, const int* pos)->void { p = (rand() % 400) * 0.01 - 2.0; });
+		//maskMat1.forEach<float>([](float& p, const int* pos)->void { p = (rand() % 200) * 0.01 - 1.0; });//random value in [-2,2];
+		maskMat2.forEach<float>([](float& p, const int* pos)->void { p = (rand() % 200) * 0.01 - 1.0; });
 		vector<float> coefs;
 		for (int i = 0; i < 2 * ntheta; i++)
-			person.second.push_back((rand() % 400) * 0.01 - 2.0);
+			person.second.push_back((rand() % 100) * 0.01 - 0.5);
 		person.first.push_back(maskMat1);
 		person.first.push_back(maskMat2);
 		population.push_back(person);
@@ -45,6 +48,8 @@ void Ga_fitness(const Mat& trainData1, const Mat& trainData2, const Mat groundTr
 	GaParWrapper gapar1(trainData1, groundTruth1, population, population.size());
 	parallel_for_(Range(0, population.size()), gapar1);
 	fitValues = vector<float>(gapar1.fitness, gapar1.fitness + population.size());
+	//for (int i = 0; i < population.size(); i++)
+		//fitValues.push_back(NonCRF(trainData1, groundTruth1, population.at(i).first, population.at(i).second, 1));
 	/*GaParWrapper gapar2(trainData2, groundTruth2, kernel, population.size());
 	parallel_for_(Range(0, population.size()), gapar2);
 	vector<float> fitValues2 = vector<float>(gapar2.fitness, gapar2.fitness + population.size());
@@ -56,10 +61,14 @@ void Ga_fitness(const Mat& trainData1, const Mat& trainData2, const Mat groundTr
 
 	maxFitIndex = max_element(fitValues.begin(), fitValues.end()) - fitValues.begin();
 	float maxfitVal = fitValues.at(max_element(fitValues.begin(), fitValues.end()) - fitValues.begin());
+	if (maxfitVal > wholeMax)
+	{
+		wholeMax = maxfitVal;
+		maxKer = population.at(maxFitIndex).first.at(0).clone();
+	}
 	cout << ", average perform: " << avePerform << " maxfit: " << maxfitVal << " ";
 	avefit.push_back(avePerform);// save to global variance for save result
 	maxfit.push_back(maxfitVal);
-
 }
 
 //选择，产生新一代种群
@@ -86,17 +95,17 @@ void Ga_select(const Mat& trainData1, const Mat& trainData2, const Mat groundTru
 		sum_fit.push_back(i);
 	for (int i = 1; i < sum_fit.size(); i++)//适应度累加
 		sum_fit.at(i) += sum_fit.at(i - 1);
-
+	const float EPS = 0.00001;
 	for (int i = firstPerson; i < population.size(); i++)
 	{
-		int posValue = (rand() % 1000) * 0.001 * sum_fit.back();
+		float posValue = (rand() % 1000) * 0.001 * sum_fit.back();
 		int first = 0;
 		int last = sum_fit.size() - 1;
 		int mid = 0.5 * (first + last) + 0.5;//加0.5, 四舍五入
 		int index = 0;
 		while (1)
 		{
-			if (posValue == sum_fit.at(mid))
+			if (abs(posValue - sum_fit.at(mid)) < EPS)
 			{
 				index = mid;
 				break;
@@ -208,10 +217,10 @@ void Ga_mutation(vector<individual>& popultion, double mutation_rate)
 			float randNums = rand() % 100 * 0.01;
 			if (randNums < mutation_rate)
 			{
-				float randCoef = rand() % 400 * 0.01 - 2;//[-2,2]
+				float randCoef = rand() % 100 * 0.01 - 0.5;//[-2,2]
 				float randRows = rand() % 100 * 0.01 * maskSize;
 				float randCols = rand() % 100 * 0.01 * maskSize;
-				popultion.at(person).first.at(i).at<float>(randRows, randCols) *= randCoef;
+				popultion.at(person).first.at(i).at<float>(randRows, randCols) += randCoef / 2;
 			}
 		}
 		//------coefs muation
@@ -230,16 +239,23 @@ void GA(Mat& trainData1, Mat& trainData2, Mat& groundTruth1, Mat& groundTruth2)
 	double cross_rate = 0.9;//交叉率
 	double mutation_rate = 0.1;//变异率
 	bool elitism = true;//是否保留精英
-	int population_size = 20;//种群大小
+	int population_size = 30;//种群大小
 	int generations = 0;//进化代数
 
 	vector<individual> population;//2 mask + 2*ntheta coef, pair.fist denote 2 mask, pair.second denote coefs
 
 	float sigma = 1.0;// must be same with the values in NonCRF
 	int k1 = 1, k2 = 4;
-	int maskSize = ceil(sigma) * (3 * k2 + k1) - 1;;//模板尺寸
+	//int maskSize = ceil(sigma) * (3 * k2 + k1) - 1;;//模板尺寸
+	int maskSize = 25;
 	int ntheta = 8;
 	Ga_init(maskSize, ntheta, population, population_size);
+	Mat bestMat;
+	loadMask(bestMat, maskSize, "maxInhibKer.txt");
+	normalize(bestMat, bestMat, 0, 1, NORM_MINMAX);
+	namedWindow("bestMat", 0);
+	imshow("bestMat", bestMat);
+	waitKey(0);
 	//loadPopulation("pop_shuffle_4100.txt", population);
 	//int maxInd = 3;
 	//float maxfitVal = maxFit(trainData1, trainData2, groundTruth1, groundTruth2, population, maskSize, ntheta, maxInd);
@@ -273,8 +289,10 @@ void GA(Mat& trainData1, Mat& trainData2, Mat& groundTruth1, Mat& groundTruth2)
 		cout << "time: " << diffTime << ", total times: " << totalTime << endl;
 		if (generations % 100 == 0)
 		{
+			saveMask(maxKer, "maxInhibKer.txt");
 			//savePopulation("pop_shuffle_" + to_string(generations) + ".txt", population);
 			//saveFitvalue("fitval.txt", avefit, maxfit);
+			
 		}
 	}
 
@@ -385,4 +403,32 @@ float maxFit(const Mat& trainData1, const Mat& trainData2, const Mat groundTruth
 	Ga_fitness(trainData1, trainData2, groundTruth1, groundTruth2, population, fitness, kernelSize, ntheta);
 	maxIndex = max_element(fitness.begin(), fitness.end()) - fitness.begin();
 	return fitness.at(maxIndex);
+}
+void saveMask(const Mat& kernel, string fileName)
+{
+	ofstream outFile(fileName);
+	int kersize = kernel.rows;
+	for (int r = 0; r < kersize; r++)
+	{
+		for (int c = 0; c < kersize; c++)
+		{
+			outFile << kernel.at<float>(r, c) << " ";
+		}
+	}
+	outFile.close();
+}
+void loadMask(Mat& kernel, int kersize, string fileName)
+{
+	kernel = Mat(kersize, kersize, CV_32F);
+	ifstream inFile(fileName);
+	for (int r = 0; r < kersize; r++)
+	{
+		for (int c = 0; c < kersize; c++)
+		{
+			float tmp;
+			inFile >> tmp;
+			kernel.at<float>(r, c) = tmp;
+		}
+	}
+	inFile.close();
 }

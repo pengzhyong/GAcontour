@@ -1,5 +1,6 @@
 #include "NCRF.h"
 #include <stack>
+#include <numeric>
 
 int GaborFilter(vector<vector<Mat>>& dstImg, const Mat srcImg, bool halfwave, 
 	float lamda, float sigma, vector<float> theta, vector<float> phi, float gamma, float bandwidth)
@@ -14,13 +15,13 @@ int GaborFilter(vector<vector<Mat>>& dstImg, const Mat srcImg, bool halfwave,
 	//Mat fftImg = createFftImage(srcImg, kersz, kersz);
 	int ntheta = theta.size();
 	int nphi = phi.size();
-	Mat kernel(kersz, kersz, CV_32F);
+	Mat kernel;
 	vector<Mat> phiVec;
 	for (int i = 0; i < ntheta; i++)
 	{
 		for (int j = 0; j < nphi; j++)
 		{
-			GaborKernel2d(kernel, sigma, lamda, theta[i], phi[j], gamma, bandwidth);
+			kernel = GaborKernel2d(sigma, lamda, theta[i], phi[j], gamma, bandwidth);
 			
 			Mat tmpResult;
 			filter2D(srcImg, tmpResult, srcImg.depth(), kernel);
@@ -72,8 +73,7 @@ int GaborFilterMulScale(vector<vector<Mat>>& dstImg, const Mat srcImg, bool half
 				else
 					kersz = int(ceilf(2.5 * sigma[s]));
 				kersz = 2 * kersz + 1;
-				Mat kernel(kersz, kersz, CV_32F);
-				GaborKernel2d(kernel, sigma.at(s), lamda.at(s), theta[i], phi[j], gamma, bandwidth);				
+				Mat kernel = GaborKernel2d(sigma.at(s), lamda.at(s), theta[i], phi[j], gamma, bandwidth);				
 				Mat scaleMat;
 				filter2D(srcImg, scaleMat, srcImg.depth(), kernel);
 				if (s == 0)
@@ -82,6 +82,105 @@ int GaborFilterMulScale(vector<vector<Mat>>& dstImg, const Mat srcImg, bool half
 				{
 					tmpResult.forEach<float>([scaleMat](float& p, const int* pos)->void { p = p + scaleMat.at<float>(pos[0], pos[1]); });
 				}
+			}
+			int sz = lamda.size();
+			tmpResult.forEach<float>([sz](float& p, const int* pos)->void {p = p * 1.0 / sz; });
+
+			if (halfwave)//半波整流
+			{
+				for (int r = 0; r < tmpResult.rows; r++)
+				{
+					float* ptr = tmpResult.ptr<float>(r);
+					for (int c = 0; c < tmpResult.cols; c++)
+					{
+						if (ptr[c] < 0)
+							ptr[c] = 0;
+					}
+				}
+			}
+			phiVec.push_back(tmpResult);
+		}
+		dstImg.push_back(phiVec);
+	}
+	return kersz;
+}
+
+int GaborFilterMulScaleBend(vector<vector<Mat>>& dstImg, const Mat srcImg, bool halfwave,
+	vector<float> lamda, vector<float> sigma, vector<float> theta, vector<float> phi, float gamma, float bandwidth)
+{
+	//Mat fftImg = createFftImage(srcImg, kersz, kersz);
+	int ntheta = theta.size();
+	int nphi = phi.size();
+	int kersz;
+
+	for (int i = 0; i < ntheta; i++)
+	{
+		vector<Mat> phiVec;
+		for (int j = 0; j < nphi; j++)
+		{
+			Mat tmpResult;
+			for (int s = 0; s < lamda.size(); s++)
+			{
+				float sigmas = sigma[s];
+				vector<float> radiusVec = { -3 * sigmas, -5 * sigmas, -7 * sigmas, -9 * sigmas, -11 * sigmas, -13 * sigmas, -20 * sigmas, -40 * sigmas, -100 * sigmas,
+					3 * sigmas, 5 * sigmas, 7 * sigmas, 9 * sigmas, 11 * sigmas, 13 * sigmas, 20 * sigmas, 40 * sigmas, 100 * sigmas, };
+				vector<float> logRadiusVec;
+				for (auto i : radiusVec)
+				{
+					logRadiusVec.push_back(log(abs(i)));
+				}
+				float sumLogRadius = accumulate(logRadiusVec.begin(), logRadiusVec.end(), 0);
+				vector<float> coefVec;
+				for (auto i : logRadiusVec)
+					coefVec.push_back(i / sumLogRadius);
+				//vector<float> radiusVec = { 50000 };
+
+				Mat scaleMat;
+				for (int ri = 0; ri < radiusVec.size(); ri++)
+				{
+					if (gamma <= 1 && gamma > 0)
+						kersz = int(ceilf(2.5 * sigma[s] / gamma));
+					else
+						kersz = int(ceilf(2.5 * sigma[s]));         
+					kersz = 2 * kersz + 1;
+					Mat kernel = GaborKernel2d(sigma.at(s), lamda.at(s), theta[i], phi[j], gamma, bandwidth, 0.2 * radiusVec.at(ri));
+					Mat kernel2 = GaborKernel2d(sigma.at(s), lamda.at(s), theta[i], phi[j], gamma, bandwidth);// , 100000.0/* * radiusVec.at(ri)*/);
+					/*namedWindow("kernel1", 0);
+					namedWindow("kernel2", 0);
+					normalize(kernel, kernel, 0, 1, NORM_MINMAX);
+					normalize(kernel2, kernel2, 0, 1, NORM_MINMAX);
+
+					imshow("kernel1", kernel);
+					imshow("kernel2", kernel2);
+					waitKey(0);*/
+					//kernel = kernel2.clone();
+					Mat tmpScale;
+					filter2D(srcImg, tmpScale, srcImg.depth(), kernel);
+					if (ri == 0)
+						scaleMat = tmpScale.clone();
+					else
+						scaleMat.forEach<float>([tmpScale, coefVec, ri](float& p, const int* pos)->void { p = max(p, /*coefVec.at(ri) **/ tmpScale.at<float>(pos[0], pos[1])); });
+				}
+				if (s == 0)
+					tmpResult = scaleMat.clone();
+				else
+				{
+					tmpResult.forEach<float>([scaleMat](float& p, const int* pos)->void { p = (p + scaleMat.at<float>(pos[0], pos[1])); });
+				}
+				/*if (gamma <= 1 && gamma > 0)
+					kersz = int(ceilf(2.5 * sigma[s] / gamma));
+				else
+					kersz = int(ceilf(2.5 * sigma[s]));
+				kersz = 2 * kersz + 1;
+				Mat kernel = GaborKernel2d(sigma.at(s), lamda.at(s), theta[i], phi[j], gamma, bandwidth);
+				Mat scaleMat;
+				filter2D(srcImg, scaleMat, srcImg.depth(), kernel);
+				if (s == 0)
+					tmpResult = scaleMat.clone();
+				else
+				{
+					tmpResult.forEach<float>([scaleMat](float& p, const int* pos)->void { p = p + scaleMat.at<float>(pos[0], pos[1]); });
+				}*/
 			}
 			int sz = lamda.size();
 			tmpResult.forEach<float>([sz](float& p, const int* pos)->void {p = p * 1.0 / sz; });
@@ -203,7 +302,7 @@ void Inhibition(vector<Mat>& dstImg, vector<Mat>& srcImg, int inhibMethod, int s
 	if (supMethod == 3)//max sup, infinit norm
 		initValue = -1000.0;//-INF
 
-	Mat inhibitor(srcImg[0].size(), CV_32F, Scalar(initValue));
+	Mat inhibitor(srcImg[0].size(), CV_32F, Scalar(initValue));//抑制区
 	if (inhibMethod == 2)
 	{
 		for (int r = 0; r < nh; r++)
@@ -232,14 +331,13 @@ void Inhibition(vector<Mat>& dstImg, vector<Mat>& srcImg, int inhibMethod, int s
 		imshow("inhib", showImg);
 		waitKey(0);*/
 	}
-	
 	Mat inhibMat(nh, nw, CV_32F);
-
 	int depth = srcImg[0].depth();
 	Mat dogKernel = DogKernel2d(sigma, k1, k2);
 	if (inhibMethod == 2)
 		filter2D(inhibitor, inhibMat, depth, dogKernel);
 
+	
 	for (int i = 0; i< ntheta; i++)
 	{
 		if (inhibMethod == 2)// isotropic inhibition
@@ -280,6 +378,54 @@ void Inhibition(vector<Mat>& dstImg, vector<Mat>& srcImg, int inhibMethod, int s
 		{
 			dstImg.push_back(srcImg[i]);
 		}
+
+		//-----刺激响应
+		Mat exatator(srcImg[0].size(), CV_32F, Scalar(0));//刺激区
+		for (int r = 0; r < nh; r++)
+		{
+			float* ptr = exatator.ptr<float>(r);
+			for (int c = 0; c < nw; c++)
+			{
+				for (int j = 0; j < ntheta; j++)
+				{
+					float dtheta = ((j - i + ntheta) % ntheta)*(2 * CV_PI) / ntheta;
+					ptr[c] += srcImg[j].at<float>(r, c) * abs(cos(dtheta));
+				}
+			}
+		}
+		float beta = 1.0;
+		Mat exataMat(nh, nw, CV_32F);
+		int depth = srcImg[0].depth();
+		Mat dogKernel = DogKernel2d(sigma, k1, k2);
+		int cx = dogKernel.rows / 2;
+		int cy = dogKernel.cols / 2;
+		for (int r = 0; r < dogKernel.rows; r++)
+		{
+			for (int c = 0;  c < dogKernel.cols; c++)
+			{
+				float k_theta = atan2(-r+cx, c-cy);
+				if (k_theta < 0) k_theta += 2 * CV_PI;
+				//if (-r + cx < 0 && c - cy>0) k_theta += 2 * CV_PI;
+				//if (-r + cx < 0 && c - cy < 0) k_theta += CV_PI;
+				//if (-r + cx > 0 && c - cy > 0) k_theta += 0;
+				//if (-r + cx < 0 && c - cy < 0) k_theta += CV_PI;;
+
+				float theta0 = (i*2.0*CV_PI/ntheta +0.5*CV_PI);
+				if (theta0 > 2 * CV_PI) theta0 -= 2 * CV_PI;
+				//if (theta0 > CV_PI) theta0 -= CV_PI;
+				//if (theta0 > 0.5 * CV_PI) theta0 -= 0.5 * CV_PI;
+				if (abs(k_theta - theta0) > 5.0*CV_PI / 180.0 && abs(abs(k_theta - theta0) - CV_PI) > 5.0*CV_PI / 180.0)
+					dogKernel.at<float>(r, c) = 0.0;
+			}
+		}
+		/*normalize(dogKernel, dogKernel, 0, 1, NORM_MINMAX);
+		string name = "dogkernel_" + to_string(i);
+		namedWindow(name, 0);
+		imshow(name, dogKernel); waitKey();*/
+		filter2D(exatator, exataMat, depth, dogKernel);
+		dstImg.back().forEach<float>([dstImg, i, beta, exataMat](float& p, const int* pos)->void {
+			p = dstImg.back().at<float>(pos[0], pos[1]) + beta * exataMat.at<float>(pos[0], pos[1]);
+			if (p < 0) p = 0; });
 	}
 }
 
@@ -309,22 +455,50 @@ void Inhibition(vector<Mat>& dstImg, vector<Mat>& srcImg, int inhibMethod, int s
 	int nh = srcImg[0].rows;
 	int nw = srcImg[0].cols;
 	int ntheta = srcImg.size();
-
+	int kersize = kernel.size();
 	int depth = srcImg[0].depth();
-	for (int i = 0; i < ntheta; i++)
+	Mat inhibitor(srcImg[0].size(), CV_32F, Scalar(0.0));
+	for (int r = 0; r < nh; r++)
 	{
-		Mat finalMat = srcImg.at(i).clone();
-		for (int j = 0; j < ntheta; j++)
+		float* ptr = inhibitor.ptr<float>(r);
+		for (int c = 0; c < nw; c++)
 		{
-			for (int k = 0; k < kernel.size(); k++)
+			for (int i = 0; i < ntheta; i++)
 			{
-				int coefIndex = j * kernel.size() + k;
-				Mat tmpInhib;
-				filter2D(srcImg[j], tmpInhib, depth, kernel[k]);
-				finalMat.forEach<float>([tmpInhib, coefs, j, coefIndex](float& p, const int* pos)->void {p -= coefs[coefIndex] * tmpInhib.at<float>(pos[0], pos[1]); });
+				if (supMethod == 1)
+					ptr[c] += abs(srcImg[i].at<float>(r, c));
+				if (supMethod == 2)
+					ptr[c] += srcImg[i].at<float>(r, c) * srcImg[i].at<float>(r, c);
+				if (supMethod == 3)
+				{
+					if (ptr[c] < srcImg[i].at<float>(r, c))
+						ptr[c] = srcImg[i].at<float>(r, c);
+				}
 			}
+			if (supMethod == 2)
+				ptr[c] = sqrtf(ptr[c]);
 		}
-		
+	}
+
+	Mat inhibMat(nh, nw, CV_32F);
+	//Mat dogKernel = DogKernel2d(sigma, 1, 4);
+	Mat dogKernel = kernel[0];
+	if (inhibMethod == 2)
+		filter2D(inhibitor, inhibMat, depth, dogKernel);
+
+	for (int i = 0; i< ntheta; i++)
+	{
+		/*Mat showImg = inhibitor.clone();
+		normalize(showImg, showImg, 0.0, 1.0, NORM_MINMAX);
+		imshow("inhib" + to_string(i), showImg);
+		waitKey(0);*/
+
+		Mat finalMat(nh, nw, CV_32F);//一个难找的bug, finalMat必须在循环体内部定义，因为finalMat用于push_back进输出参数，若定义在循环体外部，相当于push_back的是同一个对象，没有新的对象
+										//当函数体退出时，会销毁函数体内部定义的变量。引用、指针除外。此处说明push_back进输出参数的对象也不会被销毁。
+		float alpha = 1.0;
+		finalMat.forEach<float>([srcImg, i, alpha, inhibMat](float& p, const int* pos)->void {
+		p = srcImg[i].at<float>(pos[0], pos[1]) - alpha * inhibMat.at<float>(pos[0], pos[1]);
+		if (p < 0) p = 0; });
 		dstImg.push_back(finalMat);
 	}
 }
@@ -534,13 +708,13 @@ float NonCRF(Mat srcImg, Mat gtImg)
 	bool halfwave = 1;
 	float lamda = 10;//wavelength
 	//vector<float> lamdaVec = { 3,4,5,6,7,8,9,10,11,12,13,15,15,16,17,18,19,21 };
-	vector<float> lamdaVec = { 3,5,7,9,11,13,15,17,19,21,23,25,27 };
+	vector<float> lamdaVec = { 3,5,7,9,11,13,15,17,19,21,23, 25, 37 };// , 25, 27, 29, 31, 33, 35};
 
 	vector<float> sigmaVec;
 	for (auto i : lamdaVec)
 		sigmaVec.push_back(i*0.2);
 	float sigma = 1.0;
-	float gamma = 0.5;//aspect ratio
+	float gamma = 0.3;//aspect ratio
 	float bandwidth = 1;
 	int ntheta = 16;
 	int nphi = 2;
@@ -555,12 +729,14 @@ float NonCRF(Mat srcImg, Mat gtImg)
 	float alpha = 1.0;
 	float k1 = 1;
 	float k2 = 4;
-	float tlow = 0.05;
+	float tlow = 0.2;
 	float thigh = 0.3;
 	float p, efp, efn;
 	vector<vector<Mat>> gaborImgs;
 	//GaborFilter(gaborImgs, srcImg, halfwave, lamda, sigma, theta, phi, gamma, bandwidth);
 	GaborFilterMulScale(gaborImgs, srcImg, halfwave, lamdaVec, sigmaVec, theta, phi, gamma, bandwidth);
+	//GaborFilterMulScaleBend(gaborImgs, srcImg, halfwave, lamdaVec, sigmaVec, theta, phi, gamma, bandwidth);
+
 	vector<Mat> phaseSupImgs;
 	PhaseSuppos(phaseSupImgs, gaborImgs, ntheta, nphi, supPhases);
 	
@@ -580,17 +756,10 @@ float NonCRF(Mat srcImg, Mat gtImg)
 	//imwrite("viewori.pgm", orienImg);
 	//waitKey(0);
 	
-	
-	/*viewImg = imread("matlabview.pgm");
-	cvtColor(viewImg, viewImg, COLOR_BGR2GRAY);
-	viewImg.convertTo(viewImg, CV_32F);
-	orienImg = imread("matlabori.pgm");
-	cvtColor(orienImg, orienImg, COLOR_BGR2GRAY);
-	viewImg.convertTo(orienImg, CV_32F);
 	Mat showImg2 = viewImg.clone();
 	normalize(showImg2, showImg2, 0, 1, NORM_MINMAX);
 	imshow("viewImgmatlab", showImg2);
-	waitKey(0);*/
+	waitKey(0);
 
 	Mat thinImg;
 	Thinning(thinImg, viewImg, orienImg);
@@ -603,9 +772,9 @@ float NonCRF(Mat srcImg, Mat gtImg)
 	
 	InvertImg(thinImg);
 
-	Evaluate(p, efp, efn, thinImg, gtImg, 5);
-	cout << "p: " << p << ", efp: " << efp << ", efn: " << efn << endl;
-	namedWindow("NCRF image", 0);
+	//Evaluate(p, efp, efn, thinImg, gtImg, 5);
+	//cout << "p: " << p << ", efp: " << efp << ", efn: " << efn << endl;
+	//namedWindow("NCRF image", 0);
 	imshow("NCRF image", thinImg);
 	imshow("ground truth", gtImg);
 	waitKey(0);
@@ -695,13 +864,13 @@ float NonCRF(Mat srcImg, Mat gtImg, const vector<Mat>& kernel, const vector<floa
 	float sigma = 1.0;
 	float gamma = 0.5;//aspect ratio
 
-	vector<float> lamdaVec = { 3,5,7,9,11,13,15,17,19,21,23,25,27 };
+	vector<float> lamdaVec = { 3,5,7,9,11,13,15,17,19,21};
 	vector<float> sigmaVec;
 	for (auto i : lamdaVec)
 		sigmaVec.push_back(i*0.2);
 
 	float bandwidth = 1;
-	int ntheta = 8;
+	int ntheta = 12;
 	int nphi = 2;
 	float arrphi[2] = { 0, 0.5*CV_PI };
 	vector<float> phi = { arrphi, arrphi + 2 };
@@ -748,16 +917,17 @@ float NonCRF(Mat srcImg, Mat gtImg, const vector<Mat>& kernel, const vector<floa
 
 	if (isDisplay)// && p > 0.1)
 	{
-		cout << "p: " << p << ", efp: " << efp << ", efn: " << efn << endl;
+		//cout << "p: " << p << ", efp: " << efp << ", efn: " << efn << endl;
 		//namedWindow("NCRF image", 0);
-		imshow("NCRF image", thinImg);
+		//imshow("NCRF image", thinImg);
 		//imshow("ground truth", gtImg);
-		waitKey(1);
+		//waitKey(1);
 	}
 	return p;
 }
+
 //function used inside
-void GaborKernel2d(Mat& kernel, float sigma, float lamda, float theta, float phi, float gamma, float bandwidth)
+Mat GaborKernel2d(float sigma, float lamda, float theta, float phi, float gamma, float bandwidth)
 {
 	float slratio = (1.0 / CV_PI) * sqrtf((log(2.0) / 2.0)) * ((pow(2, bandwidth) + 1) * 1.0 / (pow(2, bandwidth) - 1));
 	if (sigma == 0)
@@ -775,6 +945,7 @@ void GaborKernel2d(Mat& kernel, float sigma, float lamda, float theta, float phi
 	float f = 2.0 * CV_PI / lamda;	
 	float posSum = 0;
 	float negSum = 0;
+	Mat kernel(2 * n + 1, 2 * n + 1, CV_32F);
 	for (int r = 0; r < 2*n + 1; r++)
 	{
 		float* ptr = kernel.ptr<float>(r);
@@ -808,6 +979,150 @@ void GaborKernel2d(Mat& kernel, float sigma, float lamda, float theta, float phi
 				ptr[c] = posSum * ptr[c];
 		}
 	}
+
+	/*Mat show1 = kernel.clone();
+	normalize(show1, show1, 0, 1, NORM_MINMAX);
+	namedWindow("gabor kernel", 0);
+	imshow("gabor kernel", show1);          
+	waitKey(0);*/
+	return kernel;
+}
+
+Mat GaborKernel2d(float sigma, float lamda, float theta, float phi, float gamma, float bandwidth, float radiu)
+{
+	return BendGabor2d(sigma, lamda, theta, phi, gamma, bandwidth, radiu);
+}
+
+
+Mat BendGabor2d(float sigma, float lamda, float theta, float phi, float gamma, float bandwidth, float radiu)
+{
+	float slratio = (1.0 / CV_PI) * sqrtf((log(2.0) / 2.0)) * ((pow(2, bandwidth) + 1) * 1.0 / (pow(2, bandwidth) - 1));
+	if (sigma == 0)
+		sigma = slratio * lamda;
+	else if (lamda == 0)
+		lamda = sigma / slratio;
+	int n;
+	if (gamma <= 1 && gamma > 0)
+		n = int(ceilf(2.5 * sigma / gamma));
+	else
+		n = int(ceilf(2.5 * sigma));
+	n = n * 2;
+	float gamma2 = gamma * gamma;
+	float b = 1.0 / (2 * sigma * sigma);
+	float a = b / CV_PI;
+	float f = 2.0 * CV_PI / lamda;
+	float posSum = 0;
+	float negSum = 0;
+	Mat kernel(2 * n + 1, 2 * n + 1, CV_32F);
+	for (int r = 0; r < 2 * n + 1; r++)
+	{
+		float* ptr = kernel.ptr<float>(r);
+		for (int c = 0; c < 2 * n + 1; c++)
+		{
+			float xp = -(c - n) * cos(theta) + (r - n) * sin(theta);//由于filter2D实际上做的是相关而非卷积，因此要把和旋转180°，x,y都要反号。同时，图像坐标中Y轴朝下，y再次反号
+			float yp = (c - n) * sin(theta) + (r - n) * cos(theta);
+			ptr[c] = a * exp(-b * (xp * xp + gamma2 * (yp * yp))) * cos(f * xp + phi);
+			
+		}
+	}
+	n = n / 2;
+	int kersz = 2 * n + 1;
+	Point2f center(n, n);
+	Point2f circleCenter(n, n + abs(radiu));//圆心位置
+	Mat xhh(kersz, kersz, CV_32F, Scalar(0));//小灰灰
+	for (int r = 0; r < kersz; r++)
+	{
+		for (int c = 0; c < kersz; c++)
+		{
+			
+			/*float radiu1 = radiu - (c - center.y);
+			float len = r - center.y;
+			float theta = len / radiu1;
+			int y1 = center.y + (c - center.y) + radiu1 * sin(theta) * sin(theta);
+			int x1 = center.x + radiu1 * sin(theta) * cos(theta);
+			if (x1 < 0 || x1 >= kersz || y1 < 0 || y1 >= kersz)
+				continue;
+			xhh.at<float>(x1, y1) = kernel.at<float>(r+n, c+n);*/
+
+			float dx = r - circleCenter.x;
+			float dy = c - circleCenter.y;
+			//if (radiu < 0) dy *= -1;
+			float radiu1 = sqrt(dx*dx + dy*dy);
+			float theta = atan(dx / dy);
+			//if (theta < 0) theta += 2 * CV_PI;
+			float len = radiu1 * theta;
+			int x0 = circleCenter.x - len + 0.5;//关键的0.5！ 四舍五入
+			int y0 = circleCenter.y - radiu1 + 0.5;
+			//if(radiu < 0) y0 = radiu1 - circleCenter.y  + 0.5;
+			if (x0 < 0 || x0 >= kernel.rows || y0 < 0 || y0 > kernel.cols)
+				continue;
+			if (1)// radiu >= 0)
+			{
+				xhh.at<float>(r, c) = kernel.at<float>(x0 + n, y0 + n);
+				if (xhh.at<float>(r, c) > 0)
+					posSum += xhh.at<float>(r, c);
+				else
+					negSum += xhh.at<float>(r, c);
+			}
+			else
+			{
+				xhh.at<float>(r, n + (n - c)) = kernel.at<float>(x0 + n, y0 + n);
+				if (xhh.at<float>(r, n + (n - c)) > 0)
+					posSum += xhh.at<float>(r, n + (n - c));
+				else
+					negSum += xhh.at<float>(r, n + (n - c));
+			}
+
+			
+		}
+	}
+	Mat result = xhh.clone();
+	if (radiu < 0)
+	{
+		Mat roteMat = getRotationMatrix2D(Point2f(center),CV_PI, 1.0);
+		Mat result;
+		warpAffine(xhh, result, roteMat, xhh.size());
+	}
+	
+
+	negSum = abs(negSum);
+	float meanSum = (posSum + negSum) / 2.0;
+	if (meanSum > 0)//归一化系数
+	{
+		posSum /= meanSum;
+		negSum /= meanSum;
+	}
+
+	for (int r = 0; r < 2 * n + 1; r++)//正负平衡
+	{
+		float* ptr = result.ptr<float>(r);
+		for (int c = 0; c < 2 * n + 1; c++)
+		{
+			if (ptr[c] > 0)
+				ptr[c] = negSum * ptr[c];
+			else
+				ptr[c] = posSum * ptr[c];
+		}
+	}
+
+	//Mat show1 = xhh.clone();
+	//normalize(show1, show1, 0, 1, NORM_MINMAX);
+	//namedWindow("gabor kernel", 0);
+	//imshow("gabor kernel", show1);
+	//waitKey(0);
+
+	
+	//normalize(xhh, xhh, 0, 1, NORM_MINMAX);
+	/*Mat roteMat = getRotationMatrix2D(Point2f(center), theta * 180 / (2 * CV_PI), 1.0);
+	Mat result;
+	warpAffine(xhh, result, roteMat, xhh.size());*/
+
+	/*Mat show2 = xhh.clone();
+	normalize(show2, show2, 0, 1, NORM_MINMAX);
+	namedWindow("gabor bend", 0);
+	imshow("gabor bend", show2);
+	waitKey(0);*/
+	return result;
 }
 
 Mat DogKernel2d(float sigma, int k1, int k2)
@@ -856,4 +1171,164 @@ Mat convolution(const Mat& srcImg, const Mat& filterKernel, const Mat& fftImg)
 	
 	Mat dstImg;
 	return dstImg;
+}
+
+//--------fastener detection
+Mat NonCrf_fastener(Mat srcImg, int inhibModel, float tl, float th)
+{
+	if (srcImg.type() != CV_32F)
+		srcImg.convertTo(srcImg, CV_32F, 1 / 255.0);
+	bool halfwave = 1;
+	float lamda = 10;//wavelength
+					 //vector<float> lamdaVec = { 3,4,5,6,7,8,9,10,11,12,13,15,15,16,17,18,19,21 };
+	vector<float> lamdaVec = { 3,5,7,9,11,13,15,17,19,21,23, 25 };/* , 27, 29, 31, 33, 35};*/
+
+	vector<float> sigmaVec;
+	for (auto i : lamdaVec)
+		sigmaVec.push_back(i*0.2);
+	float sigma = 1.0;
+	float gamma = 0.5;//aspect ratio
+	float bandwidth = 1;
+	int ntheta = 24;
+	int nphi = 2;
+	float arrphi[2] = { 0, 0.5*CV_PI };
+	vector<float> phi = { arrphi, arrphi + 2 };
+	vector<float> theta;
+	for (int i = 0; i < ntheta; i++)
+		theta.push_back(2 * CV_PI * i / ntheta);
+	int supPhases = 2;
+	int inhibMethod = inhibModel;//2:isotropic, 3:antisotropic, 1:no inhibition
+	int inhibSup = 3;
+	float alpha = 1.0;
+	float k1 = 1;
+	float k2 = 4;
+	float tlow = tl;
+	float thigh = th;
+	float p, efp, efn;
+	vector<vector<Mat>> gaborImgs;
+	//GaborFilter(gaborImgs, srcImg, halfwave, lamda, sigma, theta, phi, gamma, bandwidth);
+	GaborFilterMulScale(gaborImgs, srcImg, halfwave, lamdaVec, sigmaVec, theta, phi, gamma, bandwidth);
+	//GaborFilterMulScaleBend(gaborImgs, srcImg, halfwave, lamdaVec, sigmaVec, theta, phi, gamma, bandwidth);
+
+	vector<Mat> phaseSupImgs;
+	PhaseSuppos(phaseSupImgs, gaborImgs, ntheta, nphi, supPhases);
+
+	vector<Mat> inhibImgs;
+	Inhibition(inhibImgs, phaseSupImgs, inhibMethod, inhibSup, sigma, alpha, k1, k2);
+
+	Mat viewImg, orienImg;
+	ViewImage(viewImg, orienImg, inhibImgs, theta);
+
+	Mat showImg2 = viewImg.clone();
+	normalize(showImg2, showImg2, 0, 1, NORM_MINMAX);
+	imshow("viewImgmatlab", showImg2);
+	waitKey(0);
+
+	Mat thinImg;
+	Thinning(thinImg, viewImg, orienImg);
+	Mat showImg1 = thinImg.clone();
+	normalize(showImg1, showImg1, 0, 1, NORM_MINMAX);
+	imshow("thinImg", showImg1);
+	waitKey(0);
+	Hysteresis(thinImg, tlow, thigh);
+	InvertImg(thinImg);
+	imshow("NCRF image", thinImg);
+	waitKey(0);
+	return thinImg;
+
+}
+
+Mat drawButterflyNCRF()
+{
+	float ring1 = 42;
+	float ring2 = 150;
+	float theta = 70.0 / 180.0 * CV_PI;
+	Mat resultImg(600, 600, CV_32F, Scalar(1.0));
+	int centx = 300;
+	int centy = 300;
+
+	Mat RF = GaborKernel2d(8.5, 30, 0, 0, 0.5, 1);
+	normalize(RF, RF, 0, 1, NORM_MINMAX);
+	Mat dog1 = DogKernel2d(12, 1,8);
+	normalize(dog1, dog1, 0, 1, NORM_MINMAX);
+	imshow("dog1", dog1); waitKey();
+	Mat dogsave = dog1.clone();
+	dogsave.convertTo(dogsave, CV_8U, 255);
+	imwrite("dog.jpg", dogsave);
+	Mat dog2 = dog1.clone();
+	dog2.forEach<float>([](float& p, const int* pos)
+		->void {p = abs(p - 1); });
+	normalize(dog2, dog2, 0, 1, NORM_MINMAX);
+	imshow("dog1", dog2); waitKey();
+	for (int r = 0; r < dog2.rows; r++)
+	{
+		for (int c = 0; c < dog2.cols; c++)
+		{
+			float digree = 60.0;
+			if (abs((r - centx)*1.0 / (c - centy)) > tan(digree / 180.0 * CV_PI))
+				dog2.at<float>(r, c) = abs(1 - dog2.at<float>(r, c));
+			if (sqrt((r - centx)*(r - centx) + (c - centy)*(c - centy)) < ring1)
+				dog2.at<float>(r, c) = RF.at<float>(r - centx + ring1, c - centy + ring1);
+			if (sqrt((r - centx)*(r - centx) + (c - centy)*(c - centy)) > ring2)
+				dog2.at<float>(r, c) = 1;
+		}
+	}
+	imshow("dog1", dog2); waitKey();
+	
+
+	return resultImg;
+}
+
+Mat drawRNCRF()
+{
+	float ring1 = 42;
+	float ring2 = 150;
+	float theta = 70.0 / 180.0 * CV_PI;
+	Mat resultImg(600, 600, CV_32F, Scalar(1.0));
+	int centx = 300;
+	int centy = 300;
+
+	Mat RF = GaborKernel2d(8.5, 30, 0, 0, 0.5, 1);
+	normalize(RF, RF, 0, 1, NORM_MINMAX);
+	Mat dog1 = DogKernel2d(12, 1, 8);
+	normalize(dog1, dog1, 0, 1, NORM_MINMAX);
+	imshow("dog1", dog1); waitKey();
+	Mat dogsave = dog1.clone();
+	dogsave.convertTo(dogsave, CV_8U, 255);
+	imwrite("dog.jpg", dogsave);
+	Mat dog2 = dog1.clone();
+	dog2.forEach<float>([](float& p, const int* pos)
+		->void {p = abs(p - 1); });
+	normalize(dog2, dog2, 0, 1, NORM_MINMAX);
+	imshow("dog1", dog2); waitKey();
+	for (int r = 0; r < dog2.rows; r++)
+	{
+		for (int c = 0; c < dog2.cols; c++)
+		{
+			//float digree = 89.0;
+			//if (abs((r - centx)*1.0 / (c - centy)) > tan(digree / 180.0 * CV_PI))
+			//	dog2.at<float>(r, c) = abs(1 - dog2.at<float>(r, c));
+			if(c == centy)
+				dog2.at<float>(r, c) = abs(1 - dog2.at<float>(r, c));
+			int R = 300;
+			int RX = centx;
+			int RY1 = centy + R;
+			int RY2 = centy - R;
+			float eps = 1.0;
+			if(abs(sqrt((r - RX)*(r - RX)+(c - RY1)*(c - RY1))-R) < 1.0 || abs(sqrt((r - RX)*(r - RX) + (c - RY2)*(c - RY2)) - R) < 1.0)
+				dog2.at<float>(r, c) = abs(1 - dog2.at<float>(r, c));
+			if (sqrt((r - centx)*(r - centx) + (c - centy)*(c - centy)) < ring1)
+				dog2.at<float>(r, c) = RF.at<float>(r - centx + ring1, c - centy + ring1);
+			if (sqrt((r - centx)*(r - centx) + (c - centy)*(c - centy)) > ring2)
+				dog2.at<float>(r, c) = 1;
+		}
+	}
+	imshow("dog1", dog2); waitKey();
+	//normalize(dog2, dog2, 0, 1, NORM_MINMAX);
+
+	dog2.convertTo(dog2, CV_8U, 255);
+	imwrite("pic/R-NCRF.jpg", dog2);
+	imshow("rncrf", dog2); waitKey();
+
+	return resultImg;
 }
