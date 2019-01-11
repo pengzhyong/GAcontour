@@ -307,7 +307,7 @@ int main()
 	//cout << "v4: " << endl;
 	//for (auto i : v4) cout << i << ", ";cout << endl;
 
-	int times = 100;//100 times experiments
+	int times = 300;//100 times experiments
 	int t1 = 0, t2 = 0, t3 = 0, t4 = 0, t5 = 0;
 	double st1, st2, st3, st4, st5, ed1, ed2, ed3, ed4, ed5;
 	double tm1=0, tm2=0, tm3=0, tm4=0, tm5=0;
@@ -365,6 +365,13 @@ int main()
 		//imshow("myCanny both", dst4);
 		//imshow("Canny", dst5);
 		//waitKey();
+		//imshow("src", src);
+		//imshow("c1", dst1);
+		//imshow("c2", dst2);
+		//imshow("c3", dst3);
+		//imshow("c4", dst4);
+		//imshow("c5", dst5);
+
 		double re1 = 0, re2 = 0, re3 = 0, re4 = 0, re5;
 		Mat c1 = DetectCircle(dst1, 59, 61, re1);
 		Mat c2 = DetectCircle(dst2, 59, 61, re2);
@@ -384,15 +391,18 @@ int main()
 		MarkCenter(c4);
 		MarkCenter(c5);
 
-		/*imshow("c1", c1);
+		imshow("src", src);
+		imshow("c1", c1);
 		imshow("c2", c2);
 		imshow("c3", c3);
 		imshow("c4", c4);
-		imwrite("pic/c1.jpg", c1);
+		imshow("c5", c5);
+
+		/*imwrite("pic/c1.jpg", c1);
 		imwrite("pic/c2.jpg", c2);
 		imwrite("pic/c3.jpg", c3);
-		imwrite("pic/c4.jpg", c4);
-		waitKey();*/
+		imwrite("pic/c4.jpg", c4);*/
+		waitKey(1);
 		cout << times << ":  " << re1 << "; " << re2 << "; " << re3 << "; " << re4 << "; " << re5 << endl;
 	}
 	cout << "t1_Canny: " << t1 << ", time cost: " << tm1 << endl;

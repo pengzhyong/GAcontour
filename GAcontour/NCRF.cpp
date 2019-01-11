@@ -1181,15 +1181,15 @@ Mat NonCrf_fastener(Mat srcImg, int inhibModel, double tl, double th)
 	bool halfwave = 1;
 	double lamda = 10;//wavelength
 					 //vector<double> lamdaVec = { 3,4,5,6,7,8,9,10,11,12,13,15,15,16,17,18,19,21 };
-	vector<double> lamdaVec = { 3,5,7,9,11,13,15,17,19,21,23, 25 };/* , 27, 29, 31, 33, 35};*/
+	vector<double> lamdaVec = /*{ 3,5,7,9,11, */{/*13, 15, 17, 19, 21, 23, */31};/* , 27, 29, 31, 33, 35};*/
 
 	vector<double> sigmaVec;
 	for (auto i : lamdaVec)
 		sigmaVec.push_back(i*0.2);
-	double sigma = 1.0;
+	double sigma = 5.0;
 	double gamma = 0.5;//aspect ratio
 	double bandwidth = 1;
-	int ntheta = 24;
+	int ntheta = 12;
 	int nphi = 2;
 	double arrphi[2] = { 0, 0.5*CV_PI };
 	vector<double> phi = { arrphi, arrphi + 2 };
@@ -1200,7 +1200,7 @@ Mat NonCrf_fastener(Mat srcImg, int inhibModel, double tl, double th)
 	int inhibMethod = inhibModel;//2:isotropic, 3:antisotropic, 1:no inhibition
 	int inhibSup = 3;
 	double alpha = 1.0;
-	double k1 = 1;
+	double k1 = 2;
 	double k2 = 4;
 	double tlow = tl;
 	double thigh = th;
