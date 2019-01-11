@@ -1,0 +1,4 @@
+1.Canny	12/30
+2.Excitation 26/30
+3.Inhibition 15/30
+4.Both 18/30

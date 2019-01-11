@@ -11,8 +11,8 @@ PostProgress::~PostProgress()
 
 void PostProgress::MySobel(Mat& src, Mat& dst, Mat& dstx, Mat& dsty)
 {
-	Mat SobKerx = (Mat_<float>(3, 3) << -1, 0, 1, -2, 0, 2, -1, 0, 1)/8;
-	Mat SobKery = (Mat_<float>(3, 3) << -1, -2, -1, 0, 0, 0, 1, 2, 1)/8;
+	Mat SobKerx = (Mat_<double>(3, 3) << -1, 0, 1, -2, 0, 2, -1, 0, 1)/8;
+	Mat SobKery = (Mat_<double>(3, 3) << -1, -2, -1, 0, 0, 0, 1, 2, 1)/8;
 	//src.copyTo(dst);
 	//src.copyTo(dstx);
 	//src.copyTo(dsty);
@@ -21,9 +21,9 @@ void PostProgress::MySobel(Mat& src, Mat& dst, Mat& dstx, Mat& dsty)
 	for (int i = 1; i<src.rows - 1; i++)
 	{
 		uchar* ptr = src.ptr<uchar>(i);
-		float* ptrDst = dst.ptr<float>(i);
-		float* ptrDstx = dstx.ptr<float>(i);
-		float* ptrDsty = dsty.ptr<float>(i);
+		double* ptrDst = dst.ptr<double>(i);
+		double* ptrDstx = dstx.ptr<double>(i);
+		double* ptrDsty = dsty.ptr<double>(i);
 
 		for (int j = 1; j<src.cols - 1; j++)
 		{
@@ -50,12 +50,12 @@ void PostProgress::MySobel(Mat& src, Mat& dst, Mat& dstx, Mat& dsty)
 			double contrE = 1.0 / var;//系数
 			double rx = 0;
 			double ry = 0;
-			rx = SobKerx.at<float>(0, 0)*(src.at<uchar>(i - 1, j - 1) - average) + SobKerx.at<float>(0, 1)*(src.at<uchar>(i - 1, j) - average) + SobKerx.at<float>(0, 2)*(src.at<uchar>(i - 1, j + 1) - average)
-				+ SobKerx.at<float>(1, 0)*(src.at<uchar>(i, j - 1) - average) + SobKerx.at<float>(1, 1)*(src.at<uchar>(i, j) - average) + SobKerx.at<float>(1, 2)*(src.at<uchar>(i, j + 1) - average)
-				+ SobKerx.at<float>(2, 0)*(src.at<uchar>(i + 1, j - 1) - average) + SobKerx.at<float>(2, 1)*(src.at<uchar>(i + 1, j) - average) + SobKerx.at<float>(2, 2)*(src.at<uchar>(i + 1, j + 1) - average);
-			ry = SobKery.at<float>(0, 0)*(src.at<uchar>(i - 1, j - 1) - average) + SobKery.at<float>(0, 1)*(src.at<uchar>(i - 1, j) - average) + SobKery.at<float>(0, 2)*(src.at<uchar>(i - 1, j + 1) - average)
-				+ SobKery.at<float>(1, 0)*(src.at<uchar>(i, j - 1) - average) + SobKery.at<float>(1, 1)*(src.at<uchar>(i, j) - average) + SobKery.at<float>(1, 2)*(src.at<uchar>(i, j + 1) - average)
-				+ SobKery.at<float>(2, 0)*(src.at<uchar>(i + 1, j - 1) - average) + SobKery.at<float>(2, 1)*(src.at<uchar>(i + 1, j) - average) + SobKery.at<float>(2, 2)*(src.at<uchar>(i + 1, j + 1) - average);
+			rx = SobKerx.at<double>(0, 0)*(src.at<uchar>(i - 1, j - 1) - average) + SobKerx.at<double>(0, 1)*(src.at<uchar>(i - 1, j) - average) + SobKerx.at<double>(0, 2)*(src.at<uchar>(i - 1, j + 1) - average)
+				+ SobKerx.at<double>(1, 0)*(src.at<uchar>(i, j - 1) - average) + SobKerx.at<double>(1, 1)*(src.at<uchar>(i, j) - average) + SobKerx.at<double>(1, 2)*(src.at<uchar>(i, j + 1) - average)
+				+ SobKerx.at<double>(2, 0)*(src.at<uchar>(i + 1, j - 1) - average) + SobKerx.at<double>(2, 1)*(src.at<uchar>(i + 1, j) - average) + SobKerx.at<double>(2, 2)*(src.at<uchar>(i + 1, j + 1) - average);
+			ry = SobKery.at<double>(0, 0)*(src.at<uchar>(i - 1, j - 1) - average) + SobKery.at<double>(0, 1)*(src.at<uchar>(i - 1, j) - average) + SobKery.at<double>(0, 2)*(src.at<uchar>(i - 1, j + 1) - average)
+				+ SobKery.at<double>(1, 0)*(src.at<uchar>(i, j - 1) - average) + SobKery.at<double>(1, 1)*(src.at<uchar>(i, j) - average) + SobKery.at<double>(1, 2)*(src.at<uchar>(i, j + 1) - average)
+				+ SobKery.at<double>(2, 0)*(src.at<uchar>(i + 1, j - 1) - average) + SobKery.at<double>(2, 1)*(src.at<uchar>(i + 1, j) - average) + SobKery.at<double>(2, 2)*(src.at<uchar>(i + 1, j + 1) - average);
 			//rx *= contrE;
 			//ry *= contrE;
 			/*if (var < 0.01)
@@ -69,7 +69,7 @@ void PostProgress::MySobel(Mat& src, Mat& dst, Mat& dstx, Mat& dsty)
 
 			//ptrDst[j] = var;
 
-			//std::cout << dst.at<float>(i,j) << std::endl;
+			//std::cout << dst.at<double>(i,j) << std::endl;
 		}
 	}
 	//std::cout << dstx << std::endl;
@@ -1409,18 +1409,18 @@ void PostProgress::getSingleCnt(int beginPointIdx, vector<Point>& inCnt, int * i
 
 void NMS(Mat& srcx, Mat& srcy, Mat& dst)
 {
-	Mat mag(srcx.size(), CV_32F, Scalar(0));//保存梯度大小值
-	Mat pha(srcx.size(), CV_32F, Scalar(0));
+	Mat mag(srcx.size(), CV_64F, Scalar(0));//保存梯度大小值
+	Mat pha(srcx.size(), CV_64F, Scalar(0));
 
-	//srcx.convertTo(srcx, CV_32F);
-	//srcy.convertTo(srcy, CV_32F);
+	//srcx.convertTo(srcx, CV_64F);
+	//srcy.convertTo(srcy, CV_64F);
 
 	for (int r = 1; r<srcx.rows - 1; r++)
 	{
 		for (int c = 1; c<srcx.cols - 1; c++)
 		{
-			mag.at<float>(r, c) = sqrt(srcx.at<float>(r, c)*srcx.at<float>(r, c) + srcy.at<float>(r, c)*srcy.at<float>(r, c));
-			pha.at<float>(r, c) = atan2(srcy.at<float>(r, c), srcx.at<float>(r, c));
+			mag.at<double>(r, c) = sqrt(srcx.at<double>(r, c)*srcx.at<double>(r, c) + srcy.at<double>(r, c)*srcy.at<double>(r, c));
+			pha.at<double>(r, c) = atan2(srcy.at<double>(r, c), srcx.at<double>(r, c));
 
 		}
 	}
@@ -1428,12 +1428,12 @@ void NMS(Mat& srcx, Mat& srcy, Mat& dst)
 
 
 	//std::cout << pha << std::endl;
-	//dst.convertTo(dst, CV_32F, 1.0/255);
+	//dst.convertTo(dst, CV_64F, 1.0/255);
 	//dst = mag.clone();
 	//normalize(mag, mag, 0, 1, NORM_MINMAX);
 	//imshow("dst in nms", mag);
 	//waitKey(0);
-	//dst.convertTo(dst, CV_32F);
+	//dst.convertTo(dst, CV_64F);
 	/*normalize(dst, dst, 0, 1, NORM_MINMAX);
 	imshow("dst in nms", dst);
 	waitKey(0);*/
@@ -1442,114 +1442,114 @@ void NMS(Mat& srcx, Mat& srcy, Mat& dst)
 	{
 		for (int c = 1; c < srcx.cols - 1; c++)
 		{
-			float angle = pha.at<float>(r, c);
+			double angle = pha.at<double>(r, c);
 			if (angle < 0)
 				angle += 2 * CV_PI;
 			if ((angle >= 1.875*CV_PI || angle < 0.125*CV_PI) || (angle >= 0.875 * CV_PI && angle < 1.125*CV_PI))//第一个条件要用||,处在圆首尾交接处
 			{
-				float v0 = mag.at<float>(r, c);
-				float v1 = mag.at<float>(r, c - 1);
-				float v2 = mag.at<float>(r, c + 1);
+				double v0 = mag.at<double>(r, c);
+				double v1 = mag.at<double>(r, c - 1);
+				double v2 = mag.at<double>(r, c + 1);
 				if (v0 < v1 || v0 < v2)
 				{
-					dst.at<float>(r, c) = 0;
+					dst.at<double>(r, c) = 0;
 				}
 
 				//条件放宽
-				/*uchar v0 = mag.at<float>(r, c);
-				uchar v1 = mag.at<float>(r, c + 1);
-				uchar v2 = mag.at<float>(r-1, c+1);
-				uchar v3 = mag.at<float>(r - 1, c);
-				uchar v4 = mag.at<float>(r-1, c-1);
-				uchar v5 = mag.at<float>(r, c-1);
-				uchar v6 = mag.at<float>(r + 1, c-1);
-				uchar v7 = mag.at<float>(r + 1, c);
-				uchar v8 = mag.at<float>(r + 1, c+1);
+				/*uchar v0 = mag.at<double>(r, c);
+				uchar v1 = mag.at<double>(r, c + 1);
+				uchar v2 = mag.at<double>(r-1, c+1);
+				uchar v3 = mag.at<double>(r - 1, c);
+				uchar v4 = mag.at<double>(r-1, c-1);
+				uchar v5 = mag.at<double>(r, c-1);
+				uchar v6 = mag.at<double>(r + 1, c-1);
+				uchar v7 = mag.at<double>(r + 1, c);
+				uchar v8 = mag.at<double>(r + 1, c+1);
 
 				if (!(v0>v1&&v0>v5) && !(v0>v2&&v0>v6) && !(v0>v4&&v0>v8))
 				{
 				continue;
 				}
-				dst.at<float>(r, c) = 0;*/
+				dst.at<double>(r, c) = 0;*/
 			}
 			if ((angle >= 0.125*CV_PI && angle < 0.375*CV_PI) || (angle >= 1.125 * CV_PI && angle < 1.375*CV_PI))
 			{
-				float v0 = mag.at<float>(r, c);
-				float v1 = mag.at<float>(r + 1, c - 1);
-				float v2 = mag.at<float>(r - 1, c + 1);
+				double v0 = mag.at<double>(r, c);
+				double v1 = mag.at<double>(r + 1, c - 1);
+				double v2 = mag.at<double>(r - 1, c + 1);
 				if (v0 < v1 || v0 < v2)
 				{
-					dst.at<float>(r, c) = 0;
+					dst.at<double>(r, c) = 0;
 				}
 
-				/*uchar v0 = mag.at<float>(r, c);
-				uchar v1 = mag.at<float>(r, c + 1);
-				uchar v2 = mag.at<float>(r - 1, c + 1);
-				uchar v3 = mag.at<float>(r - 1, c);
-				uchar v4 = mag.at<float>(r - 1, c - 1);
-				uchar v5 = mag.at<float>(r, c - 1);
-				uchar v6 = mag.at<float>(r + 1, c - 1);
-				uchar v7 = mag.at<float>(r + 1, c);
-				uchar v8 = mag.at<float>(r + 1, c + 1);
+				/*uchar v0 = mag.at<double>(r, c);
+				uchar v1 = mag.at<double>(r, c + 1);
+				uchar v2 = mag.at<double>(r - 1, c + 1);
+				uchar v3 = mag.at<double>(r - 1, c);
+				uchar v4 = mag.at<double>(r - 1, c - 1);
+				uchar v5 = mag.at<double>(r, c - 1);
+				uchar v6 = mag.at<double>(r + 1, c - 1);
+				uchar v7 = mag.at<double>(r + 1, c);
+				uchar v8 = mag.at<double>(r + 1, c + 1);
 
 				if (!(v0 > v3&&v0 > v7) && !(v0 > v2&&v0 > v6) && !(v0 > v5&&v0 > v1))
 				{
 				continue;
 				}
-				dst.at<float>(r, c) = 0;*/
+				dst.at<double>(r, c) = 0;*/
 			}
 			if ((angle >= 0.375*CV_PI && angle < 0.625*CV_PI) || (angle >= 1.375 * CV_PI && angle < 1.625*CV_PI))
 			{
-				float v0 = mag.at<float>(r, c);
-				float v1 = mag.at<float>(r - 1, c);
-				float v2 = mag.at<float>(r + 1, c);
+				double v0 = mag.at<double>(r, c);
+				double v1 = mag.at<double>(r - 1, c);
+				double v2 = mag.at<double>(r + 1, c);
 				if (v0 < v1 || v0 < v2)
 				{
-					dst.at<float>(r, c) = 0;
+					dst.at<double>(r, c) = 0;
 				}
 
-				/*uchar v0 = mag.at<float>(r, c);
-				uchar v1 = mag.at<float>(r, c + 1);
-				uchar v2 = mag.at<float>(r - 1, c + 1);
-				uchar v3 = mag.at<float>(r - 1, c);
-				uchar v4 = mag.at<float>(r - 1, c - 1);
-				uchar v5 = mag.at<float>(r, c - 1);
-				uchar v6 = mag.at<float>(r + 1, c - 1);
-				uchar v7 = mag.at<float>(r + 1, c);
-				uchar v8 = mag.at<float>(r + 1, c + 1);
+				/*uchar v0 = mag.at<double>(r, c);
+				uchar v1 = mag.at<double>(r, c + 1);
+				uchar v2 = mag.at<double>(r - 1, c + 1);
+				uchar v3 = mag.at<double>(r - 1, c);
+				uchar v4 = mag.at<double>(r - 1, c - 1);
+				uchar v5 = mag.at<double>(r, c - 1);
+				uchar v6 = mag.at<double>(r + 1, c - 1);
+				uchar v7 = mag.at<double>(r + 1, c);
+				uchar v8 = mag.at<double>(r + 1, c + 1);
 
 				if (!(v0 > v1&&v0 > v5) && !(v0 > v3&&v0 > v7) && !(v0 > v4&&v0 > v8))
 				{
 				continue;
 				}*/
-				dst.at<float>(r, c) = 0;
+				dst.at<double>(r, c) = 0;
 			}
 			if ((angle >= 0.625*CV_PI && angle < 0.875*CV_PI) || (angle >= 1.625 * CV_PI && angle < 1.875*CV_PI))
 			{
-				float v0 = mag.at<float>(r, c);
-				float v1 = mag.at<float>(r - 1, c - 1);
-				float v2 = mag.at<float>(r + 1, c + 1);
+				double v0 = mag.at<double>(r, c);
+				double v1 = mag.at<double>(r - 1, c - 1);
+				double v2 = mag.at<double>(r + 1, c + 1);
 				if (v0 < v1 || v0 < v2)
 				{
 
-					dst.at<float>(r, c) = 0;
+					dst.at<double>(r, c) = 0;
 				}
 
-				/*uchar v0 = mag.at<float>(r, c);
-				uchar v1 = mag.at<float>(r, c + 1);
-				uchar v2 = mag.at<float>(r - 1, c + 1);
-				uchar v3 = mag.at<float>(r - 1, c);
-				uchar v4 = mag.at<float>(r - 1, c - 1);
-				uchar v5 = mag.at<float>(r, c - 1);
-				uchar v6 = mag.at<float>(r + 1, c - 1);
-				uchar v7 = mag.at<float>(r + 1, c);
-				uchar v8 = mag.at<float>(r + 1, c + 1);
+				/*uchar v0 = mag.at<double>(r, c);
+				uchar v1 = mag.at<double>(r, c + 1);
+				uchar v2 = mag.at<double>(r - 1, c + 1);
+				uchar v3 = mag.at<double>(r - 1, c);
+				uchar v4 = mag.at<double>(r - 1, c - 1);
+				uchar v5 = mag.at<double>(r, c - 1);
+				uchar v6 = mag.at<double>(r + 1, c - 1);
+				uchar v7 = mag.at<double>(r + 1, c);
+				uchar v8 = mag.at<double>(r + 1, c + 1);
 
 				if (!(v0 > v3&&v0 > v7) && !(v0 > v2&&v0 > v6) && !(v0 > v4&&v0 > v8))
 				{
 				continue;
 				}
-				dst.at<float>(r, c) = 0;*/
+				dst.at<double>(r, c) = 0;*/
 			}
 		}
 	}
@@ -1559,9 +1559,9 @@ void NMS(Mat& srcx, Mat& srcy, Mat& dst)
 
 void NMS(const Mat& src, Mat& dst)
 {
-	Mat diffx(src.size(), CV_32F);
-	Mat diffy(src.size(), CV_32F);
-	Sobel(src, diffx, CV_32F, 1, 0);
-	Sobel(src, diffy, CV_32F, 0, 1);
+	Mat diffx(src.size(), CV_64F);
+	Mat diffy(src.size(), CV_64F);
+	Sobel(src, diffx, CV_64F, 1, 0);
+	Sobel(src, diffy, CV_64F, 0, 1);
 	NMS(diffx, diffy, dst);//调用重载函数
 }

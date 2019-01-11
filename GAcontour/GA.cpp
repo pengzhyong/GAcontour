@@ -8,26 +8,26 @@
 #include "NCRF.h"
 
 Mat maxKer;
-vector<float> avefit, maxfit;
+vector<double> avefit, maxfit;
 int maxFitIndex = 0;
-float wholeMax = 0;
+double wholeMax = 0;
 
 void Ga_init(int maskSize, int ntheta, vector<individual>& population, int popSize)
 {
 	population.clear();
 	maskSize = maskSize % 2 == 0 ? maskSize + 1 : maskSize;//保证模板尺寸为奇数
-	Mat maskMat(1, ntheta*maskSize*maskSize, CV_32F);
-	/*Mat gaborKer(maskSize, maskSize, CV_32F);
+	Mat maskMat(1, ntheta*maskSize*maskSize, CV_64F);
+	/*Mat gaborKer(maskSize, maskSize, CV_64F);
 	GaborKernel2d(gaborKer, 1.0, 10, 0, 0, 0.5, 1);*/
 	for (int i = 0; i < popSize; i++)
 	{
 		individual person;
-		Mat maskMat1(maskSize, maskSize, CV_32F);
+		Mat maskMat1(maskSize, maskSize, CV_64F);
 		maskMat1 = DogKernel2d(1.0, 1, 4);
-		Mat maskMat2(maskSize, maskSize, CV_32F);
-		//maskMat1.forEach<float>([](float& p, const int* pos)->void { p = (rand() % 200) * 0.01 - 1.0; });//random value in [-2,2];
-		maskMat2.forEach<float>([](float& p, const int* pos)->void { p = (rand() % 200) * 0.01 - 1.0; });
-		vector<float> coefs;
+		Mat maskMat2(maskSize, maskSize, CV_64F);
+		//maskMat1.forEach<double>([](double& p, const int* pos)->void { p = (rand() % 200) * 0.01 - 1.0; });//random value in [-2,2];
+		maskMat2.forEach<double>([](double& p, const int* pos)->void { p = (rand() % 200) * 0.01 - 1.0; });
+		vector<double> coefs;
 		for (int i = 0; i < 2 * ntheta; i++)
 			person.second.push_back((rand() % 100) * 0.01 - 0.5);
 		person.first.push_back(maskMat1);
@@ -39,20 +39,20 @@ void Ga_init(int maskSize, int ntheta, vector<individual>& population, int popSi
 
 //计算每个个体的适应度
 void Ga_fitness(const Mat& trainData1, const Mat& trainData2, const Mat groundTruth1, const Mat& groundTruth2,
-	vector<individual>& population, vector<float>& fitValues, int kernelSize, int ntheta)
+	vector<individual>& population, vector<double>& fitValues, int kernelSize, int ntheta)
 {
 	time_t tic, toc;
 	time(&tic);
-	float avePerform = 0;
+	double avePerform = 0;
 
 	GaParWrapper gapar1(trainData1, groundTruth1, population, population.size());
 	parallel_for_(Range(0, population.size()), gapar1);
-	fitValues = vector<float>(gapar1.fitness, gapar1.fitness + population.size());
+	fitValues = vector<double>(gapar1.fitness, gapar1.fitness + population.size());
 	//for (int i = 0; i < population.size(); i++)
 		//fitValues.push_back(NonCRF(trainData1, groundTruth1, population.at(i).first, population.at(i).second, 1));
 	/*GaParWrapper gapar2(trainData2, groundTruth2, kernel, population.size());
 	parallel_for_(Range(0, population.size()), gapar2);
-	vector<float> fitValues2 = vector<float>(gapar2.fitness, gapar2.fitness + population.size());
+	vector<double> fitValues2 = vector<double>(gapar2.fitness, gapar2.fitness + population.size());
 	for (int i = 0; i < population.size(); i++)
 		fitValues.push_back(0.5 * (fitValues1.at(i) + fitValues2.at(i)) + min(fitValues1.at(i), fitValues2.at(i)));*/
 
@@ -60,7 +60,7 @@ void Ga_fitness(const Mat& trainData1, const Mat& trainData2, const Mat groundTr
 	avePerform /= population.size();
 
 	maxFitIndex = max_element(fitValues.begin(), fitValues.end()) - fitValues.begin();
-	float maxfitVal = fitValues.at(max_element(fitValues.begin(), fitValues.end()) - fitValues.begin());
+	double maxfitVal = fitValues.at(max_element(fitValues.begin(), fitValues.end()) - fitValues.begin());
 	if (maxfitVal > wholeMax)
 	{
 		wholeMax = maxfitVal;
@@ -76,7 +76,7 @@ void Ga_select(const Mat& trainData1, const Mat& trainData2, const Mat groundTru
 	vector<individual>& population, bool elitism, int kernelSize, int ntheta)
 {
 	vector<individual> new_population;
-	vector<float> fitValue;
+	vector<double> fitValue;
 	//time_t tic, toc;
 	//time(&tic);
 	Ga_fitness(trainData1, trainData2, groundTruth1, groundTruth2, population, fitValue, kernelSize, ntheta);
@@ -95,10 +95,10 @@ void Ga_select(const Mat& trainData1, const Mat& trainData2, const Mat groundTru
 		sum_fit.push_back(i);
 	for (int i = 1; i < sum_fit.size(); i++)//适应度累加
 		sum_fit.at(i) += sum_fit.at(i - 1);
-	const float EPS = 0.00001;
+	const double EPS = 0.00001;
 	for (int i = firstPerson; i < population.size(); i++)
 	{
-		float posValue = (rand() % 1000) * 0.001 * sum_fit.back();
+		double posValue = (rand() % 1000) * 0.001 * sum_fit.back();
 		int first = 0;
 		int last = sum_fit.size() - 1;
 		int mid = 0.5 * (first + last) + 0.5;//加0.5, 四舍五入
@@ -130,7 +130,7 @@ void Ga_select(const Mat& trainData1, const Mat& trainData2, const Mat groundTru
 }
 
 //交叉
-void Ga_cross(vector<vector<float>>& population, double cross_rate, int crossMethod)
+void Ga_cross(vector<vector<double>>& population, double cross_rate, int crossMethod)
 {
 	int len = population.at(0).size();
 	for (int person = 0; person < population.size(); person = person + 2)
@@ -142,12 +142,12 @@ void Ga_cross(vector<vector<float>>& population, double cross_rate, int crossMet
 			if (randNums > cross_rate)//交叉率
 				continue;
 			int pos = rand() % 10 * 0.1 * len;
-			vector<float> seg1(population.at(person).begin() + pos, population.at(person).end());//选出的基因片段
-			vector<float> seg2(population.at(person + 1).begin() + pos, population.at(person + 1).end());
+			vector<double> seg1(population.at(person).begin() + pos, population.at(person).end());//选出的基因片段
+			vector<double> seg2(population.at(person + 1).begin() + pos, population.at(person + 1).end());
 
-			population.at(person) = vector<float>(population.at(person).begin(), population.at(person).begin() + pos);
+			population.at(person) = vector<double>(population.at(person).begin(), population.at(person).begin() + pos);
 			population.at(person).insert(population.at(person).end(), seg2.begin(), seg2.end());
-			population.at(person + 1) = vector<float>(population.at(person + 1).begin(), population.at(person + 1).begin() + pos);
+			population.at(person + 1) = vector<double>(population.at(person + 1).begin(), population.at(person + 1).begin() + pos);
 			population.at(person + 1).insert(population.at(person + 1).end(), seg1.begin(), seg1.end());
 		}
 		
@@ -156,7 +156,7 @@ void Ga_cross(vector<vector<float>>& population, double cross_rate, int crossMet
 			//均匀交叉
 			for (int i = 0; i < len; i++)
 			{
-				float r = rand() % 1000 * 0.001;
+				double r = rand() % 1000 * 0.001;
 				if (r < 0.001)
 				{
 					population.at(person).at(i) = population.at(person).at(i) * 0.5 + population.at(person + 1).at(i) * 0.5;
@@ -173,28 +173,28 @@ void Ga_cross2d(vector<individual>& population, double cross_rate, int kernelSiz
 	int maskSize = population.at(0).first.at(0).rows;
 	for (int person = 0; person < population.size(); person = person + 2)
 	{
-		float randNums1 = rand() % 100 * 0.01;
+		double randNums1 = rand() % 100 * 0.01;
 		if (randNums1 < cross_rate)
 		{
 			int kerIndex = rand() % 100 * 0.01 * nmask;
 			int randRow = rand() % 100 * 0.01 * maskSize;
 			int randCol = rand() % 100 * 0.01 * maskSize;
-			Mat tmp(maskSize, maskSize, CV_32F, Scalar(0.0));
+			Mat tmp(maskSize, maskSize, CV_64F, Scalar(0.0));
 			Mat indivKer1 = population.at(person).first.at(kerIndex);
 			Mat indivKer2 = population.at(person + 1).first.at(kerIndex);
 
-			tmp.forEach<float>([indivKer1, kerIndex, randRow, randCol](float& p, const int* pos)
-				->void {if (pos[0] >= randRow && pos[1] >= randCol) p = indivKer1.at<float>(pos[0], pos[1]); });
-			indivKer1.forEach<float>([indivKer2, kerIndex, randRow, randCol](float& p, const int* pos)
-				->void {if (pos[0] >= randRow && pos[1] >= randCol) p = indivKer2.at<float>(pos[0], pos[1]); });
-			indivKer2.forEach<float>([tmp, kerIndex, randRow, randCol](float& p, const int* pos)
-				->void {if (pos[0] >= randRow && pos[1] >= randCol) p = tmp.at<float>(pos[0], pos[1]); });
+			tmp.forEach<double>([indivKer1, kerIndex, randRow, randCol](double& p, const int* pos)
+				->void {if (pos[0] >= randRow && pos[1] >= randCol) p = indivKer1.at<double>(pos[0], pos[1]); });
+			indivKer1.forEach<double>([indivKer2, kerIndex, randRow, randCol](double& p, const int* pos)
+				->void {if (pos[0] >= randRow && pos[1] >= randCol) p = indivKer2.at<double>(pos[0], pos[1]); });
+			indivKer2.forEach<double>([tmp, kerIndex, randRow, randCol](double& p, const int* pos)
+				->void {if (pos[0] >= randRow && pos[1] >= randCol) p = tmp.at<double>(pos[0], pos[1]); });
 		}
 		//系数染色体 均匀交叉
-		float c = 0.5;
+		double c = 0.5;
 		for (int i = 0; i < nmask * ntheta; i++)
 		{
-			float r = rand() % 1000 * 0.001;
+			double r = rand() % 1000 * 0.001;
 			if (r < 0.01)
 			{
 				population.at(person).second.at(i) = population.at(person).second.at(i) * c + population.at(person + 1).second.at(i) * (1 - c);
@@ -214,21 +214,21 @@ void Ga_mutation(vector<individual>& popultion, double mutation_rate)
 		//-----mask mutation
 		for (int i = 0; i < nmask; i++)
 		{
-			float randNums = rand() % 100 * 0.01;
+			double randNums = rand() % 100 * 0.01;
 			if (randNums < mutation_rate)
 			{
-				float randCoef = rand() % 100 * 0.01 - 0.5;//[-2,2]
-				float randRows = rand() % 100 * 0.01 * maskSize;
-				float randCols = rand() % 100 * 0.01 * maskSize;
-				popultion.at(person).first.at(i).at<float>(randRows, randCols) += randCoef / 2;
+				double randCoef = rand() % 100 * 0.01 - 0.5;//[-2,2]
+				double randRows = rand() % 100 * 0.01 * maskSize;
+				double randCols = rand() % 100 * 0.01 * maskSize;
+				popultion.at(person).first.at(i).at<double>(randRows, randCols) += randCoef / 2;
 			}
 		}
 		//------coefs muation
-		float randNums = rand() % 100 * 0.01;
+		double randNums = rand() % 100 * 0.01;
 		if (randNums < mutation_rate)
 		{
-			float randCoef = rand() % 400 * 0.01 - 2;//[-2,2]
-			float randPos = rand() % 100 * 0.01 * popultion.at(0).second.size();
+			double randCoef = rand() % 400 * 0.01 - 2;//[-2,2]
+			double randPos = rand() % 100 * 0.01 * popultion.at(0).second.size();
 			popultion.at(person).second.at(randPos) *= randCoef;
 		}
 	}
@@ -244,7 +244,7 @@ void GA(Mat& trainData1, Mat& trainData2, Mat& groundTruth1, Mat& groundTruth2)
 
 	vector<individual> population;//2 mask + 2*ntheta coef, pair.fist denote 2 mask, pair.second denote coefs
 
-	float sigma = 1.0;// must be same with the values in NonCRF
+	double sigma = 1.0;// must be same with the values in NonCRF
 	int k1 = 1, k2 = 4;
 	//int maskSize = ceil(sigma) * (3 * k2 + k1) - 1;;//模板尺寸
 	int maskSize = 25;
@@ -258,7 +258,7 @@ void GA(Mat& trainData1, Mat& trainData2, Mat& groundTruth1, Mat& groundTruth2)
 	waitKey(0);
 	//loadPopulation("pop_shuffle_4100.txt", population);
 	//int maxInd = 3;
-	//float maxfitVal = maxFit(trainData1, trainData2, groundTruth1, groundTruth2, population, maskSize, ntheta, maxInd);
+	//double maxfitVal = maxFit(trainData1, trainData2, groundTruth1, groundTruth2, population, maskSize, ntheta, maxInd);
 	//cout << endl << "maxfit value: " << maxfitVal << ", maxIndex:" << maxInd << endl;
 	//showResult(population[maxInd], ntheta, trainData1, groundTruth1);
 	//showResult(population[maxInd], ntheta, trainData2, groundTruth2);
@@ -296,7 +296,7 @@ void GA(Mat& trainData1, Mat& trainData2, Mat& groundTruth1, Mat& groundTruth2)
 		}
 	}
 
-	vector<float> fitValue;
+	vector<double> fitValue;
 	Ga_fitness(trainData1, trainData2, groundTruth1, groundTruth2, population, fitValue, maskSize, ntheta);
 	int maxIndex = max_element(fitValue.begin(), fitValue.end()) - fitValue.begin();
 	double maxFitVale = fitValue.at(maxIndex);
@@ -311,7 +311,7 @@ void loadImg(vector<Mat>& srcVec)
 		string imagePath = basePath + "\\" +  to_string(i + 1) + ".jpg";
 		Mat tmpMat = imread(imagePath);
 		cvtColor(tmpMat, tmpMat, COLOR_BGR2GRAY);
-		tmpMat.convertTo(tmpMat, CV_32F, 1 / 255.0);
+		tmpMat.convertTo(tmpMat, CV_64F, 1 / 255.0);
 		srcVec.push_back(tmpMat);
 	}
 }
@@ -328,12 +328,12 @@ void loadMat(vector<Mat>& groundTruth)
 		FileStorage matFile(imagePath, FileStorage::READ);
 		matFile["first"] >> tmpMat;
 		//cvtColor(tmpMat, tmpMat, COLOR_BGR2GRAY);
-		tmpMat.convertTo(tmpMat, CV_32F);
+		tmpMat.convertTo(tmpMat, CV_64F);
 		groundTruth.push_back(tmpMat);
 	}
 }
 
-void savePopulation(string fileName, const vector<vector<float>>& population)
+void savePopulation(string fileName, const vector<vector<double>>& population)
 {
 	ofstream outFile(fileName);
 	for (auto person : population)
@@ -347,7 +347,7 @@ void savePopulation(string fileName, const vector<vector<float>>& population)
 	outFile.close();
 }
 
-void saveFitvalue(string fileNameAve, const vector<float>& avefit, const vector<float> maxfit)
+void saveFitvalue(string fileNameAve, const vector<double>& avefit, const vector<double> maxfit)
 {
 	ofstream outFile(fileNameAve);
 	for (int i = 0; i < avefit.size(); i++)
@@ -358,7 +358,7 @@ void saveFitvalue(string fileNameAve, const vector<float>& avefit, const vector<
 	outFile.close();
 }
 
-void loadPopulation(string fileName, vector<vector<float>>& population)
+void loadPopulation(string fileName, vector<vector<double>>& population)
 {
 	ifstream inFile(fileName);
 	string str;
@@ -367,7 +367,7 @@ void loadPopulation(string fileName, vector<vector<float>>& population)
 	while (getline(inFile, str))
 	{
 		istringstream istr(str);
-		vector<float> individual;
+		vector<double> individual;
 		while (istr >> ch)
 		{
 			individual.push_back(atof(ch));
@@ -377,16 +377,16 @@ void loadPopulation(string fileName, vector<vector<float>>& population)
 	}
 }
 
-void showResult(const vector<float>& population, int ntheta, const Mat& srcImg, const Mat& gtImg)
+void showResult(const vector<double>& population, int ntheta, const Mat& srcImg, const Mat& gtImg)
 {
 	int kernelSize = sqrt(population.size() / ntheta) - 1;
 	vector<Mat> indivKer;
 	for (int j = 0; j < ntheta; j++)
 	{
-		Mat singleKernel(kernelSize, kernelSize, CV_32F);
+		Mat singleKernel(kernelSize, kernelSize, CV_64F);
 		int stIndex = j * kernelSize * kernelSize;
 		// 1D chromosome to 2D kernel
-		singleKernel.forEach<float>([population, stIndex, kernelSize](float& p, const int* pos)
+		singleKernel.forEach<double>([population, stIndex, kernelSize](double& p, const int* pos)
 			->void { p = population.at(stIndex + pos[0] * kernelSize + pos[1]); });
 		indivKer.push_back(singleKernel);
 
@@ -394,12 +394,12 @@ void showResult(const vector<float>& population, int ntheta, const Mat& srcImg, 
 		imshow("best kernel", singleKernel);
 		waitKey(0);*/
 	}
-	float p = NonCRF(srcImg, gtImg, indivKer, 1);	
+	double p = NonCRF(srcImg, gtImg, indivKer, 1);	
 }
-float maxFit(const Mat& trainData1, const Mat& trainData2, const Mat groundTruth1, const Mat groundTruth2,
+double maxFit(const Mat& trainData1, const Mat& trainData2, const Mat groundTruth1, const Mat groundTruth2,
 	vector<individual>& population, int kernelSize, int ntheta, int& maxIndex)
 {
-	vector<float> fitness;
+	vector<double> fitness;
 	Ga_fitness(trainData1, trainData2, groundTruth1, groundTruth2, population, fitness, kernelSize, ntheta);
 	maxIndex = max_element(fitness.begin(), fitness.end()) - fitness.begin();
 	return fitness.at(maxIndex);
@@ -412,22 +412,22 @@ void saveMask(const Mat& kernel, string fileName)
 	{
 		for (int c = 0; c < kersize; c++)
 		{
-			outFile << kernel.at<float>(r, c) << " ";
+			outFile << kernel.at<double>(r, c) << " ";
 		}
 	}
 	outFile.close();
 }
 void loadMask(Mat& kernel, int kersize, string fileName)
 {
-	kernel = Mat(kersize, kersize, CV_32F);
+	kernel = Mat(kersize, kersize, CV_64F);
 	ifstream inFile(fileName);
 	for (int r = 0; r < kersize; r++)
 	{
 		for (int c = 0; c < kersize; c++)
 		{
-			float tmp;
+			double tmp;
 			inFile >> tmp;
-			kernel.at<float>(r, c) = tmp;
+			kernel.at<double>(r, c) = tmp;
 		}
 	}
 	inFile.close();
